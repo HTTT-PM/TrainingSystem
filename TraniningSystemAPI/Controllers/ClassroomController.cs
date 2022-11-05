@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TraniningSystemAPI.Data;
@@ -24,26 +25,13 @@ namespace TraniningSystemAPI.Controllers
         {
             return _context.Classroom.ToList();
         }
-        //[HttpPost]
-        //  public string AddClassroom(Classroom classroom)
-        //   {
-        //_context.Classroom.Add(classroom);
-        //            _context.SaveChanges();
-        //            return "ADD SUCCESS";
-        //   }
-        //  [HttpPost]
-        //   public IEnumerable<Classroom> AddClassroom(Classroom classroom)
-        //  {
-        //   _context.Classroom.Add(classroom);
-        //   _context.SaveChanges();
-        //  return _context.Classroom.ToList();
-        //   }
         [HttpPost]
-        void AddClassroom(Classroom classroom)
+        public IEnumerable<Classroom> AddClassroom(Classroom classroom)
         {
+            Console.WriteLine(classroom);
             _context.Classroom.Add(classroom);
             _context.SaveChanges();
-
+            return _context.Classroom.ToList();
         }
     }
 }
