@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TraniningSystemAPI.Data;
@@ -22,6 +23,14 @@ namespace TraniningSystemAPI.Controllers
         [HttpGet]
         public IEnumerable<Classroom> Get()
         {
+            return _context.Classroom.ToList();
+        }
+        [HttpPost]
+        public IEnumerable<Classroom> AddClassroom(Classroom classroom)
+        {
+            Console.WriteLine(classroom);
+            _context.Classroom.Add(classroom);
+            _context.SaveChanges();
             return _context.Classroom.ToList();
         }
     }
