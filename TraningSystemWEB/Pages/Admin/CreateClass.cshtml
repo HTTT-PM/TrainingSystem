@@ -1,0 +1,54 @@
+﻿@page "/admin/create-class.htm"
+@using XTLAB
+@model TraningSystemWEB.Pages.CreateClassModel
+@{
+    //Layout = "";
+    ViewBag.PageName = "CreateClass";
+}
+
+
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="form-elements-wrapper">
+    <div class="row">
+        <!-- input style start -->
+        <div class="card-style mb-30">
+            <h4 class="mb-25">THÔNG TIN LỚP HỌC</h4>
+            <!-- end input -->
+            <div class="input-style-1">
+                <input type="text" placeholder="Tên lớp học" />
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <input type="text" placeholder="Vị trí mục tiêu khi hoàn thành lớp học" />
+            </div>
+            <!-- end input -->
+        </div>
+        <!-- end card -->
+        <!-- ======= input style end ======= -->
+        <!-- ======= select style start ======= -->
+        <div class="card-style mb-30">
+            <h4 class="mb-25">KHOÁ HỌC THÀNH PHẦN</h4>
+            <partial name="CreateClass-CourseItem" model="@Model.CourseItems" />
+            <button type="button" class="btn btn-secondary">Thêm khoá học</button>
+            <!-- end select -->
+        </div>
+        <!-- end card -->
+        <!-- end col -->
+        <!-- ======= textarea style start ======= -->
+        <div class="card-style mb-30">
+            <h4 class="mb-25">MÔ TẢ LỚP HỌC</h4>
+            <div class="input-style-1">
+                <textarea placeholder="Mô tả ..." rows="5"></textarea>
+            </div>
+            <!-- end textarea -->
+        </div>
+        <!-- ======= textarea style end ======= -->
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+<!-- ========== form-elements-wrapper end ========== -->
+<button type="button" class="btn btn-success justify-content-center"><b>HOÀN THÀNH TẠO LỚP</b></button>
+
+<!-- end container -->
+<!-- ========== tab components end ========== -->
