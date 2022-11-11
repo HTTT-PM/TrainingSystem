@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 
 namespace TraniningSystemAPI.Entity
 {
@@ -11,5 +9,7 @@ namespace TraniningSystemAPI.Entity
         public int CourseKey { get; set; }
         public Course Course { get; set; }
         public int Priority { get; set; }
+        public DateTime EndDate { get; set; }
+        public Boolean StudyForm { get; set; }
     }
 }

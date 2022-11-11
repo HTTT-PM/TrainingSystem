@@ -4,7 +4,6 @@ using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Entity;
 
-
 namespace TraniningSystemAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -18,7 +17,15 @@ namespace TraniningSystemAPI.Controllers
             _context = context;
         }
 
-        // GET: api/classroom
+        /// <summary>
+        /// GET LIST CLASSROOM 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <return>
+        /// 
+        /// </return>
         [HttpGet]
         public IEnumerable<Classroom> Get()
         {
