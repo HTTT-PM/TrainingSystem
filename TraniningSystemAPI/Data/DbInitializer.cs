@@ -8,6 +8,14 @@ namespace TraniningSystemAPI.Data
         public static void Initialize(ModelContext context)
         {
             context.Database.EnsureCreated();
+            if (context.Classroom.Any())
+            {
+                return;
+            }
+            if (context.TrainingProgram.Any())
+            {
+                return;
+            }
             var Classroom = new Classroom[]
       {
  new Classroom{ ClassroomName="Lop toan",Desciption="Giao vien moi"}
