@@ -1,0 +1,124 @@
+﻿@page "/trainer/add-course.htm"
+@model TraningSystemAdminWEB.Pages.Trainer.AddCourseModel
+@{
+}
+
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="form-elements-wrapper">
+    <div class="row">
+        <div class="card-style mb-30 mt-10">
+            <h4 class="text-primary text-center">THÊM KHÓA HỌC</h4>
+        </div>
+        <!-- end card -->
+        <!-- input style start -->
+        <div class="card-style mb-30">
+            <h4 class="mb-25">THÔNG TIN KHÓA HỌC</h4>
+            <div class="row align-items-start">
+                <div class="col-5">
+                    <p class="mb-10 fw-bolder">Tên khóa học</p>
+                    <div class="input-style-1 rounded-3">
+                        <input type="text" placeholder="Type something" />
+                    </div>
+                </div>
+                <!-- end input -->
+                <div class="col-3">
+                    <p class="mb-10 fw-bolder">Số tiết học</p>
+                    <div class="input-style-1 rounded-3">
+                        <input type="text" placeholder="Type something" />
+                    </div>
+                </div>
+                <!-- end input -->
+                <div class="col-4">
+                    <p class="mb-10 fw-bolder">Hình thức kiểm tra cuối khóa</p>
+                    <div class="row align-items-center ml-10">
+                        <div class="col form-check checkbox-style mt-2">
+                            <input class="form-check-input" type="checkbox" value="" id="checkbox-1" />
+                            <label class="form-check-label" for="checkbox-1">Trắc nghiệm</label>
+                        </div>
+                        <div class="col form-check checkbox-style checkbox-success mt-2">
+                            <input class="form-check-input" type="checkbox" value="" id="checkbox-2" />
+                            <label class="form-check-label" for="checkbox-2">Tự luận</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- end input -->
+            </div>
+            <!-- end row -->
+            <p class="mb-10 fw-bolder">Mục tiêu khóa học</p>
+            <div class="input-style-1 rounded-3">
+                <textarea placeholder="Type something" rows="5"></textarea>
+            </div>
+            <!-- end input -->
+            <p class="mb-10 fw-bolder">Giảng viên</p>
+            <div class="input-style-1 rounded-3">
+                <input type="text" placeholder="Type something" />
+            </div>
+        </div>
+        <!-- end card -->
+
+        <div class="card-style mb-30">
+            <h4 class="mb-25">THIẾT KẾ NỘI DUNG KHÓA HỌC</h4>
+            <!-- end input -->
+            <p class="mb-10 fw-bolder">Tên chương</p>
+            <div class="input-style-1 rounded-3">
+                <input type="text" placeholder="Type something" />
+            </div>
+            <!-- end input -->
+            <p class="mb-10 fw-bolder">Mục tiêu chương</p>
+            <div class="input-style-1 rounded-3">
+                <textarea placeholder="Type something" rows="3"></textarea>
+            </div>
+            <!-- end input -->
+            <p class="mb-10 fw-bolder">Mô tả chương</p>
+            <div class="input-style-1 rounded-3">
+                <textarea placeholder="Type something" rows="5"></textarea>
+            </div>
+            <!-- end input -->
+            <!-- TÀI LIỆU HỌC TẬP -->
+            <p class="mb-10 fw-bolder">Tài liệu học tập</p>
+            <div class="card-style rounded-3 mb-10">
+                <p class="text-gray mb-10 fw-bolder">Tiêu đề</p>
+                <div class="input-style-1 rounded-3">
+                    <input type="text" placeholder="Type something" />
+                </div>
+                <!-- end input -->
+                <p class="text-gray mb-10 fw-bolder">Mô tả tài liệu</p>
+                <div class="input-style-1 rounded-3">
+                    <textarea placeholder="Type something" rows="3"></textarea>
+                </div>
+                <!-- end input -->
+                <p class="text-gray mb-10 fw-bolder">Tài liệu đính kèm</p>
+                <input class="form-control" type="file" id="formFileMultiple" multiple />
+                <!-- end input -->
+            </div>
+            <!-- end input -->
+            <!-- BÀI TẬP -->
+            <p class="mb-10 fw-bolder mt-5">Bài tập</p>
+            <div class="card-style rounded-3 mb-10">
+                <p class="text-gray mb-10 fw-bolder">Tiêu đề</p>
+                <div class="input-style-1 rounded-3">
+                    <input type="text" placeholder="Type something" />
+                </div>
+                <!-- end input -->
+                <p class="text-gray mb-10 fw-bolder">Mô tả bài tập</p>
+                <div class="input-style-1 rounded-3">
+                    <textarea placeholder="Type something" rows="3"></textarea>
+                </div>
+                <!-- end input -->
+                <p class="text-gray mb-10 fw-bolder">Bài tập đính kèm</p>
+                <input class="form-control" type="file" id="formFileMultiple" multiple />
+                <!-- end input -->
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+    <button type="button" class="btn btn-success justify-content-center"><b>HOÀN THÀNH</b></button>
+    <button type="button" class="btn btn-danger justify-content-center"><b>HỦY BỎ</b></button>
+</div>
+    <!-- ========== form-elements-wrapper end ========== -->
+    <!-- end container -->
+    <!-- ========== tab components end ========== -->
+<script>
+
+
+</script>
