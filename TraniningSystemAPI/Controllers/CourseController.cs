@@ -23,5 +23,15 @@ namespace TraniningSystemAPI.Controllers
         {
             return _context.Course.Where(c=> c.CourseName.Contains(searchString)).ToList();
         }
+
+        //Post: api/course
+        [HttpPost]
+
+        public IEnumerable<Course> AddTrainingProgram(Course course)
+        {
+            _context.Course.Add(course);
+            _context.SaveChanges();
+            return _context.Course.ToList();
+        }
     }
 }
