@@ -19,9 +19,9 @@ namespace TraniningSystemAPI.Controllers
 
         // GET: api/classroom
         [HttpGet]
-        public IEnumerable<Course> Get()
+        public IEnumerable<Course> Get(string searchString)
         {
-            return _context.Course.ToList();
+            return _context.Course.Where(c=> c.CourseName.Contains(searchString)).ToList();
         }
     }
 }

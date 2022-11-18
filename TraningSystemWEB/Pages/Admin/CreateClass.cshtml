@@ -5,58 +5,49 @@
     //Layout = "";
     ViewBag.PageName = "CreateClass";
 }
-
-
-<!-- ========== form-elements-wrapper start ========== -->
-<div class="form-elements-wrapper">
-    <div class="row">
-        <!-- input style start -->
-        <div class="card-style mb-30">
-            <h4 class="mb-25">THÔNG TIN LỚP HỌC</h4>
-            <!-- end input -->
-            <div class="input-style-1">
-                <input type="text" placeholder="Tên lớp học" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<form action="https://localhost:44321/api/classroom" method="post">
+    <!-- ========== form-elements-wrapper start ========== -->
+    <div class="form-elements-wrapper">
+        <div class="row">
+            <!-- input style start -->
+            <div class="card-style mb-30">
+                <h4 class="mb-25">THÔNG TIN LỚP HỌC</h4>
+                <!-- end input -->
+                <div class="input-style-1">
+                    <input type="text" placeholder="Tên lớp học" name="ClassroomName" />
+                </div>
+                <!-- end input -->
+                <div class="input-style-1">
+                    <input type="text" placeholder="Mục tiêu của lớp học" name="Goal" />
+                </div>
+                <div class="col-lg-2 input-style-1">
+                    Ngày bắt đầu lớp học:
+                    <input type="date" id="startDay" />
+                </div>
+                <!-- end input -->
             </div>
-            <!-- end input -->
-            <div class="input-style-1">
-                <input type="text" placeholder="Mục tiêu của lớp học" />
+            <!-- end card -->
+            <!-- ======= input style end ======= -->
+            <!-- ======= select style start ======= -->
+            <!-- end card -->
+            <!-- end col -->
+            <!-- ======= textarea style start ======= -->
+            <div class="card-style mb-30">
+                <h4 class="mb-25">MÔ TẢ LỚP HỌC</h4>
+                <div class="input-style-1">
+                    <textarea placeholder="Mô tả ..." rows="5" name="desciption"></textarea>
+                </div>
+                <!-- end textarea -->
             </div>
-            <div class=" col-lg-2 input-style-1">
-                Ngày bắt đầu lớp học: 
-                <input type="date" />
-            </div>
-            <!-- end input -->
+            <!-- ======= textarea style end ======= -->
+            <!-- end col -->
         </div>
-        <!-- end card -->
-        <!-- ======= input style end ======= -->
-        <!-- ======= select style start ======= -->
-        <div class="card-style mb-30">
-            <h4 class="mb-25">KHOÁ HỌC THÀNH PHẦN</h4>
-            <partial name="CreateClass-CourseItem" model="@Model.CourseItems" />
-            <a href="#" class="btn btn-secondary add-recordCourseItem">Thêm khoá học</a>
-            <!-- end select -->
-        </div>
-        <!-- end card -->
-        <!-- end col -->
-        <!-- ======= textarea style start ======= -->
-        <div class="card-style mb-30">
-            <h4 class="mb-25">MÔ TẢ LỚP HỌC</h4>
-            <div class="input-style-1">
-                <textarea placeholder="Mô tả ..." rows="5"></textarea>
-            </div>
-            <!-- end textarea -->
-        </div>
-        <!-- ======= textarea style end ======= -->
-        <!-- end col -->
+        <!-- end row -->
     </div>
-    <!-- end row -->
-</div>
-<!-- ========== form-elements-wrapper end ========== -->
-<button type="button" class="btn btn-success justify-content-center"><b>HOÀN THÀNH TẠO LỚP</b></button>
-
-<!-- end container -->
-<!-- ========== tab components end ========== -->
-<script>
-
-
-</script>
+    <!-- ========== form-elements-wrapper end ========== -->
+    @*<button type="submit" class="btn btn-success justify-content-center" onclick="createClass()"><b>HOÀN THÀNH TẠO LỚP</b></button>*@
+    <button type="submit" class="btn btn-success justify-content-center"><b>TẠO LỚP HỌC</b></button>
+    <!-- end container -->
+    <!-- ========== tab components end ========== -->
+</form>
