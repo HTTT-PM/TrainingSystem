@@ -17,7 +17,7 @@ namespace TraniningSystemAPI.Data
         public DbSet<Knowledge> Knowledge { get; set; }
         public DbSet<Skill> Skill { get; set; }
 
-
+        public DbSet<ContentCourse> ContentCourse { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Knowledge>().ToTable("Knowledge");
@@ -28,6 +28,7 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<Document>().ToTable("Document");
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<Course>().ToTable("Course");
+            modelBuilder.Entity<ContentCourse>().ToTable("ContentCourse");
             modelBuilder.Entity<ClassroomDetail>().HasKey(x => new { x.ClassroomKey, x.CourseKey });
             modelBuilder.Entity<ClassroomDetail>()
                 .HasOne(t => t.Classroom)
