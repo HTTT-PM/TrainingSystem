@@ -28,7 +28,13 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<Document>().ToTable("Document");
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<Course>().ToTable("Course");
+            modelBuilder.Entity<Department>().ToTable("Department");
+            modelBuilder.Entity<JobPosition>().ToTable("JobPosition");
+            modelBuilder.Entity<Trainee>().ToTable("Trainee");
+            modelBuilder.Entity<ClassroomParticipant>().ToTable("ClassroomParticipant");
+
             modelBuilder.Entity<ClassroomDetail>().HasKey(x => new { x.ClassroomKey, x.CourseKey });
+
             modelBuilder.Entity<ClassroomDetail>()
                 .HasOne(t => t.Classroom)
                 .WithMany(t => t.ClassroomDetails)
@@ -39,6 +45,37 @@ namespace TraniningSystemAPI.Data
                 .WithMany(t => t.ClassroomDetails)
                 .HasForeignKey(t => t.CourseKey);
 
+            modelBuilder.Entity<ClassroomParticipant>().HasKey(x => new { x.ClassroomKey, x.Trainee });
+
+            modelBuilder.Entity<ClassroomParticipant>()
+                .HasOne(t => t.Classroom)
+                .WithMany(t => t.ClassroomParticipants)
+                .HasForeignKey(t => t.ClassroomKey);
+
+            modelBuilder.Entity<ClassroomParticipant>()
+                .HasOne(t => t.Trainee)
+                .WithMany(t => t.ClassroomParticipants)
+                .HasForeignKey(t => t.TraineeKey);
+
+            modelBuilder.Entity<Trainee>()
+                .HasOne(t => t.Department)
+                .WithMany(t => t.Trainees)
+                .HasForeignKey(t => t.DepartmentId);
+
+            modelBuilder.Entity<Trainee>()
+                .HasOne(t => t.JobPosition)
+                .WithMany(t => t.Trainees)
+                .HasForeignKey(t => t.JobPositionId);
+
+            modelBuilder.Entity<TrainingProgram>()
+                .HasOne(t => t.Department)
+                .WithMany(t => t.TrainingPrograms)
+                .HasForeignKey(t => t.DepartmentId);
+
+            modelBuilder.Entity<TrainingProgram>()
+                .HasOne(t => t.JobPosition)
+                .WithMany(t => t.TrainingPrograms)
+                .HasForeignKey(t => t.JobPositionId);
         }
     }
 }

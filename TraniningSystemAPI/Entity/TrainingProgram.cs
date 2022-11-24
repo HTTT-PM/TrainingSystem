@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,8 +15,11 @@ namespace TraniningSystemAPI.Entity
         [Key]
         public int TrainingID { get; set; }
         public string TrainingName { get; set; }
+        public int? JobPositionId { get; set; }
+        public JobPosition JobPosition { get; set; }
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
         public virtual ICollection<Knowledge> Knowledge { get; set; }
         public virtual ICollection<Skill> Skill { get; set; }
-
     }
 }

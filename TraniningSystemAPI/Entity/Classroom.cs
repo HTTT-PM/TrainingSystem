@@ -15,5 +15,6 @@ namespace TraniningSystemAPI.Entity
         public string Goal { get; set; }
         public DateTime StartDay { get; set; }
         public virtual ICollection<ClassroomDetail> ClassroomDetails { get; set; }
+        public virtual ICollection<ClassroomParticipant> ClassroomParticipants { get; set; }
     }
 }

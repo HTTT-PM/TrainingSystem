@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TraningSysteManagermWEB</title>
+    <link rel="shortcut icon"
+          href="~/images/favicon.svg"
+          type="image/x-icon" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/lineicons.css" />
+    <link rel="stylesheet" href="~/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/css/fullcalendar.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+      
+</head>
+<body>
+
+    <partial name="_Slidebar-Nav" style="font-family: Roboto" />
+    <!-- ======== main-wrapper start =========== -->
+    <main class="main-wrapper" style="font-family: Roboto ">
+        <!-- ========== header start ========== -->
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Chart.min.js"></script>
+    <script src="~/js/dynamic-pie-chart.js"></script>
+    <script src="~/js/moment.min.js"></script>
+    <script src="~/js/fullcalendar.js"></script>
+    <script src="~/js/jvectormap.min.js"></script>
+    <script src="~/js/world-merc.js"></script>
+    <script src="~/js/polyfill.js"></script>
+    <script src="~/js/main.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
