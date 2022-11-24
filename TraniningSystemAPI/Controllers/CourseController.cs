@@ -27,7 +27,7 @@ namespace TraniningSystemAPI.Controllers
         //Post: api/course
         [HttpPost]
 
-        public IEnumerable<Course> AddTrainingProgram(Course course)
+        public IEnumerable<Course> AddCourse(Course course)
         {
             _context.Course.Add(course);
             _context.SaveChanges();
