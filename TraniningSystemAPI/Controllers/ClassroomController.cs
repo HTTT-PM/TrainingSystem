@@ -35,7 +35,7 @@ namespace TraniningSystemAPI.Controllers
         {
             _context.Classroom.Add(classroom);
             _context.SaveChanges();
-            return RedirectPermanent("https://localhost:44335/admin/add-classroom-detail.htm");
+            return RedirectPermanent("https://localhost:44335/admin/classroom-detail.htm");
         }
     }
 }

@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TraniningSystemAPI.Entity
 {
-    public class Department
+    public class JobPosition
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int DepartmentID { get; set; }
-        public string DepartmentName { get; set; }
+        public int JobPositionID { get; set; }
+        public string JobPositionName { get; set; }
         public string Desciption { get; set; }
         public ICollection<Trainee> Trainees { get; set; }
         public ICollection<TrainingProgram> TrainingPrograms { get; set; }

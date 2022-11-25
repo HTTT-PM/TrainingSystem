@@ -1,0 +1,60 @@
+﻿@page "/manager/training-program-detail.htm/{TrainingProgramID}"
+@model TrainingSystemManagerWEB.Pages.Manager.TraningProgramDetailModel
+@{
+    ViewBag.PageName = "ManagerTrainingProgram";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kỹ năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var skill in Model.Skill)
+            {
+            <tr id="row-@skill.SkillID">
+                <td>@skill.SkillName</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kiến thức</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.Course)
+            {
+                <tr id="row-@course.CourseID">
+                    <td>@course.CourseName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Môn học</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var knowledge in Model.Knowledge)
+            {
+                <tr id="row-@knowledge.KnowledgeID">
+                    <td>@knowledge.KnowledgeName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

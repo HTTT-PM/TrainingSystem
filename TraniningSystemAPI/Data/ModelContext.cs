@@ -6,17 +6,24 @@ namespace TraniningSystemAPI.Data
     public partial class ModelContext : DbContext
     {
         public ModelContext(DbContextOptions<ModelContext> options) : base(options) { }
-
         public DbSet<Trainer> Trainer { get; set; }
         public DbSet<Classroom> Classroom { get; set; }
         public DbSet<Document> Document { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<Course> Course { get; set; }
-        public DbSet<ClassroomDetail> ClassroomDetail { get; set; }
         public DbSet<TrainingProgram> TrainingProgram { get; set; }
         public DbSet<Knowledge> Knowledge { get; set; }
         public DbSet<Skill> Skill { get; set; }
-      
+        public DbSet<Department> Department { get; set; }
+        public DbSet<JobPosition> JobPosition { get; set; }
+        public DbSet<Trainee> Trainee { get; set; }
+        
+        public DbSet<ClassroomDetail> ClassroomDetail { get; set; }
+        public DbSet<CourseTrainingProgram> CourseTrainingProgram { get; set; }
+        public DbSet<KnowledgeTrainingProgram> KnowledgeTrainingProgram { get; set; }
+        public DbSet<SkillTrainingProgram> SkillTrainingProgram { get; set; }
+        public DbSet<ClassroomParticipant> ClassroomParticipant { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Knowledge>().ToTable("Knowledge");
@@ -30,27 +37,58 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<Department>().ToTable("Department");
             modelBuilder.Entity<JobPosition>().ToTable("JobPosition");
             modelBuilder.Entity<Trainee>().ToTable("Trainee");
-           
+
+            modelBuilder.Entity<ClassroomDetail>().ToTable("ClassroomDetail");
+            modelBuilder.Entity<CourseTrainingProgram>().ToTable("CourseTrainingProgram");
+            modelBuilder.Entity<KnowledgeTrainingProgram>().ToTable("KnowledgeTrainingProgram");
+            modelBuilder.Entity<SkillTrainingProgram>().ToTable("SkillTrainingProgram");
+            modelBuilder.Entity<ClassroomParticipant>().ToTable("ClassroomParticipant");
+
+            modelBuilder.Entity<KnowledgeTrainingProgram>().HasKey(x => new { x.KnowledgeKey, x.TrainingProgramKey });
+            modelBuilder.Entity<KnowledgeTrainingProgram>()
+                .HasOne(t => t.Knowledge)
+               .WithMany(t => t.KnowledgeTrainingProgram)
+                .HasForeignKey(t => t.KnowledgeKey);
+            modelBuilder.Entity<KnowledgeTrainingProgram>()
+                .HasOne(t => t.TrainingProgram)
+                 .WithMany(t => t.KnowledgeTrainingProgram)
+                 .HasForeignKey(t => t.TrainingProgramKey);
+
+            modelBuilder.Entity<SkillTrainingProgram>().HasKey(x => new { x.SkillKey, x.TrainingProgramKey });
+            modelBuilder.Entity<SkillTrainingProgram>()
+                .HasOne(t => t.Skill)
+               .WithMany(t => t.SkillTrainingProgram)
+                .HasForeignKey(t => t.SkillKey);
+            modelBuilder.Entity<SkillTrainingProgram>()
+                .HasOne(t => t.TrainingProgram)
+                 .WithMany(t => t.SkillTrainingProgram)
+                 .HasForeignKey(t => t.TrainingProgramKey);
+
+            modelBuilder.Entity<CourseTrainingProgram>().HasKey(x => new { x.CourseKey, x.TrainingProgramKey });
+            modelBuilder.Entity<CourseTrainingProgram>()
+                .HasOne(t => t.Course)
+               .WithMany(t => t.CourseTrainingProgram)
+                .HasForeignKey(t => t.CourseKey);
+            modelBuilder.Entity<CourseTrainingProgram>()
+                .HasOne(t => t.TrainingProgram)
+                 .WithMany(t => t.CourseTrainingProgram)
+                 .HasForeignKey(t => t.TrainingProgramKey);
 
             modelBuilder.Entity<ClassroomDetail>().HasKey(x => new { x.ClassroomKey, x.CourseKey });
-
            modelBuilder.Entity<ClassroomDetail>()
                .HasOne(t => t.Classroom)
               .WithMany(t => t.ClassroomDetails)
                .HasForeignKey(t => t.ClassroomKey);
-
            modelBuilder.Entity<ClassroomDetail>()
                .HasOne(t => t.Course)
                 .WithMany(t => t.ClassroomDetails)
                 .HasForeignKey(t => t.CourseKey);
 
            modelBuilder.Entity<ClassroomParticipant>().HasKey(x => new { x.ClassroomKey, x.TraineeKey });
-
             modelBuilder.Entity<ClassroomParticipant>()
                 .HasOne(t => t.Classroom)
                .WithMany(t => t.ClassroomParticipants)
                 .HasForeignKey(t => t.ClassroomKey);
-
             modelBuilder.Entity<ClassroomParticipant>()
                 .HasOne(t => t.Trainee)
                 .WithMany(t => t.ClassroomParticipants)
@@ -69,12 +107,12 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<TrainingProgram>()
                 .HasOne(t => t.Department)
                 .WithMany(t => t.TrainingPrograms)
-               .HasForeignKey(t => t.DepartmentId);
+               .HasForeignKey(t => t.DepartmentID);
 
             modelBuilder.Entity<TrainingProgram>()
                 .HasOne(t => t.JobPosition)
                 .WithMany(t => t.TrainingPrograms)
-                .HasForeignKey(t => t.JobPositionId);
+                .HasForeignKey(t => t.JobPositionID);
         }
     }
 }
