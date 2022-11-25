@@ -27,11 +27,11 @@ namespace TraniningSystemAPI.Controllers
         //Post: api/course
         [HttpPost]
 
-        public IEnumerable<Course> AddCourse(Course course)
+        public RedirectResult AddCourse([FromForm] Course course)
         {
             _context.Course.Add(course);
             _context.SaveChanges();
-            return _context.Course.ToList();
+            return RedirectPermanent("https://localhost:44331/trainer/add-course.htm");
         }
     }
 }

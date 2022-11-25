@@ -16,6 +16,7 @@ namespace TraniningSystemAPI.Entity
         [Key]
         public int CourseID { get; set; }
         public string CourseName { get; set; }
+        public int NumberOfLesson { get; set; }
         public string Target { get; set; }
         public string Content { get; set; }
         public string AssessmentForm { get; set; }

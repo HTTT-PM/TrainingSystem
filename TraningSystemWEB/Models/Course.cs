@@ -16,6 +16,7 @@ namespace TraniningSystemAPI.Entity
         [Key]
         public int CourseID { get; set; }
         public string CourseName { get; set; }
+        public string NumberOfLesson { get; set; }
         public string Target { get; set; }
         public string Content { get; set; }
         public string AssessmentForm { get; set; }
@@ -23,5 +24,6 @@ namespace TraniningSystemAPI.Entity
         public virtual ICollection<Document> Document { get; set; }
         public virtual ICollection<Exercise> Exercise { get; set; }
         public virtual ICollection<ClassroomDetail> ClassroomDetails { get; set; }
+        public virtual ICollection<CourseTrainingProgram> CourseTrainingProgram { get; set; }
     }
 }
