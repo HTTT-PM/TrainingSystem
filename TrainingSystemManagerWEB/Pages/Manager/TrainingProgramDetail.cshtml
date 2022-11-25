@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th scope="col">Kỹ năng</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -17,8 +18,17 @@
             {
             <tr id="row-@skill.SkillID">
                 <td>@skill.SkillName</td>
+                <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="">✎</button>
+                        <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(@skill.SkillID)">✘</button>
+                    </div>
+                </td>
             </tr>
             }
+            <tr>
+                <td><button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="">✚</button></td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -28,15 +38,25 @@
         <thead>
             <tr>
                 <th scope="col">Kiến thức</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var course in Model.Course)
+            @foreach (var knowledge in Model.Knowledge)
             {
-                <tr id="row-@course.CourseID">
-                    <td>@course.CourseName</td>
+                <tr id="row-@knowledge.KnowledgeID">
+                    <td>@knowledge.KnowledgeName</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="">✎</button>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✘</button>
+                        </div>
+                    </td>
                 </tr>
             }
+            <tr>
+                <td><button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="">✚</button></td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -46,15 +66,29 @@
         <thead>
             <tr>
                 <th scope="col">Môn học</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var knowledge in Model.Knowledge)
+            @foreach (var course in Model.Course)
             {
-                <tr id="row-@knowledge.KnowledgeID">
-                    <td>@knowledge.KnowledgeName</td>
+                <tr id="row-@course.CourseID">
+                    <td>@course.CourseName</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="">✎</button>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteCourseTrainingProgram(@course.CourseID)">✘</button>
+                        </div>
+                    </td>
                 </tr>
             }
+            <tr>
+                <td><button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="">✚</button></td>
+            </tr>
         </tbody>
     </table>
 </div>
+
+<script>
+
+</script>

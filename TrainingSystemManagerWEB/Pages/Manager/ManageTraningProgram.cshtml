@@ -7,31 +7,35 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <div class="card-style mb-30">
-    <h4 class="mb-25">CÁC CHƯƠNG TRÌNH TRAINING</h4>
+    <h4 class="mb-25 justify-content-between">CÁC CHƯƠNG TRÌNH TRAINING</h4>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col"> </th>
                 <th scope="col">Tên Chương Trình</th>
                 <th scope="col">Phòng ban</th>
                 <th scope="col">Công việc</th>
-                <th scope="col">Xoá</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var trainingProgram in Model.TrainingPrograms)
             {
             <tr id="row-@trainingProgram.TrainingID">
-                <td><a class="btn btn-info"  href="/manager/training-program-detail.htm/@trainingProgram.TrainingID">Chi tiết</a></td>
                 <td>@trainingProgram.TrainingName</td>
                 <td>@trainingProgram.DepartmentName</td>
                 <td>@trainingProgram.JobPositionName</td>
-                <td><button type="button" class="btn btn-danger" onclick="DeleteTrainingProgram(@trainingProgram.TrainingID)">X</button></td>
+                <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/manager/training-program-detail.htm/@trainingProgram.TrainingID">Chi tiết</a>
+                        <button type="button" class="main-btn danger-btn btn-hover btn-sm" onclick="DeleteTrainingProgram(@trainingProgram.TrainingID)">✘</button>
+                    </div>
+                </td>
             </tr>   
             }
         </tbody>
     </table>
 </div>
+
 <script type="text/javascript">
         function DeleteTrainingProgram(index) {
             fetch('https://localhost:44321/api/training/' + parseInt(index), {

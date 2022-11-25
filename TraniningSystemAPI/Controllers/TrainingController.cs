@@ -78,7 +78,7 @@ namespace TraniningSystemAPI.Controllers
             return result;
         }
 
-        //Post: api/trainning
+        //Post: api/training
         [HttpPost]
         public IEnumerable<TrainingProgram> AddTrainingProgram(TrainingProgram train)
         {
@@ -87,7 +87,7 @@ namespace TraniningSystemAPI.Controllers
             return _context.TrainingProgram.ToList();
         }
 
-        //Delete: api/trainning/12
+        //Delete: api/trainning/
         [HttpDelete("{TrainingID:int}")]
         public string DeleteTrainingProgram([FromRoute] int TrainingID)
         {
@@ -95,6 +95,19 @@ namespace TraniningSystemAPI.Controllers
             if (checkTrainingProgram != null)
             {
                 _context.TrainingProgram.Remove(checkTrainingProgram);
+                _context.SaveChanges();
+            }
+            return "OK";
+        }
+
+        //Delete: api/trainning/TrainingID/{SkillID}
+        [HttpDelete("{TrainingID:int}/{SkillID:int}")]
+        public string DeleteSkillTrainingProgram([FromRoute] int TrainingProgramKey, [FromRoute] int SkillKey)
+        {
+            SkillTrainingProgram checkSkillTrainingProgram = _context.SkillTrainingProgram.Find(TrainingProgramKey, SkillKey);
+            if (checkSkillTrainingProgram != null)
+            {
+                _context.SkillTrainingProgram.Remove(checkSkillTrainingProgram);
                 _context.SaveChanges();
             }
             return "OK";
