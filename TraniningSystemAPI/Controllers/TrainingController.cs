@@ -101,15 +101,53 @@ namespace TraniningSystemAPI.Controllers
         }
 
         //Delete: api/trainning/TrainingID/{SkillID}
-        [HttpDelete("{TrainingID:int}/{SkillID:int}")]
+        [HttpDelete("{TrainingProgramKey:int}/skill/{SkillKey:int}")]
         public string DeleteSkillTrainingProgram([FromRoute] int TrainingProgramKey, [FromRoute] int SkillKey)
         {
-            SkillTrainingProgram checkSkillTrainingProgram = _context.SkillTrainingProgram.Find(TrainingProgramKey, SkillKey);
+            SkillTrainingProgram checkSkillTrainingProgram = _context.SkillTrainingProgram.Find(SkillKey, TrainingProgramKey);
+
             if (checkSkillTrainingProgram != null)
             {
                 _context.SkillTrainingProgram.Remove(checkSkillTrainingProgram);
                 _context.SaveChanges();
             }
+            return "OK";
+        }
+
+        //Delete: api/training/TrainingID/{KnowledgeID}
+        [HttpDelete("{TrainingProgramKey:int}/knowledge/{KnowledgeKey:int}")]
+        public string DeleteKnowledgeTrainingProgram([FromRoute] int TrainingProgramKey, [FromRoute] int KnowledgeKey)
+        {
+            KnowledgeTrainingProgram checkKnowledgeTrainingProgram = _context.KnowledgeTrainingProgram.Find(KnowledgeKey, TrainingProgramKey);
+
+            if (checkKnowledgeTrainingProgram != null)
+            {
+                _context.KnowledgeTrainingProgram.Remove(checkKnowledgeTrainingProgram);
+                _context.SaveChanges();
+            }
+            return "OK";
+        }
+
+        //Delete: api/training/TrainingID/{CourseID}
+        [HttpDelete("{TrainingProgramKey:int}/course/{CourseKey:int}")]
+        public string DeleteCourseTrainingProgram([FromRoute] int TrainingProgramKey, [FromRoute] int CourseKey)
+        {
+            CourseTrainingProgram checkCourseTrainingProgram = _context.CourseTrainingProgram.Find(CourseKey, TrainingProgramKey);
+
+            if (checkCourseTrainingProgram != null)
+            {
+                _context.CourseTrainingProgram.Remove(checkCourseTrainingProgram);
+                _context.SaveChanges();
+            }
+            return "OK";
+        }
+
+        //Update: api/training/TrainingID/{SkillID}
+        [HttpPut("{TrainingProgramKey:int}/skill/{SkillKey:int}")]
+        public string UpdateSkillTrainingProgram([FromRoute] int TrainingProgramKey, [FromRoute] int SkillKey)
+        {
+            SkillTrainingProgram checkSkillTrainingProgram = _context.SkillTrainingProgram.Find(SkillKey, TrainingProgramKey);
+            
             return "OK";
         }
     }

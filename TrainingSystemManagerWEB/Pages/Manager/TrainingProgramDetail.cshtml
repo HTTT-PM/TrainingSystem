@@ -17,11 +17,13 @@
             @foreach (var skill in Model.Skill)
             {
             <tr id="row-@skill.SkillID">
-                <td>@skill.SkillName</td>
+                <td>
+                    <input id="skill-@skill.SkillID" type="text" value="@skill.SkillName" disabled />
+                </td>
                 <td>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="">✎</button>
-                        <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(@skill.SkillID)">✘</button>
+                        <button id="update-btn-@skill.SkillID" type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(@skill.SkillID)">O</button>
+                        <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(@skill.SkillID)">X</button>
                     </div>
                 </td>
             </tr>
@@ -90,5 +92,41 @@
 </div>
 
 <script>
+    function UpdateSkillTrainingProgram(index) {
+        $('#skill-' + index + '').prop("disabled", false);
+        $('#skill-' + index + '').value("||")
+    }
 
+    function DeleteSkillTrainingProgram(index) {
+            fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#row-' + index + '').remove();
+    }
+
+    function DeleteKnowledgeTrainingProgram(index) {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#row-' + index + '').remove();
+    }
+
+    function DeleteCourseTrainingProgram(index) {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#row-' + index + '').remove();
+    }
 </script>
