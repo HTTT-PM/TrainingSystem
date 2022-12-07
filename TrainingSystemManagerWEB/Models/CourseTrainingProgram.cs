@@ -1,10 +1,10 @@
 ﻿namespace TraniningSystemAPI.Entity
 {
-    public class SkillTrainingProgram
+    public class CourseTrainingProgram
     {
         public int TrainingProgramKey { get; set; }
         public TrainingProgram TrainingProgram { get; set; }
-        public int SkillKey { get; set; }
-        public Skill Skill { get; set; }
+        public int CourseKey { get; set; }
+        public Course Course { get; set; }
     }
 }

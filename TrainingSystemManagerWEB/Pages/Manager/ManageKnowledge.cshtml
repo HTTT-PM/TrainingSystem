@@ -1,0 +1,99 @@
+﻿@page
+@model TrainingSystemManagerWEB.Pages.Manager.ManageKnowledgeModel
+@{
+    ViewBag.PageName = "ManageKnowledge";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kiến thức</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="knowledgeList">
+            @foreach (var knowledge in Model.ListKnowledge)
+            {
+                <tr id="knowledge-row-@knowledge.KnowledgeID">
+                    <td>
+                        <input id="knowledge-@knowledge.KnowledgeID" type="text" value="@knowledge.KnowledgeName" disabled style="border: none; background-color: inherit; " />
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div id="knowledge-update-btn-@knowledge.KnowledgeID">
+                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✎</button>
+                            </div>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledge(@knowledge.KnowledgeID)">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="input-group">
+        <input type="text" class="form-control" id="knowledge-name-input" placeholder="Knowledge" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddKnowledge()">✚</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function UpdateKnowledgeTrainingProgram(index) {
+        $('#knowledge-' + index + '').prop("disabled", false);
+        $('#knowledge-update-btn-' + index + '').html('');
+        $('#knowledge-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledge(${index})">||</button>`)
+    }
+
+    function UpdateKnowledge(index) {
+        fetch('https://localhost:44321/api/knowledge/' + parseInt(index) + '?KnowledgeName=' + $('#knowledge-' + index + '').val(), {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $('#knowledge-' + index + '').prop("disabled", true);
+        $('#knowledge-update-btn-' + index + '').html('');
+        $('#knowledge-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(${index})">✎</button>`)
+    }
+
+    function AddKnowledge() {
+        var name = $('#knowledge-name-input').val()
+        fetch('https://localhost:44321/api/knowledge' + "?KnowledgeName=" + name, {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        }).then(r => r.json()).then(data => {
+            $('#knowledgeList').append(`
+                <tr id="knowledge-row-${data}">
+                    <td>
+                        <input id="knowledge-${data}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div id="knowledge-update-btn-${data}">
+                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(${data})">✎</button>
+                            </div>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledge(${data})">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            `)
+        })
+    }
+
+    function DeleteKnowledge(index) {
+            fetch('https://localhost:44321/api/knowledge/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#knowledge-row-' + index + '').remove();
+    }
+</script>

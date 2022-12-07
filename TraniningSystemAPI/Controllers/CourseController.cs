@@ -17,16 +17,29 @@ namespace TraniningSystemAPI.Controllers
             _context = context;
         }
 
-        // GET: api/classroom
+        // GET: api/course
         [HttpGet]
-        public IEnumerable<Course> Get(string searchString)
+        public IEnumerable<Course> Get()
         {
-            return _context.Course.Where(c=> c.CourseName.Contains(searchString)).ToList();
+            return _context.Course.ToList();
+        }
+
+        // PUT: api/course/{courseID}
+        [HttpPut("{CourseID:int}")]
+        public string Update([FromRoute] int CourseID, string CourseName)
+        {
+            Course checkCourse = _context.Course.Find(CourseID);
+            if (checkCourse != null)
+            {
+                checkCourse.CourseName = CourseName;
+                _context.SaveChanges();
+                return "OK";
+            }
+            return "NOTOK";
         }
 
         //Post: api/course
         [HttpPost]
-
         public RedirectResult AddCourse([FromForm] Course course)
         {
             _context.Course.Add(course);

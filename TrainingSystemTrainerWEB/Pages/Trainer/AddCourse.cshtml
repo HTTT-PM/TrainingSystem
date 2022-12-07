@@ -74,36 +74,3 @@
         <button type="submit" class="btn btn-success justify-content-center"><b>HOÀN THÀNH</b></button>
     </div>
 </form>
-    @*<script>
-            function sendData(e, index) {
-                const $searchResult = $('#mySearchCreateCourseOutput');
-                let match = e.value.match(/^[a-zA-Z0-9]*/);
-                let match2 = e.value.match(/\s*/);
-                if (match2[0] === e.value) {
-                    $searchResult.html('');
-                    return;
-                }
-                if (match[0] === e.value) {
-                    fetch('https://localhost:44321/api/trainer/search?searchString=' + e.value).then(r => r.json()).then(data => {
-                        let payload = data;
-                        $searchResult.html('');
-                        if (payload.length < 1) {
-                            $searchResult.html('<p>No results found</p>');
-                            return;
-                        }
-                        $('#mySearchCreateCourseOutput').show();
-
-                        payload.forEach((item) => {
-                            $searchResult
-                                .append(`<li> <button type="button" id="${item.trainerID}" class="dropdown-item" style="border-style: none;" onclick="setText(${item.trainerID}, '${item.trainerName}')"> ${item.trainerName} </button> </li>`);
-                        })
-                    });
-                }
-            }
-
-            function setText(id, name) {
-                $('#dropdownMenuButton').val(name);
-                $('#mySearchCreateCourseOutput').hide();
-                $('#trainer').val(id);
-            }
-        </script>*@

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraningSystemAdminWEB", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSystemManagerWEB", "..\TrainingSystemManagerWEB\TrainingSystemManagerWEB.csproj", "{F182D5F8-AB48-4A5A-A4B1-DC783E7F3CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingSystemTrainerWEB", "..\TrainingSystemTrainerWEB\TrainingSystemTrainerWEB.csproj", "{9BAFE077-09A7-498A-8C40-BD1654994673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSystemTrainerWEB", "..\TrainingSystemTrainerWEB\TrainingSystemTrainerWEB.csproj", "{9BAFE077-09A7-498A-8C40-BD1654994673}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
