@@ -1,0 +1,83 @@
+﻿@page "/trainee/course-detail/{CourseID}"
+@model TrainingSystemTraineeWEB.Pages.Trainee.CourseDetailModel
+@{
+    ViewBag.PageName = "Course";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="form-elements-wrapper">
+    <div class="card-style mb-20">
+        <h2 class="mb-25">THÔNG TIN KHOÁ HỌC</h2>
+        <div class="row">
+            <div class="col-8">
+                <div class="input-group input-group-sm mb-3">
+                    <div>
+                        <span class="input-group-text" id="inputGroup-sizing-sm-course-name">Tên khoá học </span>
+                    </div>
+                    <input disabled placeholder="@Model.course.CourseName" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-course-name">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="col input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm-type">Hình thức</span>
+                    </div>
+                    <input disabled placeholder="@Model.course.AssessmentForm" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-type">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="col input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm-target">Mục tiêu</span>
+                    </div>
+                    <input disabled placeholder="@Model.course.Target" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-target">
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="col input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm-time">Thời lượng</span>
+                    </div>
+                    <input disabled placeholder="@Model.course.NumberOfLesson" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-time">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-style mb-30">
+        <div class="row">
+            <fieldset>
+                <legend>Nội dung</legend>
+                @Model.course.Content
+            </fieldset>
+        </div>
+    </div>
+    <div class="card-style mb-30">
+        <div class="row">
+            <fieldset>
+                <legend>Cách tính điểm</legend>
+                @Model.course.CalculatesPointGuide
+            </fieldset>
+        </div>
+    </div>
+    
+    <div class="card-style mb-30">
+        <div class="row d-flex align-content-between flex-wrap">
+            @foreach (var document in Model.course.Documents)
+            {
+                <div class="col-4">
+                    <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">@document.DocumentName</h5>
+                            <p class="card-text">@document.Description</p>
+                            <a href="@document.Link" class="card-link">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

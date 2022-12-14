@@ -24,6 +24,29 @@ namespace TraniningSystemAPI.Controllers
             return _context.Course.ToList();
         }
 
+        // GET: api/course/{CourseID}
+        [HttpGet("{CourseID}")]
+        public Course GetCourseByID([FromRoute] int CourseID)
+        {
+            Course course = _context.Course.Find(CourseID);
+            if(course==null) return null;
+
+            List<Document> documents = _context.Document.Where(x => x.CourseID == CourseID).ToList();
+            if (documents != null) course.Documents = documents;
+
+            List<Exercise> exercises = _context.Exercise.Where(x => x.CourseID == CourseID).ToList();
+            if (exercises != null) course.Exercises = exercises;
+
+            return course;
+        }
+
+        // GET: api/course/search
+        [HttpGet("search")]
+        public IEnumerable<Course> SearchCourse(string searchString)
+        {
+            return _context.Course.Where(c => c.CourseName.Contains(searchString)).ToList();
+        }
+
         // PUT: api/course/{courseID}
         [HttpPut("{CourseID:int}")]
         public string Update([FromRoute] int CourseID, string CourseName)

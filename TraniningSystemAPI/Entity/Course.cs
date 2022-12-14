@@ -9,8 +9,8 @@ namespace TraniningSystemAPI.Entity
     {
         public Course()
         {
-            Document = new HashSet<Document>();
-            Exercise = new HashSet<Exercise>();
+            Documents = new HashSet<Document>();
+            Exercises = new HashSet<Exercise>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -21,8 +21,8 @@ namespace TraniningSystemAPI.Entity
         public string Content { get; set; }
         public string AssessmentForm { get; set; }
         public string CalculatesPointGuide { get; set; }
-        public virtual ICollection<Document> Document { get; set; }
-        public virtual ICollection<Exercise> Exercise { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
         public virtual ICollection<ClassroomDetail> ClassroomDetails { get; set; }
         public virtual ICollection<CourseTrainingProgram> CourseTrainingProgram { get; set; }
     }

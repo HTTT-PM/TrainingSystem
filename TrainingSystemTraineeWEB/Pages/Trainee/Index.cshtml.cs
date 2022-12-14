@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TraningSystemAdminWEB.Pages.Trainer
+namespace TrainingSystemTrainerWEB.Pages.Trainer
 {
-    public class AddCourseModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {

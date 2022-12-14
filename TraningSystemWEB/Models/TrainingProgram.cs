@@ -6,11 +6,6 @@ namespace TraniningSystemAPI.Entity
 {
     public partial class TrainingProgram
     {
-        public TrainingProgram()
-        {
-            Knowledge = new HashSet<Knowledge>();
-            Skill = new HashSet<Skill>();
-        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int TrainingID { get; set; }
@@ -19,7 +14,8 @@ namespace TraniningSystemAPI.Entity
         public JobPosition JobPosition { get; set; }
         public int? DepartmentID { get; set; }
         public Department Department { get; set; }
-        public virtual ICollection<Knowledge> Knowledge { get; set; }
-        public virtual ICollection<Skill> Skill { get; set; }
+        public virtual ICollection<CourseTrainingProgram> CourseTrainingProgram { get; set; }
+        public virtual ICollection<KnowledgeTrainingProgram> KnowledgeTrainingProgram { get; set; }
+        public virtual ICollection<SkillTrainingProgram> SkillTrainingProgram { get; set; }
     }
 }

@@ -123,11 +123,11 @@
             return;
         }
         if (match[0] === e.value) {
-            fetch('https://localhost:44321/api/course?searchString=' + e.value).then(r => r.json()).then(data => {
+            fetch('https://localhost:44321/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
                 let payload = data;
                 $searchResult.html('');
                 if (payload.length < 1) {
-                    $searchResult.html('<h5>No results found</h5>');
+                    $searchResult.html('<h5>Không tìm thấy</h5>');
                     return;
                 }
 
