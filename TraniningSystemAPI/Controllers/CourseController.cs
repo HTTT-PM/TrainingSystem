@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TraniningSystemAPI.Data;
+using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
 
 namespace TraniningSystemAPI.Controllers
@@ -38,6 +39,34 @@ namespace TraniningSystemAPI.Controllers
             if (exercises != null) course.Exercises = exercises;
 
             return course;
+        }
+
+        // GET: api/{CourseID}/skill
+        [HttpGet("{CourseID:int}/skill")]
+        public IEnumerable<SkillDto> GetSkillOfCourseByID([FromRoute] int CourseID)
+        {
+            var result = from t in _context.SkillCourse
+                         where t.CourseKey == CourseID
+                         select new SkillDto()
+                         {
+                             SkillID = t.Skill.SkillID,
+                             SkillName = t.Skill.SkillName,
+                         };
+            return result;
+        }
+
+        // GET: api/{CourseID}/knowledge
+        [HttpGet("{CourseID:int}/knowledge")]
+        public IEnumerable<KnowledgeDto> GetKnowledgeOfCourseByID([FromRoute] int CourseID)
+        {
+            var result = from t in _context.KnowledgeCourse
+                         where t.CourseKey == CourseID
+                         select new KnowledgeDto()
+                         {
+                             KnowledgeID = t.Knowledge.KnowledgeID,
+                             KnowledgeName = t.Knowledge.KnowledgeName,
+                         };
+            return result;
         }
 
         // GET: api/course/search

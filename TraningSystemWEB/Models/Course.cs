@@ -25,5 +25,8 @@ namespace TraniningSystemAPI.Entity
         public virtual ICollection<Exercise> Exercises { get; set; }
         public virtual ICollection<ClassroomDetail> ClassroomDetails { get; set; }
         public virtual ICollection<CourseTrainingProgram> CourseTrainingProgram { get; set; }
+        public virtual ICollection<CourseParticipant> CourseParticipant { get; set; }
+        public virtual ICollection<SkillCourse> SkillCourse { get; set; }
+        public virtual ICollection<KnowledgeCourse> KnowledgeCourse { get; set; }
     }
 }

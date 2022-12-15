@@ -14,7 +14,7 @@
                     <div>
                         <span class="input-group-text" id="inputGroup-sizing-sm-course-name">Tên khoá học </span>
                     </div>
-                    <input disabled placeholder="@Model.course.CourseName" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-course-name">
+                    <input disabled placeholder="@Model.Course.CourseName" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-course-name">
                 </div>
             </div>
             <div class="col-4">
@@ -22,7 +22,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm-type">Hình thức</span>
                     </div>
-                    <input disabled placeholder="@Model.course.AssessmentForm" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-type">
+                    <input disabled placeholder="@Model.Course.AssessmentForm" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-type">
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm-target">Mục tiêu</span>
                     </div>
-                    <input disabled placeholder="@Model.course.Target" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-target">
+                    <input disabled placeholder="@Model.Course.Target" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-target">
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm-time">Thời lượng</span>
                     </div>
-                    <input disabled placeholder="@Model.course.NumberOfLesson" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-time">
+                    <input disabled placeholder="@Model.Course.NumberOfLesson" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-time">
                 </div>
             </div>
         </div>
@@ -51,22 +51,52 @@
         <div class="row">
             <fieldset>
                 <legend>Nội dung</legend>
-                @Model.course.Content
+                @Model.Course.Content
             </fieldset>
         </div>
     </div>
-    <div class="card-style mb-30">
-        <div class="row">
-            <fieldset>
-                <legend>Cách tính điểm</legend>
-                @Model.course.CalculatesPointGuide
-            </fieldset>
+
+    <div class="row">
+        <div class="col">
+            <div class="card-style mb-30">
+                <div class="row d-flex align-content-between flex-wrap">
+                    <legend>Kỹ năng</legend>
+                    @foreach (var skill in Model.Skill)
+                    {
+                        <div class="col">
+                            <div class="card" style="width: 16rem; margin-bottom: 50px; float: none;">
+                                <div class="card-body">
+                                    <p class="card-text">@skill.SkillName</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
+        <div class="col">
+            <div class="card-style mb-30">
+                <div class="row d-flex align-content-between flex-wrap">
+                    <legend>Kiến thức</legend>
+                    @foreach (var knowledge in Model.Knowledge)
+                    {
+                        <div class="col">
+                            <div class="card" style="width: 16rem; margin-bottom: 50px; float: none;">
+                                <div class="card-body">
+                                    <p class="card-text">@knowledge.KnowledgeName</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+         </div>
     </div>
-    
+
     <div class="card-style mb-30">
         <div class="row d-flex align-content-between flex-wrap">
-            @foreach (var document in Model.course.Documents)
+            <legend>Tài liệu</legend>
+            @foreach (var document in Model.Course.Documents)
             {
                 <div class="col-4">
                     <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
@@ -78,6 +108,15 @@
                     </div>
                 </div>
             }
+        </div>
+    </div>
+
+    <div class="card-style mb-30">
+        <div class="row">
+            <fieldset>
+                <legend>Cách tính điểm</legend>
+                @Model.Course.CalculatesPointGuide
+            </fieldset>
         </div>
     </div>
 </div>
