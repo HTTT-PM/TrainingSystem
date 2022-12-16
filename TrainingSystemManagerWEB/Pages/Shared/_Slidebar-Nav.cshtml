@@ -63,6 +63,11 @@
                         <a asp-page="ManageKnowledge" class="@((ViewBag.PageName == "ManageKnowledge") ? "active" : "")"> Quản lý kiến thức </a>
                     </li>
                 </ul>
+                <ul id="ddmenu_5" class="collapsed @((ViewBag.PageName == "TrainingResult") ? "show" : "") dropdown-nav">
+                    <li>
+                        <a asp-page="TrainingResult" class="@((ViewBag.PageName == "TrainingResult") ? "active" : "")"> Kết quả training </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>

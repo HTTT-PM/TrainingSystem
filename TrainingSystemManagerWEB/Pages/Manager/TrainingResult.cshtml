@@ -1,0 +1,36 @@
+﻿@page "/manager/training-result"
+@model TrainingSystemManagerWEB.Pages.Manager.TrainingResultModel
+@{
+    ViewBag.PageName = "TrainingResult";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="card-style mb-30">
+    <h4 class="mb-25 justify-content-between">KẾT QUẢ TRAINING</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Khoá học</th>
+                <th scope="col">Học viên</th>
+                <th scope="col">Đánh giá</th>
+                <th scope="col">Vị trí công việc</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model.TrainingResults)
+            {
+                <tr>
+                    <td>@result.CourseName</td>
+                    <td>@result.TraineeName</td>
+                    <td>@result.ResultOfEvaluation</td>
+                    <td>@result.JobPositionName</td>
+                    <td>
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/manager/training-result/@result.CourseID/@result.TraineeID">Chi tiết</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

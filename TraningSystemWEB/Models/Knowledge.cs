@@ -12,6 +12,7 @@ namespace TraniningSystemAPI.Entity
         public string KnowledgeName { get; set; }
         public virtual ICollection<KnowledgeTrainingProgram> KnowledgeTrainingProgram { get; set; }
         public virtual ICollection<KnowledgeCourse> KnowledgeCourse { get; set; }
+        public virtual ICollection<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
     }
 }
 

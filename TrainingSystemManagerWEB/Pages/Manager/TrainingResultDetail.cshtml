@@ -1,0 +1,46 @@
+﻿@page "/manager/training-result/{CourseID}/{TraineeID}"
+@model TrainingSystemManagerWEB.Pages.Manager.TrainingResultDetailModel
+@{
+    ViewBag.PageName = "TrainingResult";
+}
+<div class="card-style mb-30">
+    <h4 class="mb-25 justify-content-between">ĐÁNH GIÁ KỸ NĂNG</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kỹ năng</th>
+                <th scope="col">Đánh giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model.ListSkill)
+            {
+                <tr>
+                    <td  class="col-3">@result.SkillName</td>
+                    <td>@result.Evaluate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="card-style mb-30">
+    <h4 class="mb-25 justify-content-between">ĐÁNH GIÁ KIẾN THỨC</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kỹ năng</th>
+                <th scope="col">Đánh giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model.ListKnowledge)
+            {
+                <tr>
+                    <td class="col-3">@result.KnowledgeName</td>
+                    <td>@result.Evaluate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

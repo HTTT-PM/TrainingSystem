@@ -17,5 +17,7 @@ namespace TraniningSystemAPI.Entity
         public Department Department { get; set; }
         public virtual ICollection<ClassroomParticipant> ClassroomParticipants { get; set; }
         public virtual ICollection<CourseParticipant> CourseParticipant { get; set; }
+        public virtual ICollection<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
+        public virtual ICollection<TraineeCourseSkill> TraineeCourseSkill { get; set; }
     }
 }

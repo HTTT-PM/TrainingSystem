@@ -13,5 +13,6 @@ namespace TraniningSystemAPI.Entity
         public string SkillName { get; set; }
         public virtual ICollection<SkillTrainingProgram> SkillTrainingProgram { get; set; }
         public virtual ICollection<SkillCourse> SkillCourse { get; set; }
+        public virtual ICollection<TraineeCourseSkill> TraineeCourseSkill { get; set; }
     }
 }

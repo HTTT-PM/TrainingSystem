@@ -7,5 +7,6 @@
         public int TraineeKey { get; set; }
         public Trainee Trainee { get; set; }
         public string ResultOfEvaluation { get; set; }
+        public bool IsComplete { get; set; }
     }
 }
