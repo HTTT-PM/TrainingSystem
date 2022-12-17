@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using XTLAB;
+using TraniningSystemAPI.Entity;
+//using XTLAB;
 
 namespace TraningSystemWEB.Pages
 {
