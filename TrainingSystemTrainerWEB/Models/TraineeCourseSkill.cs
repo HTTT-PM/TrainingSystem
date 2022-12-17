@@ -9,5 +9,6 @@
         public int SkillKey { get; set; }
         public Skill Skill { get; set; }
         public string Evaluate { get; set; }
+        public int Point { get; set; }
     }
 }

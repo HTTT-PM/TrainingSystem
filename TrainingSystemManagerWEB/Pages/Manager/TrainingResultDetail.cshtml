@@ -8,17 +8,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Kỹ năng</th>
+                <th scope="col">Tên kỹ năng</th>
+                <th scope="col">Số tín chỉ</th>
+                <th scope="col">Điểm</th>
                 <th scope="col">Đánh giá</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var result in Model.ListSkill)
             {
-                <tr>
-                    <td  class="col-3">@result.SkillName</td>
-                    <td>@result.Evaluate</td>
-                </tr>
+            <tr>
+                <td class="col-3">@result.SkillName</td>
+                <td>@result.Weight</td>
+                <td>@result.Point</td>
+                <td>@result.Evaluate</td>
+            </tr>
             }
         </tbody>
     </table>
@@ -29,17 +33,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Kỹ năng</th>
+                <th scope="col">Tên kiến thức</th>
+                <th scope="col">Số tín chỉ</th>
+                <th scope="col">Điểm</th>
                 <th scope="col">Đánh giá</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var result in Model.ListKnowledge)
             {
-                <tr>
-                    <td class="col-3">@result.KnowledgeName</td>
-                    <td>@result.Evaluate</td>
-                </tr>
+            <tr>
+                <td class="col-3">@result.KnowledgeName</td>
+                <td>@result.Weight</td>
+                <td>@result.Point</td>
+                <td>@result.Evaluate</td>
+            </tr>
             }
         </tbody>
     </table>

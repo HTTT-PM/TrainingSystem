@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
 
 namespace TraningSystemAdminWEB.Pages.Admin
@@ -14,8 +15,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         public int JobPositionID { get; set; }
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgram> ListTrainingProgram { get; set; }
-
+        public List<TrainingProgramDto> ListTrainingProgram { get; set; }
         public void ApitoGetListData(string type)
         {
             var url = "https://localhost:44321/api/";
@@ -28,10 +28,10 @@ namespace TraningSystemAdminWEB.Pages.Admin
                 messageTask.Wait();
                 switch (type)
                 {
-                    case "job-positions":
+                    case "job-position":
                         ListJobPosition = JsonConvert.DeserializeObject<List<JobPosition>>(messageTask.Result);
                         break;
-                    case "departments":
+                    case "department":
                         ListDepartment = JsonConvert.DeserializeObject<List<Department>>(messageTask.Result);
                         break;
                     default:
@@ -50,7 +50,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
             {
                 var messageTask = result.Content.ReadAsStringAsync();
                 messageTask.Wait();
-                ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgram>>(messageTask.Result);
+                ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgramDto>>(messageTask.Result);
                 
             }
         }
@@ -58,8 +58,8 @@ namespace TraningSystemAdminWEB.Pages.Admin
         {
 
             JobPositionID = Int32.Parse((string)RouteData.Values["JobPositionID"]);
-            ApitoGetListData("job-positions");
-            ApitoGetListData("departments");
+            ApitoGetListData("job-position");
+            ApitoGetListData("department");
             ApitoGetListTP();
         }
     }

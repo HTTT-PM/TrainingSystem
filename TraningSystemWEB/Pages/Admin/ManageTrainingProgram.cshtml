@@ -4,27 +4,30 @@
     ViewBag.PageName = "ManageTrainingProgram";
 }
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<div class="container py-5">
-
-    <div class="dropdown1">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Vị trí </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            @foreach (var jobpos in Model.ListJobPosition)
-            {
-                <li><a class="JobPosition" id="row-@jobpos.JobPositionID" href="/admin/job-positions/@jobpos.JobPositionID/trainingprogram">Vị trí @jobpos.JobPositionName</a></li>
-            }
-        </ul>
-    </div>
-
-        <div class="dropdown2">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Phòng ban </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            @foreach (var department in Model.ListDepartment)
-            {
-                <li><a class="Department" id="row-@department.DepartmentID" href="/admin/departments/@department.DepartmentID/trainingprogram">Phòng @department.DepartmentName</a></li>
-            }
-        </ul>
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+            <div class="dropdown1">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Vị trí </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    @foreach (var jobpos in Model.ListJobPosition)
+                    {
+                        <li><a class="JobPosition link-secondary" id="row-@jobpos.JobPositionID" href="/admin/job-positions/@jobpos.JobPositionID/trainingprogram">Vị trí @jobpos.JobPositionName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="p-2">
+            <div class="dropdown2">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Phòng ban </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    @foreach (var department in Model.ListDepartment)
+                    {
+                        <li><a class="Department link-secondary" id="row-@department.DepartmentID" href="/admin/departments/@department.DepartmentID/trainingprogram">Phòng @department.DepartmentName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -49,10 +52,10 @@
                         <tr id="row-@trainingProgram.TrainingID">
                             <td>@trainingProgram.TrainingName</td>
                             <td>
-                                @trainingProgram.TrainingID
+                                @trainingProgram.DepartmentName
                             </td>
                             <td>
-                                @trainingProgram.TrainingID
+                                @trainingProgram.JobPositionName
                             </td>
                         </tr>
                     }

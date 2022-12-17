@@ -9,5 +9,6 @@
         public int KnowledgeKey { get; set; }
         public Knowledge Knowledge { get; set; }
         public string Evaluate { get; set; }
+        public int Point { get; set; }
     }
 }

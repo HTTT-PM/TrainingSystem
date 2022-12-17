@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using TraniningSystemAPI.Entity;
 using System.Linq;
+using TraniningSystemAPI.Dto;
 
 namespace TraningSystemAdminWEB.Pages.Admin
 {
@@ -13,7 +14,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         static readonly HttpClient client = new HttpClient();
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgram> ListTrainingProgram { get; set; }
+        public List<TrainingProgramDto> ListTrainingProgram { get; set; }
 
         public void ApitoGetListData(string type)
         {
@@ -27,14 +28,14 @@ namespace TraningSystemAdminWEB.Pages.Admin
                 messageTask.Wait();
                 switch (type)
                 {
-                    case "job-positions":
+                    case "job-position":
                         ListJobPosition = JsonConvert.DeserializeObject<List<JobPosition>>(messageTask.Result);
                         break;
-                    case "departments":
+                    case "department":
                         ListDepartment = JsonConvert.DeserializeObject<List<Department>>(messageTask.Result);
                         break;
                     case "training":
-                        ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgram>>(messageTask.Result);
+                        ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgramDto>>(messageTask.Result);
                         break;
                     default:
                         break;
@@ -45,8 +46,8 @@ namespace TraningSystemAdminWEB.Pages.Admin
 
         public void OnGet()
         {
-            ApitoGetListData("job-positions");
-            ApitoGetListData("departments");
+            ApitoGetListData("job-position");
+            ApitoGetListData("department");
             ApitoGetListData("training");
 
         }

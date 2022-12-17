@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TraniningSystemAPI.Data;
@@ -11,45 +10,45 @@ using TraniningSystemAPI.Entity;
 
 namespace TraniningSystemAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/job-position")]
     [ApiController]
-    public class DepartmentsController : ControllerBase
+    public class JobPositionController : ControllerBase
     {
         private readonly ModelContext _context;
 
-        public DepartmentsController(ModelContext context)
+        public JobPositionController(ModelContext context)
         {
             _context = context;
         }
 
-        // GET: api/Departments
+        // GET: api/JobPositions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
+        public async Task<ActionResult<IEnumerable<JobPosition>>> GetJobPosition()
         {
-            return await _context.Department.ToListAsync();
+            return await _context.JobPosition.ToListAsync();
         }
 
-        // GET: api/Departments/5
+        // GET: api/JobPositions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Department>> GetDepartment(int id)
+        public async Task<ActionResult<JobPosition>> GetJobPosition(int id)
         {
-            var department = await _context.Department.FindAsync(id);
+            var jobPosition = await _context.JobPosition.FindAsync(id);
 
-            if (department == null)
+            if (jobPosition == null)
             {
                 return NotFound();
             }
 
-            return department;
+            return jobPosition;
         }
 
 
-        [HttpGet("{DepartmentID:int}/trainingprogram")]
-        public IEnumerable<TrainingProgramDto> GetTPfilterByDepartment([FromRoute] int DepartmentID)
+        [HttpGet("{JobPositionID:int}/trainingprogram")]
+        public IEnumerable<TrainingProgramDto> GetTPfilterByJob([FromRoute] int JobPositionID)
         {
 
             var result = from t in _context.TrainingProgram.AsQueryable()
-                         where t.DepartmentID == DepartmentID
+                         where t.JobPositionID == JobPositionID
                          select new TrainingProgramDto()
                          {
                              TrainingID = t.TrainingID,
@@ -62,16 +61,16 @@ namespace TraniningSystemAPI.Controllers
         }
 
 
-        // PUT: api/Departments/5
+        // PUT: api/JobPositions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(int id, Department department)
+        public async Task<IActionResult> PutJobPosition(int id, JobPosition jobPosition)
         {
-            if (id != department.DepartmentID)
+            if (id != jobPosition.JobPositionID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(department).State = EntityState.Modified;
+            _context.Entry(jobPosition).State = EntityState.Modified;
 
             try
             {
@@ -79,7 +78,7 @@ namespace TraniningSystemAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DepartmentExists(id))
+                if (!JobPositionExists(id))
                 {
                     return NotFound();
                 }
@@ -92,35 +91,35 @@ namespace TraniningSystemAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Departments
+
         [HttpPost]
-        public async Task<ActionResult<Department>> AddDepartment(Department department)
+        public async Task<ActionResult<JobPosition>> AddJobPosition(JobPosition jobPosition)
         {
-            _context.Department.Add(department);
+            _context.JobPosition.Add(jobPosition);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDepartment", new { id = department.DepartmentID }, department);
+            return CreatedAtAction("GetJobPosition", new { id = jobPosition.JobPositionID }, jobPosition);
         }
 
-        // DELETE: api/Departments/5
+        // DELETE: api/JobPositions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Department>> DeleteDepartment(int id)
+        public async Task<ActionResult<JobPosition>> DeleteJobPosition(int id)
         {
-            var department = await _context.Department.FindAsync(id);
-            if (department == null)
+            var jobPosition = await _context.JobPosition.FindAsync(id);
+            if (jobPosition == null)
             {
                 return NotFound();
             }
 
-            _context.Department.Remove(department);
+            _context.JobPosition.Remove(jobPosition);
             await _context.SaveChangesAsync();
 
-            return department;
+            return jobPosition;
         }
 
-        private bool DepartmentExists(int id)
+        private bool JobPositionExists(int id)
         {
-            return _context.Department.Any(e => e.DepartmentID == id);
+            return _context.JobPosition.Any(e => e.JobPositionID == id);
         }
     }
 }

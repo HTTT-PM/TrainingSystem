@@ -6,5 +6,6 @@
         public Course Course { get; set; }
         public int KnowledgeKey { get; set; }
         public Knowledge Knowledge { get; set; }
+        public int Weight { get; set; }
     }
 }

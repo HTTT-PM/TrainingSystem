@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System;
 using TraniningSystemAPI.Entity;
+using TraniningSystemAPI.Dto;
 
 namespace TraningSystemAdminWEB.Pages.Admin
 {
@@ -15,7 +16,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         public int DepartmentID { get; set; }
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgram> ListTrainingProgram { get; set; }
+        public List<TrainingProgramDto> ListTrainingProgram { get; set; }
 
         public void ApitoGetListData(string type)
         {
@@ -29,10 +30,10 @@ namespace TraningSystemAdminWEB.Pages.Admin
                 messageTask.Wait();
                 switch (type)
                 {
-                    case "job-positions":
+                    case "job-position":
                         ListJobPosition = JsonConvert.DeserializeObject<List<JobPosition>>(messageTask.Result);
                         break;
-                    case "departments":
+                    case "department":
                         ListDepartment = JsonConvert.DeserializeObject<List<Department>>(messageTask.Result);
                         break;
                     default:
@@ -51,16 +52,16 @@ namespace TraningSystemAdminWEB.Pages.Admin
             {
                 var messageTask = result.Content.ReadAsStringAsync();
                 messageTask.Wait();
-                ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgram>>(messageTask.Result);
-
+                ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgramDto>>(messageTask.Result);
             }
         }
+
         public void OnGet()
         {
 
             DepartmentID = Int32.Parse((string)RouteData.Values["DepartmentID"]);
-            ApitoGetListData("job-positions");
-            ApitoGetListData("departments");
+            ApitoGetListData("job-position");
+            ApitoGetListData("department");
             ApitoGetListTP();
         }
     }
