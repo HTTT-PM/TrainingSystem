@@ -9,11 +9,11 @@ namespace TraniningSystemAPI.Controllers
 {
     [Route("api/course-participant")]
     [ApiController]
-    public class CourseParticipant : Controller
+    public class CourseParticipantController : Controller
     {
         private readonly ModelContext _context;
 
-        public CourseParticipant(ModelContext context)
+        public CourseParticipantController(ModelContext context)
         {
             _context = context;
         }

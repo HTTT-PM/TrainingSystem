@@ -6,6 +6,52 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Job" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Vị trí công việc
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Job">
+                    @foreach (var job in @Model.ListJobPosition)
+                    {
+                    <button class="dropdown-item" type="button" id="@job.JobPositionID">@job.JobPositionName</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="p-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Skill" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Kỹ năng
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Skill">
+                    @foreach (var skill in @Model.ListSkill)
+                    {
+                        <button class="dropdown-item" type="button" id="@skill.SkillID">@skill.SkillName</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="p-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Knowledge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Kiến thức
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Knowledge">
+                    @foreach (var knowledge in @Model.ListKnowledge)
+                    {
+                        <button class="dropdown-item" type="button" id="@knowledge.KnowledgeID">@knowledge.KnowledgeName</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
 <div class="card-style mb-30">
     <h4 class="mb-25 justify-content-between">KẾT QUẢ TRAINING</h4>
     <table class="table">
@@ -34,3 +80,6 @@
         </tbody>
     </table>
 </div>
+<script>
+
+</script>

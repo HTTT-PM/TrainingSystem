@@ -3,14 +3,29 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using TraniningSystemAPI.Dto;
+using TraniningSystemAPI.Entity;
 
 namespace TrainingSystemManagerWEB.Pages.Manager
 {
     public class TrainingResultModel : PageModel
     {
         static readonly HttpClient client = new HttpClient();
-        public List<EvaluateDto> TrainingResults = new List<EvaluateDto>();
-        public void OnGet()
+        public List<EvaluateDto> TrainingResults { get; set; }
+        public List<Skill> ListSkill { get; set; }
+        public List<Knowledge> ListKnowledge { get; set; }
+        public List<JobPosition> ListJobPosition { get; set; }
+        public void GetListSkill()
+        {
+            var url = "https://localhost:44321/api/skill";
+            var response = client.GetAsync(url);
+            response.Wait();
+            HttpResponseMessage result = response.Result;
+            var messageTask = result.Content.ReadAsStringAsync();
+            messageTask.Wait();
+            ListSkill = JsonConvert.DeserializeObject<List<Skill>>(messageTask.Result);
+        }
+
+        public void GetTrainingResults()
         {
             var urlTrainingProgram = "https://localhost:44321/api/course-participant";
             var responseTaskTrainingProgram = client.GetAsync(urlTrainingProgram);
@@ -22,6 +37,36 @@ namespace TrainingSystemManagerWEB.Pages.Manager
                 messageTask.Wait();
                 TrainingResults = JsonConvert.DeserializeObject<List<EvaluateDto>>(messageTask.Result);
             }
+        }
+
+        public void GetListKnowledge()
+        {
+            var url = "https://localhost:44321/api/knowledge";
+            var response = client.GetAsync(url);
+            response.Wait();
+            HttpResponseMessage result = response.Result;
+            var messageTask = result.Content.ReadAsStringAsync();
+            messageTask.Wait();
+            ListKnowledge = JsonConvert.DeserializeObject<List<Knowledge>>(messageTask.Result);
+        }
+
+        public void GetListJobPosition()
+        {
+            var url = "https://localhost:44321/api/job-position";
+            var response = client.GetAsync(url);
+            response.Wait();
+            HttpResponseMessage result = response.Result;
+            var messageTask = result.Content.ReadAsStringAsync();
+            messageTask.Wait();
+            ListJobPosition = JsonConvert.DeserializeObject<List<JobPosition>>(messageTask.Result);
+        }
+
+        public void OnGet()
+        {
+            GetListKnowledge();
+            GetListSkill();
+            GetTrainingResults();
+            GetListJobPosition();
         }
     }
 }
