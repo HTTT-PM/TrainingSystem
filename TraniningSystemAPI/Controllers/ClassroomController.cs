@@ -4,7 +4,6 @@ using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Entity;
 
-
 namespace TraniningSystemAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -18,18 +17,25 @@ namespace TraniningSystemAPI.Controllers
             _context = context;
         }
 
-        // GET: api/classroom
         [HttpGet]
         public IEnumerable<Classroom> Get()
         {
             return _context.Classroom.ToList();
         }
+
+        [Route("newest")]
+        [HttpGet]
+        public int GetNewest()
+        {
+            return _context.Classroom.OrderByDescending(u => u.ClassroomID).FirstOrDefault().ClassroomID;
+        }
+
         [HttpPost]
-        public IEnumerable<Classroom> AddClassroom(Classroom classroom)
+        public RedirectResult AddClassroom([FromForm] Classroom classroom)
         {
             _context.Classroom.Add(classroom);
             _context.SaveChanges();
-            return _context.Classroom.ToList();
+            return RedirectPermanent("https://localhost:44335/admin/classroom-detail.htm");
         }
     }
 }

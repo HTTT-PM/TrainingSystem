@@ -1,0 +1,101 @@
+﻿@page
+@model TrainingSystemManagerWEB.Pages.Manager.ManageSkillModel
+@{
+    ViewBag.PageName = "ManagerSkill";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="card-style mb-30">
+    <h4 class="mb-25 justify-content-between">KỸ NĂNG</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Tên kỹ năng</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="skillList">
+            @foreach (var skill in Model.ListSkill)
+            {
+                <tr id="skill-row-@skill.SkillID">
+                    <td>
+                        <input id="skill-@skill.SkillID" type="text" value="@skill.SkillName" disabled style="border: none; background-color: inherit; " />
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div id="skill-update-btn-@skill.SkillID">
+                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(@skill.SkillID)">✎</button>
+                            </div>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkill(@skill.SkillID)">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="input-group">
+        <input type="text" class="form-control" id="skill-name-input" placeholder="Skill" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddSkill()">✚</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    //---------------------------------------------SKILL---------------------------------------------//
+    function UpdateSkillTrainingProgram(index) {
+        $('#skill-' + index + '').prop("disabled", false);
+        $('#skill-update-btn-' + index + '').html('');
+        $('#skill-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkill(${index})">||</button>`)
+    }
+
+    function UpdateSkill(index) {
+        fetch('https://localhost:44321/api/skill/' + parseInt(index) + '?SkillName=' + $('#skill-' + index + '').val(), {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $('#skill-' + index + '').prop("disabled", true);
+        $('#skill-update-btn-' + index + '').html('');
+        $('#skill-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(${index})">✎</button>`)
+    }
+
+    function AddSkill() {
+        var name = $('#skill-name-input').val()
+        fetch('https://localhost:44321/api/skill' + "?SkillName=" + name, {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        }).then(r => r.json()).then(data => {
+            $('#skillList').append(`
+                <tr id="skill-row-${data}">
+                    <td>
+                        <input id="skill-${data}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div id="skill-update-btn-${data}">
+                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(${data})">✎</button>
+                            </div>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkill(${data})">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            `)
+        })
+    }
+
+    function DeleteSkill(index) {
+            fetch('https://localhost:44321/api/skill/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#skill-row-' + index + '').remove();
+    }
+</script>

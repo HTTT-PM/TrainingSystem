@@ -1,0 +1,76 @@
+﻿@page "/trainer/add-course.htm"
+@model TraningSystemAdminWEB.Pages.Trainer.AddCourseModel
+@{
+    ViewBag.PageName = "AddCourse";
+}
+<!-- ========== form-elements-wrapper start ========== -->
+<form action="https://localhost:44321/api/course" method="post">
+    <div class="form-elements-wrapper">
+        <div class="row">
+            <div class="card-style mb-30 mt-10">
+                <h4 class="text-primary text-center">THÊM KHÓA HỌC</h4>
+            </div>
+            <!-- end card -->
+            <!-- input style start -->
+            <div class="card-style mb-30">
+                <h4 class="mb-25">THÔNG TIN KHÓA HỌC</h4>
+                <div class="row align-items-start">
+                    <div class="col-5">
+                        <p class="mb-10 fw-bolder">Tên khóa học</p>
+                        <div class="input-style-1 rounded-3">
+                            <input type="text" name="CourseName" />
+                        </div>
+                    </div>
+                    <!-- end input -->
+                    <div class="col-3">
+                        <p class="mb-10 fw-bolder">Số tiết học</p>
+                        <div class="input-style-1 rounded-3">
+                            <input type="number" name="NumberOfLesson" />
+                        </div>
+                    </div>
+                    <!-- end input -->
+                    <div class="col-4">
+                        <p class="mb-10 fw-bolder">Hình thức kiểm tra cuối khóa</p>
+                        <div class="row align-items-center ml-10">
+                            <div class="col form-check checkbox-style mt-2">
+                                <input class="form-check-input" type="radio" name="AssessmentForm" value="Trắc nghiệm" id="checkbox-1" />
+                                <label class="form-check-label" for="checkbox-1">Trắc nghiệm</label>
+                            </div>
+                            <div class="col form-check checkbox-style checkbox-success mt-2">
+                                <input class="form-check-input" type="radio" name="AssessmentForm" value="Tự Luận" id="checkbox-2" />
+                                <label class="form-check-label" for="checkbox-2">Tự luận</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end input -->
+                </div>
+                <!-- end row -->
+                <p class="mb-10 fw-bolder">Mục tiêu khóa học</p>
+                <div class="input-style-1 rounded-3">
+                    <input type="text" name="Target" />
+                </div>
+                <!-- end input -->
+                <p class="mb-10 fw-bolder">Nội dung khoá học</p>
+                <div class="input-style-1 rounded-3">
+                    <textarea type="text" name="Content" rows="5"></textarea>
+                </div>
+                <!-- end input -->
+                <p class="mb-10 fw-bolder">Cách tính điểm</p>
+                <div class="input-style-1 rounded-3">
+                    <textarea type="text" name="CalculatesPointGuide" rows="5"></textarea>
+                </div>
+
+                @*<p class="mb-10 fw-bolder">Giảng viên</p>
+                    <div class="input-style-1 rounded-3">
+                        <input type="text" placeholder="Tìm kiếm..." class="form-control" onkeyup="sendData(this)" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                        <input type="text" id="trainer" name="" hidden />
+                        <ul class="list-group dropdown-menu" id="mySearchCreateCourseOutput" aria-labelledby="dropdownMenuButton">
+                        </ul>
+                    </div>*@
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end row -->
+        <button type="submit" class="btn btn-success justify-content-center"><b>HOÀN THÀNH</b></button>
+    </div>
+</form>

@@ -1,0 +1,66 @@
+﻿@page  "/trainee/add-courseparticipant.htm"
+@model TrainingSystemTraineeWEB.Pages.Trainee.AddCourseParticipantModel
+@{
+    ViewBag.PageName = "Course";
+}
+
+
+<!-- ========== form-elements-wrapper start ========== -->
+<form action="https://localhost:44321/api/course-participant" method="post">
+    <div class="form-elements-wrapper">
+        <div class="row">
+            <div class="card-style mb-30 mt-10">
+                <h4 class="text-primary text-center">THAM GIA KHÓA HỌC</h4>
+            </div>
+            <!-- end card -->
+            <!-- input style start -->
+            <div class="card-style mb-30">
+                <h4 class="mb-25">THÔNG TIN THAM GIA </h4>
+               <div class="row align-items-start">
+                    <div class="col-5">
+                        <p class="mb-10 fw-bolder">ID Khóa Học</p>
+                        <div class="input-style-1 rounded-3">
+                            <input type="number" name="CourseKey" />
+                        </div>
+                    </div>
+                    <!-- end input -->
+                    <div class="col-3">
+                        <p class="mb-10 fw-bolder">ID Trainee</p>
+                        <div class="input-style-1 rounded-3">
+                            <input type="number" name="TraineeKey" />
+                        </div>
+                    </div>
+                    <!-- end input -->
+
+
+                </div>
+                <!-- end row -->
+                <p class="mb-10 fw-bolder">Kết quả tham gia</p>
+                <div class="input-style-1 rounded-3">
+                    <input type="text" name="ResultOfEvaluation" value="null"  />
+                </div>
+                <!-- end input -->
+                <p class="mb-10 fw-bolder">Kết quả tham gia</p>
+                <div class="input-style-1 rounded-3">
+                    <input type="text" name="IsComplete" value="true"  />
+                </div>
+                <!-- end input -->
+                <p class="mb-10 fw-bolder">điểm</p>
+                <div class="input-style-1 rounded-3">
+                    <input type="number" name="Point"  />
+                </div>
+
+                @*<p class="mb-10 fw-bolder">Giảng viên</p>
+        <div class="input-style-1 rounded-3">
+            <input type="text" placeholder="Tìm kiếm..." class="form-control" onkeyup="sendData(this)" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+            <input type="text" id="trainer" name="" hidden />
+            <ul class="list-group dropdown-menu" id="mySearchCreateCourseOutput" aria-labelledby="dropdownMenuButton">
+            </ul>
+        </div>*@
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end row -->
+        <button type="submit" class="btn btn-success justify-content-center"><b>HOÀN THÀNH</b></button>
+    </div>
+</form>

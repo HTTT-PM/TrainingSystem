@@ -1,0 +1,227 @@
+﻿@page "/manager/training-program-detail.htm/{TrainingProgramID}"
+@model TrainingSystemManagerWEB.Pages.Manager.TraningProgramDetailModel
+@{
+    ViewBag.PageName = "ManagerTrainingProgram";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kỹ năng</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="skillList">
+            @foreach (var skill in Model.Skill)
+            {
+                <tr id="skill-row-@skill.SkillID">
+                    <td>
+                        <input id="skill-@skill.SkillID" type="text" value="@skill.SkillName" disabled style="border: none; background-color: inherit; " />
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div id="skill-update-btn-@skill.SkillID">
+                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(@skill.SkillID)">✎</button>
+                            </div>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(@skill.SkillID)">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="input-group">
+        <select class="custom-select" id="skillSelect">
+            <option selected>Choose...</option>
+            @foreach (var skill in Model.ListSkill)
+            {
+                <option value="@skill.SkillID">@skill.SkillName</option>
+            }
+        </select>
+        <div class="input-group-append">
+            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddSkillTrainingProgram()">✚</button>
+        </div>
+    </div>
+</div>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Kiến thức</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var knowledge in Model.Knowledge)
+            {
+                <tr id="knowledge-row-@knowledge.KnowledgeID">
+                    <td>
+                        <input id="knowledge-@knowledge.KnowledgeID" type="text" value="@knowledge.KnowledgeName" disabled style="border: none; background-color: inherit; " />
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div id="knowledge-update-btn-@knowledge.KnowledgeID">
+                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✎</button>
+                            </div>
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="input-group">
+        <select class="custom-select" id="knowledgeSelect">
+            <option selected>Choose...</option>
+            @foreach (var knowledge in Model.ListKnowledge)
+            {
+                <option value="@knowledge.KnowledgeID">@knowledge.KnowledgeName</option>
+            }
+        </select>
+        <div class="input-group-append">
+            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddKnowledgeTrainingProgram()">✚</button>
+        </div>
+    </div>
+</div>
+
+<div class="card-style mb-30">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Môn học</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.Course)
+            {
+                <tr id="row-@course.CourseID">
+                    <td>@course.CourseName</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteCourseTrainingProgram(@course.CourseID)">✘</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="input-group">
+        <select class="custom-select" id="courseSelect">
+            <option selected>Choose...</option>
+            @foreach (var course in Model.ListCourse)
+            {
+                <option value="@course.CourseID">@course.CourseName</option>
+            }
+        </select>
+        <div class="input-group-append">
+            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddCourseTrainingProgram()">✚</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    //---------------------------------------------SKILL---------------------------------------------//
+    function UpdateSkillTrainingProgram(index) {
+        $('#skill-' + index + '').prop("disabled", false);
+        $('#skill-update-btn-' + index + '').html('');
+        $('#skill-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkill(${index})">||</button>`)
+    }
+
+    function UpdateSkill(index) {
+        fetch('https://localhost:44321/api/skill/' + parseInt(index) + '?SkillName=' + $('#skill-' + index + '').val(), {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $('#skill-' + index + '').prop("disabled", true);
+        $('#skill-update-btn-' + index + '').html('');
+        $('#skill-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(${index})">✎</button>`)
+    }
+
+    function AddSkillTrainingProgram() {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + $('#skillSelect').val(), {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        })
+    }
+
+    function DeleteSkillTrainingProgram(index) {
+            fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#skill-row-' + index + '').remove();
+    }
+
+    //---------------------------------------------KNOWLEDGE---------------------------------------------//
+    function UpdateKnowledgeTrainingProgram(index) {
+        $('#knowledge-' + index + '').prop("disabled", false);
+        $('#knowledge-update-btn-' + index + '').html('');
+        $('#knowledge-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledge(${index})">||</button>`)
+    }
+
+    function UpdateKnowledge(index) {
+        fetch('https://localhost:44321/api/knowledge/' + parseInt(index) + '?KnowledgeName=' + $('#knowledge-' + index + '').val(), {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $('#knowledge-' + index + '').prop("disabled", true);
+        $('#knowledge-update-btn-' + index + '').html('');
+        $('#knowledge-update-btn-' + index + '').append(`<button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(${index})">✎</button>`)
+    }
+
+    function AddKnowledgeTrainingProgram() {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + $('#knowledgeSelect').val(), {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        })
+    }
+
+    function DeleteKnowledgeTrainingProgram(index) {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#knowledge-row-' + index + '').remove();
+    }
+
+    //---------------------------------------------Course---------------------------------------------//
+    function AddCourseTrainingProgram() {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + $('#courseSelect').val(), {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        })
+    }
+
+    function DeleteCourseTrainingProgram(index) {
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + parseInt(index), {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         })
+
+        $('#row-' + index + '').remove();
+    }
+</script>

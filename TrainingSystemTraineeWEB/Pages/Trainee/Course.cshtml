@@ -1,0 +1,136 @@
+﻿@page "/trainee/course.htm"
+@model TraningSystemAdminWEB.Pages.Trainer.AddCourseModel
+@{
+    ViewBag.PageName = "Course";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-3" style="position: absolute; right: 0;">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"  onkeyup="sendData(this)"/>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Thời lượng</th>
+                <th scope="col">Mục tiêu</th>
+                <th scope="col">Hình thức</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+            @foreach (var course in Model.ListCourse)
+            {
+            <tr>
+                <th scope="row" width="20" style="padding-right: 20px;">@course.CourseID</th>
+                <td width="100" style="padding-right: 50px;">
+                    @course.CourseName
+                </td>
+                <td width="100" style="padding-right: 50px; ">
+                    @course.NumberOfLesson
+                </td>
+                <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                    <textarea disabled style="border: none"> @course.Target </textarea>
+                </td>
+                <td width="100" style="padding-right: 50px;">
+                    @course.AssessmentForm
+                </td>
+                <td width="100" style="padding-right: 50px;">
+                    <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/@course.CourseID">Chi tiết</a>
+                </td>
+                <td width="100" style="padding-right: 50px;">
+                    <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/add-courseparticipant.htm">Tham gia</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function sendData(e) {
+        const $searchResult = $('#course-list');
+        let match = e.value.match(/^[a-zA-Z0-9]*/);
+        let match2 = e.value.match(/\s*/);
+
+        if (match2[0] === e.value) {
+            $searchResult.html('');
+            fetch('https://localhost:44321/api/course').then(r => r.json()).then(data => {
+                let payload = data;
+                $searchResult.html('');
+                if (payload.length < 1) {
+                    $searchResult.html('<h5>không tìm thấy</h5>');
+                    return;
+                }
+
+                payload.forEach((item) => {
+                    $searchResult
+                        .append(`
+                        <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">${item.courseID}</th>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.courseName}
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        ${item.numberOfLesson}
+                    </td>
+                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                        <textarea disabled  style="border: none"> ${item.target} </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.assessmentForm}
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
+                    </td>
+                </tr>
+                    `);
+                })
+            });
+            return;
+        }
+
+        if (match[0] === e.value) {
+            fetch('https://localhost:44321/api/course/search?searchString=' + e.value).then(r => r.json()).then(data => {
+                let payload = data;
+                $searchResult.html('');
+                if (payload.length < 1) {
+                    $searchResult.html('<h5>không tìm thấy</h5>');
+                    return;
+                }
+
+                payload.forEach((item) => {
+                    $searchResult
+                        .append(`
+                        <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">${item.courseID}</th>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.courseName}
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        ${item.numberOfLesson}
+                    </td>
+                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                        <textarea disabled  style="border: none"> ${item.target} </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        ${item.assessmentForm}
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
+                    </td>
+                </tr>
+                    `);
+                })
+            });
+        }
+    }
+</script>
