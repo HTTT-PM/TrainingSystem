@@ -17,7 +17,8 @@ namespace TraniningSystemAPI.Data
         public DbSet<Department> Department { get; set; }
         public DbSet<JobPosition> JobPosition { get; set; }
         public DbSet<Trainee> Trainee { get; set; }
-        
+        public DbSet<Content> Content { get; set; }
+
         public DbSet<ClassroomDetail> ClassroomDetail { get; set; }
         public DbSet<CourseTrainingProgram> CourseTrainingProgram { get; set; }
         public DbSet<KnowledgeTrainingProgram> KnowledgeTrainingProgram { get; set; }
@@ -42,6 +43,7 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<Department>().ToTable("Department");
             modelBuilder.Entity<JobPosition>().ToTable("JobPosition");
             modelBuilder.Entity<Trainee>().ToTable("Trainee");
+            modelBuilder.Entity<Content>().ToTable("Content");
 
             modelBuilder.Entity<ClassroomDetail>().ToTable("ClassroomDetail");
             modelBuilder.Entity<CourseTrainingProgram>().ToTable("CourseTrainingProgram");

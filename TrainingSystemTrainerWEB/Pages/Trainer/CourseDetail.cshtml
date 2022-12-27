@@ -1,0 +1,391 @@
+﻿@page "/trainer/course-detail/{CourseID}"
+@model TrainingSystemTrainerWEB.Pages.Trainer.CourseDetailModel
+@{
+    ViewBag.PageName = "ManageCourse";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="form-elements-wrapper">
+    <div class="card-style mb-20">
+        <h2 class="mb-25">THÔNG TIN KHOÁ HỌC</h2>
+        <div class="row">
+            <div class="col-7">
+                <div class="input-group input-group-sm mb-3">
+                    <div>
+                        <span class="input-group-text" id="inputGroup-sizing-sm-course-name">Tên khoá học </span>
+                    </div>
+                    <input value="@Model.Course.CourseName" id="course-name" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-course-name" onchange="Change()">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="col input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm-time">Thời lượng</span>
+                    </div>
+                    <input value="@Model.Course.NumberOfLesson" id="course-time" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-time" onchange="Change()">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <div class="col input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm-target">Mục tiêu</span>
+                    </div>
+                    <input value="@Model.Course.Target" id="course-target" style="background-color:white" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm-target" onchange="Change()">
+                </div>
+            </div>
+            @if (@Model.Course.AssessmentForm == "Essay")
+            {
+                <div class="col-4 align-items-center ml-10">
+                    <div class="row align-items-center ml-10">
+                        <div class="col form-check checkbox-style mt-2">
+                            <input checked class="form-check-input" type="radio" name="AssessmentForm" value="Essay" id="checkbox-1" onchange="Change()" />
+                            <label class="form-check-label" for="checkbox-1">Trắc nghiệm</label>
+                        </div>
+                        <div class="col form-check checkbox-style checkbox-success mt-2">
+                            <input class="form-check-input" type="radio" name="AssessmentForm" value="Quiz" id="checkbox-2" onchange="Change()" />
+                            <label class="form-check-label" for="checkbox-2">Tự luận</label>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-4 align-items-center ml-10">
+                    <div class="row align-items-center ml-10">
+                        <div class="col form-check checkbox-style mt-2">
+                            <input class="form-check-input" type="radio" name="AssessmentForm" value="Essay" id="checkbox-1" onchange="Change()" />
+                            <label class="form-check-label" for="checkbox-1">Trắc nghiệm</label>
+                        </div>
+                        <div class="col form-check checkbox-style checkbox-success mt-2">
+                            <input checked class="form-check-input" type="radio" name="AssessmentForm" value="Quiz" id="checkbox-2" onchange="Change()" />
+                            <label class="form-check-label" for="checkbox-2">Tự luận</label>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+    <div class="card-style mb-30">
+        <fieldset>
+            <legend>Cách tính điểm</legend>
+            <textarea id="course-guide" style="color: #5d657b; border: none; width: 100%; height: 8em;" onchange="Change()">@Model.Course.CalculatesPointGuide</textarea>
+        </fieldset>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card-style mb-30">
+                <legend>Kỹ năng</legend>
+                <table class="table table-hover">
+                    <tbody id="skill-list">
+                        @foreach (var skill in Model.Skill)
+                        {
+                            <tr id="skill-@skill.SkillID">
+                                <td width="400">
+                                    @skill.SkillName
+                                </td>
+                                <td width="100">
+                                    @skill.Weight
+                                </td>
+                                <td>
+                                    <button type="button" class="btn danger-btn-outline btn-hover" onclick="DeleteSkill('@skill.SkillID')">✘</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <select class="custom-select" style="width: 70%; height: 38px;" id="skillSelect">
+                    <option selected>Choose...</option>
+                    @foreach (var skill in Model.SkillList)
+                    {
+                        <option value="@skill.SkillID-@skill.SkillName"> @skill.SkillName</option>
+                    }
+                </select>
+                <input type="number" id="skillWeight" style="width: 10%; height: 38px" />
+                <button type="button" class="btn primary-btn-outline btn-hover" onclick="AddSkillCourse()">✚</button>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="card-style mb-30">
+                <legend>Kiến thức</legend>
+                <table class="table table-hover">
+                    <tbody id="knowledge-list">
+                        @foreach (var knowledge in Model.Knowledge)
+                        {
+                            <tr id="knowledge-@knowledge.KnowledgeID">
+                                <td width="400">
+                                    @knowledge.KnowledgeName
+                                </td>
+                                <td width="100">
+                                    @knowledge.Weight
+                                </td>
+                                <td>
+                                    <button type="button" class="btn danger-btn-outline btn-hover" onclick="DeleteKnowledge('@knowledge.KnowledgeID')">✘</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <select class="custom-select" style="width: 70%; height: 38px" id="knowledgeSelect">
+                    <option selected>Choose...</option>
+                    @foreach (var knowledge in Model.KnowledgeList)
+                    {
+                        <option value="@knowledge.KnowledgeID-@knowledge.KnowledgeName">@knowledge.KnowledgeName</option>
+                    }
+                </select>
+                <input type="number" id="knowledgeWeight" style="width: 10%; height: 38px;" />
+                <button type="button" class="btn primary-btn-outline btn-hover" onclick="AddKnowledgeCourse()">✚</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-style mb-30">
+    <legend>Nội dung</legend>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Thời lượng</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="content-list">
+            @foreach (var content in Model.Course.Contents)
+            {
+                <tr id="content-@content.ContentID">
+                    <th scope="row" width="20" style="padding-right: 20px;">@content.ContentID</th>
+                    <td width="100" style="padding-right: 50px;">
+                        <input type="text" style="border: none;" value="@content.ContentName" id="content-name-change-@content.ContentID" onchange="ChangeContent('@content.ContentID')" />
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        <input type="number" style="border: none;" value="@content.TrainingTime" id="content-time-change-@content.ContentID" onchange="ChangeContent('@content.ContentID')" />
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        <textarea style="border: none; width: 100%;" id="content-description-change-@content.ContentID" onchange="ChangeContent('@content.ContentID')"> @content.Description </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <button type="button" class="btn danger-btn-outline btn-hover btn-sm" onclick="DeleteContent('@content.ContentID')">✘</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>
+                    <input type="text" placeholder="tên..." id="content-name" />
+                </td>
+                <td>
+                    <input type="number" id="content-time" />
+                </td>
+                <td>
+                    <input type="text" placeholder="mô tả..." id="content-description" />
+                </td>
+                <td>
+                    <button type="button" placeholder="thời lượng..." class="btn primary-btn-outline btn-hover btn-sm" onclick="CreateContent()">✚</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card-style mb-30">
+    <div class="row d-flex align-content-between flex-wrap">
+        <legend>Tài liệu</legend>
+        @foreach (var content in Model.Course.Contents)
+        {
+            @foreach (var document in content.Documents)
+            {
+                <div class="col-4">
+                    <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">@document.DocumentName</h5>
+                            <p class="card-text">@document.Description</p>
+                            <div>
+                                <a href="@document.Link" class="card-link">Xem chi tiết</a>
+                                &nbsp;
+                                <a href="@document.Link" class="link-danger">Xoá</a>
+                            </div>
+                            <p class="card-text"><small class="text-muted">@content.ContentName</small></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+@*    <div class="col-4">
+        <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <input type="text" class="card-text"/>
+                <a href="@document.Link" class="card-link">Xem chi tiết</a>
+                <p class="card-text"><small class="text-muted">@content.ContentName</small></p>
+            </div>
+        </div>
+    </div>*@
+    </div>
+</div>
+
+<script>
+    function AddSkillCourse() {
+        const SplitString = $('#skillSelect').val().split("-");
+        const SkillID = SplitString[0]
+        const SkillName = SplitString[1]
+        const Weight = $('#skillWeight').val();
+
+        fetch('https://localhost:44321/api/course/@Model.CourseID/skill/' + SkillID + '?Weight=' + SkillName, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(data => {
+            $('#skill-list').append(`
+                <tr id="knowledge-${SkillID}">
+                      <td width="400">
+                          ${SkillName}
+                      </td>
+                      <td width="100">
+                          ${Weight}
+                      </td>
+                      <td>
+                          <button type="button" class="btn danger-btn-outline btn-hover" onclick="DeleteKnowledge('${SkillID}')">✘</button>
+                      </td>
+                </tr>
+            `)
+        })
+    }
+
+    function AddKnowledgeCourse() {
+        const SplitString = $('#knowledgeSelect').val().split("-");
+        const KnowledgeID = SplitString[0]
+        const KnowledgeName = SplitString[1]
+        const Weight = $('#knowledgeWeight').val();
+
+        fetch('https://localhost:44321/api/course/@Model.CourseID/knowledge/' + KnowledgeID + '?Weight=' + Weight, {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+            }
+        }).then(data => {
+            $('#knowledge-list').append(`
+                <tr id="knowledge-${KnowledgeID}">
+                      <td width="400">
+                          ${KnowledgeName}
+                      </td>
+                      <td width="100">
+                          ${Weight}
+                      </td>
+                      <td>
+                          <button type="button" class="btn danger-btn-outline btn-hover" onclick="DeleteKnowledge('${KnowledgeID}')">✘</button>
+                      </td>
+                </tr>
+            `)
+        })
+    }
+
+    function DeleteKnowledge(KnowledgeID) {
+        fetch('https://localhost:44321/api/course/@Model.CourseID/knowledge/' + KnowledgeID, {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        })
+
+        $('#knowledge-' + KnowledgeID + '').remove();
+    }
+
+    function DeleteSkill(SkillID) {
+        fetch('https://localhost:44321/api/course/@Model.CourseID/skill/' + SkillID, {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        })
+
+        $('#skill-' + SkillID + '').remove();
+    }
+
+    function Change() {
+        const url = 'https://localhost:44321/api/course/@Model.CourseID'
+            + '?CourseName=' + $('#course-name').val() + '&Target=' + $('#course-target').val()
+            + '&NumberOfLesson=' + $('#course-time').val()
+            + '&AssessmentForm=' + document.querySelector('input[name="AssessmentForm"]:checked').value;
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify($('textarea#course-guide').val())
+        })
+    }
+
+    function CreateContent() {
+        const name = $('#content-name').val();
+        const description = $('#content-description').val();
+        const time = $('#content-time').val();
+
+        const url = 'https://localhost:44321/api/course/@Model.CourseID/content'
+            + '?ContentName=' + name  + '&TrainingTime=' + time
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(description)
+        }).then(r => r.json()).then(data => {
+            $('#content-list').append(`
+                <tr id="content-${data}">
+                    <th scope="row" width="20" style="padding-right: 20px;">${data}</th>
+                    <td width="100" style="padding-right: 50px;">
+                        ${name}
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        ${time}
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        <textarea disabled style="border: none"> ${description} </textarea>
+                    </td>
+
+                    <td width="100" style="padding-right: 50px;">
+                        <button type="button" class="btn danger-btn-outline btn-hover btn-sm">✘</button>
+                    </td>
+                </tr>
+            `)
+        })
+    }
+
+    function DeleteContent(ContentID) {
+        fetch('https://localhost:44321/api/content/' + ContentID, {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+        })
+
+        $('#content-' + ContentID + '').remove();
+    }
+
+    function ChangeContent(ContentID) {
+        const url = 'https://localhost:44321/api/content/' + ContentID
+            + '?ContentName=' + $('#content-name-change-' + ContentID + '').val() + '&TrainingTime=' + $('#content-time-change-'+ ContentID + '').val()
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify($('textarea#content-description-change-' + ContentID + '').val())
+        })
+    }
+</script>

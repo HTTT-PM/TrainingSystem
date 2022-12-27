@@ -9,5 +9,6 @@
         public string ResultOfEvaluation { get; set; }
         public bool IsComplete { get; set; }
         public int Point { get; set; }
+        public int Rank { get; set; }
     }
 }

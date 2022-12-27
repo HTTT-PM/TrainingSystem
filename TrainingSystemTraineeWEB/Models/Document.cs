@@ -12,7 +12,7 @@ namespace TraniningSystemAPI.Entity
         public string DocumentName { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
-        public int CourseID { get; set; }
-        public ICollection<Course> Course { get; set; }
+        public int ContentID { get; set; }
+        public ICollection<Content> Content { get; set; }
     }
 }
