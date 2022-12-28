@@ -14,11 +14,11 @@ namespace TraniningSystemAPI.Entity
         public string Description { get; set; }
         public string Link { get; set; }
         public int Weight { get; set; }
-        public int? ContentID { get; set; }
+        public int ContentID { get; set; }
         public ICollection<Content> Content { get; set; }
         public int? SkillID { get; set; }
-        public ICollection<Skill> Skill { get; set; }
+        public virtual Skill Skill { get; set; }
         public int? KnowledgeID { get; set; }
-        public ICollection<Knowledge> Knowledge { get; set; }
+        public virtual Knowledge Knowledge { get; set; }
     }
 }

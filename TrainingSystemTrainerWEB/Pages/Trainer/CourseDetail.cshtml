@@ -208,15 +208,15 @@
         {
             @foreach (var document in content.Documents)
             {
-                <div class="col-4">
+                <div class="col-4" id="document-@document.DocumentID">
                     <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
                         <div class="card-body">
                             <h5 class="card-title">@document.DocumentName</h5>
                             <p class="card-text">@document.Description</p>
                             <div>
-                                <a href="@document.Link" class="card-link">Xem chi tiết</a>
+                                <a href="https://localhost:44321/api/document?path=@document.Link" class="card-link" download="@document.DocumentName">Tải tài liệu</a>
                                 &nbsp;
-                                <a href="@document.Link" class="link-danger">Xoá</a>
+                                <button class="link-danger border-0 bg-white" onclick="DeleteDocument('@document.DocumentID')">Xoá</button>
                             </div>
                             <p class="card-text"><small class="text-muted">@content.ContentName</small></p>
                         </div>
@@ -224,17 +224,122 @@
                 </div>
             }
         }
-@*    <div class="col-4">
-        <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <input type="text" class="card-text"/>
-                <a href="@document.Link" class="card-link">Xem chi tiết</a>
-                <p class="card-text"><small class="text-muted">@content.ContentName</small></p>
+    </div>
+</div>
+
+<div class="card-style mb-30">
+    <legend>Thêm tài liệu</legend>
+    <form enctype="multipart/form-data" method="Post" action="https://localhost:44321/api/document">
+        <div class="form-group">
+            <label>Tên tài liệu</label>
+            <input type="text" name="DocumentName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Tài liệu</label>
+            <input class="form-control" name="File" accept="application/pdf" required type="file">
+        </div>
+        <div class="form-group">
+            <label>Mô tả</label>
+            <textarea class="form-control" rows="2" name="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <labe>Nội dung</labe>
+            <select class="form-control" name="ContentID">
+                @foreach (var content in Model.Course.Contents)
+                {
+                    <option value="@content.ContentID">@content.ContentName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn primary-btn-outline btn-hover">✚</button>
+    </form>
+</div>
+
+<div class="card-style mb-30">
+    <div class="row d-flex align-content-between flex-wrap">
+        <legend>Bài tập</legend>
+        @foreach (var content in Model.Course.Contents)
+        {
+            @foreach (var exercise in content.Exercises)
+            {
+                <div class="col-4" id="exercise-@exercise.ExerciseID">
+                    <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">@exercise.ExerciseName</h5>
+                            <p class="card-text">@exercise.Description</p>
+                            <div>
+                                <a href="https://localhost:44321/api/exercise?path=@exercise.Link" class="card-link" download="@exercise.ExerciseName">Tải bài tập</a>
+                                &nbsp;
+                                <button class="link-danger border-0 bg-white" onclick="DeleteExercise('@exercise.ExerciseID')">Xoá</button>
+                            </div>
+                            <p class="card-text"><small class="text-muted">@content.ContentName</small></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="card-style mb-30">
+    <legend>Thêm bài tập</legend>
+    <form enctype="multipart/form-data" method="Post" action="https://localhost:44321/api/exercise">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-10">
+                    <label>Tên bài tập</label>
+                    <input type="text" name="ExerciseName" class="form-control">
+                </div>
+                <div class="col-2">
+                    <label>Trọng số</label>
+                    <input type="number" name="Weight" class="form-control">
+                </div>
             </div>
         </div>
-    </div>*@
-    </div>
+        <div class="form-group">
+            <label>bài tập</label>
+            <input class="form-control" name="File" accept="application/pdf" required type="file">
+        </div>
+        <div class="form-group">
+            <label>Mô tả</label>
+            <textarea class="form-control" rows="2" name="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-4">
+                    <labe>Nội dung</labe>
+                    <select class="form-control" name="ContentID">
+                        @foreach (var content in Model.Course.Contents)
+                        {
+                            <option value="@content.ContentID">@content.ContentName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-4">
+                    <labe>Kỹ năng</labe>
+                    <select class="form-control" name="SKillID">
+                        <option value="0">Chọn...</option>
+                        @foreach (var skill in Model.SkillList)
+                        {
+                            <option value="@skill.SkillID">@skill.SkillName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-4">
+                    <labe>Kiến thức</labe>
+                    <select class="form-control" name="KnowledgeID">
+                        <option value="0">Chọn...</option>
+                        @foreach (var knowledge in Model.KnowledgeList)
+                        {
+                            <option value="@knowledge.KnowledgeID">@knowledge.KnowledgeName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="btn primary-btn-outline btn-hover">✚</button>
+    </form>
 </div>
 
 <script>
@@ -387,5 +492,27 @@
             },
             body: JSON.stringify($('textarea#content-description-change-' + ContentID + '').val())
         })
+    }
+
+    function DeleteDocument(DocumentID) {
+        fetch('https://localhost:44321/api/document/' + DocumentID, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $('#document-' + DocumentID + '').remove();
+    }
+
+    function DeleteExercise(ExerciseID) {
+        fetch('https://localhost:44321/api/exercise/' + ExerciseID, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        $('#exercise-' + ExerciseID + '').remove();
     }
 </script>
