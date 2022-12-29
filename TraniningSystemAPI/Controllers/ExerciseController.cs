@@ -27,6 +27,7 @@ namespace TraniningSystemAPI.Controllers
         [HttpPost("{CourseID:int}")]
         public RedirectResult Upload([FromForm] ExerciseUploadDto file, [FromRoute] int CourseID)
         {
+            Directory.CreateDirectory("Exercises");
             var folderName = Path.Combine("Exercises");
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             var fileName = ContentDispositionHeaderValue.Parse(file.File.ContentDisposition).FileName.Trim('"');
