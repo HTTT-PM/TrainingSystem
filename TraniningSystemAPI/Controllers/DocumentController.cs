@@ -24,8 +24,8 @@ namespace TraniningSystemAPI.Controllers
             return File(System.IO.File.OpenRead(path), "application/pdf");
         }
 
-        [HttpPost]
-        public string Upload([FromForm] DocumentUploadDto file)
+        [HttpPost("{CourseID:int}")]
+        public RedirectResult Upload([FromForm] DocumentUploadDto file, [FromRoute] int CourseID)
         {
             var folderName = Path.Combine("Documents");
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -39,7 +39,7 @@ namespace TraniningSystemAPI.Controllers
             Document document = new Document { DocumentName = file.DocumentName, Description = file.Description, Link= folderName+'/'+ fileName, ContentID=file.ContentID};
             _context.Document.Add(document);
             _context.SaveChanges();
-            return "oke";
+            return RedirectPermanent("https://localhost:44331/trainer/course-detail/"+CourseID);
         }
 
         [HttpDelete("{DocumentID:int}")]

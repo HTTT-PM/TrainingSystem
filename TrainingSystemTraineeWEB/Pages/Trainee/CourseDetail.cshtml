@@ -47,11 +47,12 @@
         </div>
 
     </div>
+
     <div class="card-style mb-30">
         <div class="row">
             <fieldset>
-                <legend>Nội dung</legend>
-                @Model.Course.Content
+                <legend>Cách tính điểm</legend>
+                @Model.Course.CalculatesPointGuide
             </fieldset>
         </div>
     </div>
@@ -90,33 +91,63 @@
                     }
                 </div>
             </div>
-         </div>
+        </div>
+    </div>
+
+    <div class="card-style mb-30">
+        <legend>Nội dung</legend>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Thời lượng</th>
+                    <th scope="col">Mô tả</th>
+                </tr>
+            </thead>
+            <tbody id="content-list">
+                @foreach (var content in Model.Course.Contents)
+                {
+                    <tr id="content-@content.ContentID">
+                        <th scope="row" width="20" style="padding-right: 20px;">@content.ContentID</th>
+                        <td width="100" style="padding-right: 50px;">
+                            @content.ContentName
+                        </td>
+                        <td width="100" style="padding-right: 50px; ">
+                            @content.TrainingTime
+                        </td>
+                        <td width="100" style="padding-right: 50px; ">
+                            @content.Description
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 
     <div class="card-style mb-30">
         <div class="row d-flex align-content-between flex-wrap">
             <legend>Tài liệu</legend>
-            @foreach (var document in Model.Course.Documents)
+            @foreach (var content in Model.Course.Contents)
             {
-                <div class="col-4">
-                    <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
-                        <div class="card-body">
-                            <h5 class="card-title">@document.DocumentName</h5>
-                            <p class="card-text">@document.Description</p>
-                            <a href="@document.Link" class="card-link">Xem chi tiết</a>
+                @foreach (var document in content.Documents)
+                {
+                    <div class="col-4" id="document-@document.DocumentID">
+                        <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
+                            <div class="card-body">
+                                <h5 class="card-title">@document.DocumentName</h5>
+                                <p class="card-text">@document.Description</p>
+                                <div>
+                                    <a href="https://localhost:44321/api/document?path=@document.Link" class="card-link" download="@document.DocumentName">Tải tài liệu</a>
+                                    &nbsp;
+                                    <button class="link-danger border-0 bg-white" onclick="DeleteDocument('@document.DocumentID')">Xoá</button>
+                                </div>
+                                <p class="card-text"><small class="text-muted">@content.ContentName</small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
-        </div>
-    </div>
-
-    <div class="card-style mb-30">
-        <div class="row">
-            <fieldset>
-                <legend>Cách tính điểm</legend>
-                @Model.Course.CalculatesPointGuide
-            </fieldset>
         </div>
     </div>
 </div>

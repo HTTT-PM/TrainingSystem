@@ -24,8 +24,8 @@ namespace TraniningSystemAPI.Controllers
             return File(System.IO.File.OpenRead(path), "application/pdf");
         }
 
-        [HttpPost]
-        public string Upload([FromForm] ExerciseUploadDto file)
+        [HttpPost("{CourseID:int}")]
+        public RedirectResult Upload([FromForm] ExerciseUploadDto file, [FromRoute] int CourseID)
         {
             var folderName = Path.Combine("Exercises");
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -52,7 +52,7 @@ namespace TraniningSystemAPI.Controllers
 
             _context.Exercise.Add(exercise);
             _context.SaveChanges();
-            return "oke";
+            return RedirectPermanent("https://localhost:44331/trainer/course-detail/" + CourseID);
         }
 
         [HttpDelete("{ExerciseID:int}")]

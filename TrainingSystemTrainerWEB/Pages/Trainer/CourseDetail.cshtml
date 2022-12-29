@@ -229,7 +229,7 @@
 
 <div class="card-style mb-30">
     <legend>Thêm tài liệu</legend>
-    <form enctype="multipart/form-data" method="Post" action="https://localhost:44321/api/document">
+    <form enctype="multipart/form-data" method="Post" action="https://localhost:44321/api/document/@Model.CourseID">
         <div class="form-group">
             <label>Tên tài liệu</label>
             <input type="text" name="DocumentName" class="form-control">
@@ -283,7 +283,7 @@
 
 <div class="card-style mb-30">
     <legend>Thêm bài tập</legend>
-    <form enctype="multipart/form-data" method="Post" action="https://localhost:44321/api/exercise">
+    <form enctype="multipart/form-data" method="Post" action="https://localhost:44321/api/exercise/@Model.CourseID">
         <div class="form-group">
             <div class="row">
                 <div class="col-10">
