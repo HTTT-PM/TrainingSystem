@@ -1,0 +1,72 @@
+﻿@page "/admin/trainee.htm"
+@model TraningSystemAdminWEB.Pages.Admin.TraineeModel
+@{
+    ViewBag.PageName = "Trainee";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+            <div class="dropdown1">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Vị trí </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    @foreach (var jobpos in Model.ListJobPosition)
+                    {
+                        <li><a class="JobPosition link-secondary" id="row-@jobpos.JobPositionID" href="/admin/job-positions/@jobpos.JobPositionID/trainingprogram">Vị trí @jobpos.JobPositionName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="p-2">
+            <div class="dropdown2">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Quyền sử dụng data </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a id="row-access-data">Được quyền</a></li>
+                    <li><a id="row-not-access-data">Không được quyền</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-12">
+    <div class="card-style mb-30">
+        <h1 class="mb-4">Danh sách Trainee</h1>
+        <p class="text-sm mb-20">         </p>
+        <div class="table-wrapper table-responsive">
+            <table class="table striped-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên nhân viên</th>
+                        <th scope="col">Phòng ban</th>
+                        <th scope="col">Công việc</th>
+                        <th scope="col">Được quyền truy cập Data</th>
+                    </tr>
+                    <!-- end table row-->
+                </thead>
+                <tbody>
+                    @foreach (var trainee in Model.ListTrainee)
+                    {
+                    <tr id="row-@trainee.TraineeID">
+                        <td>@trainee.TraineeName</td>
+                        <td>
+                            @trainee.DepartmentName
+                        </td>
+                        <td>
+                            @trainee.JobPositionName
+                        </td>
+                        <td>
+                            @trainee.GetAccessToHCMData
+                        </td>
+                    </tr>
+                    }
+                    <!-- end table row -->
+                </tbody>
+            </table>
+            <!-- end table -->
+        </div>
+    </div>
+    <!-- end card -->
+</div>

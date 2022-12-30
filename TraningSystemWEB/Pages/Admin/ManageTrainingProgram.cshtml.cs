@@ -14,7 +14,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         static readonly HttpClient client = new HttpClient();
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgramDto> ListTrainingProgram { get; set; }
+        public List<TrainingProgramDto> ListTrainingProgram = new List<TrainingProgramDto>();
 
         public void ApitoGetListData(string type)
         {

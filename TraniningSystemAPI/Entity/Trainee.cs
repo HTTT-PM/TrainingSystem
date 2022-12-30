@@ -15,6 +15,7 @@ namespace TraniningSystemAPI.Entity
         public JobPosition JobPosition { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public bool GetAccessToHCMData { get; set; }
         public virtual ICollection<ClassroomParticipant> ClassroomParticipants { get; set; }
         public virtual ICollection<CourseParticipant> CourseParticipant { get; set; }
         public virtual ICollection<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }

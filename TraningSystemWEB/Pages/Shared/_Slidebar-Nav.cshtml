@@ -24,11 +24,11 @@
                 </a>
                 <ul id="ddmenu_1" class="collapse @((ViewBag.PageName == "Index") ? "show" : "") dropdown-nav">
                     <li>
-                        <a asp-page="Index" class="@((ViewBag.PageName == "Index") ? "active" : "")" > Hệ thống training </a>
+                        <a asp-page="Index" class="@((ViewBag.PageName == "Index") ? "active" : "")"> Hệ thống training </a>
                     </li>
                 </ul>
             </li>
-            
+
             <li class="nav-item nav-item-has-children">
                 <a href="#0"
                    class=""
@@ -46,7 +46,7 @@
                             <path d="M13.75 4.58325H16.5L15.125 6.41659L13.75 4.58325ZM4.58333 1.83325H17.4167C18.4342 1.83325 19.25 2.65825 19.25 3.66659V18.3333C19.25 19.3508 18.4342 20.1666 17.4167 20.1666H4.58333C3.575 20.1666 2.75 19.3508 2.75 18.3333V3.66659C2.75 2.65825 3.575 1.83325 4.58333 1.83325ZM4.58333 3.66659V7.33325H17.4167V3.66659H4.58333ZM4.58333 18.3333H17.4167V9.16659H4.58333V18.3333ZM6.41667 10.9999H15.5833V12.8333H6.41667V10.9999ZM6.41667 14.6666H15.5833V16.4999H6.41667V14.6666Z" />
                         </svg>
                     </span>
-                    <span class="text"> Quản lý lớp học </span>
+                    <span class="text"> Quản lý lớp học</span>
                 </a>
                 <ul id="ddmenu_5" class="collapsed @((ViewBag.PageName == "CreateClass") ? "show" : "") dropdown-nav">
                     <li>
@@ -57,6 +57,38 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item nav-item-has-children">
+                <a href="#0"
+                   class=""
+                   data-bs-toggle="collapse"
+                   data-bs-target="#ddmenu_6"
+                   aria-controls="ddmenu_6"
+                   aria-expanded="true"
+                   aria-label="Toggle navigation">
+                    <span class="icon">
+                        <svg width="22"
+                             height="22"
+                             viewBox="0 0 22 22"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.023,12.154c1.514-1.192,2.488-3.038,2.488-5.114c0-3.597-2.914-6.512-6.512-6.512
+								c-3.597,0-6.512,2.916-6.512,6.512c0,2.076,0.975,3.922,2.489,5.114c-2.714,1.385-4.625,4.117-4.836,7.318h1.186
+								c0.229-2.998,2.177-5.512,4.86-6.566c0.853,0.41,1.804,0.646,2.813,0.646c1.01,0,1.961-0.236,2.812-0.646
+								c2.684,1.055,4.633,3.568,4.859,6.566h1.188C18.648,16.271,16.736,13.539,14.023,12.154z M10,12.367
+								c-2.943,0-5.328-2.385-5.328-5.327c0-2.943,2.385-5.328,5.328-5.328c2.943,0,5.328,2.385,5.328,5.328
+								C15.328,9.982,12.943,12.367,10,12.367z"/>
+                        </svg>
+                    </span>
+                    <span class="text"> Quản lý nhân viên</span>
+                </a>
+                <ul id="ddmenu_6" class="collapsed @((ViewBag.PageName == "Trainee") ? "show" : "") dropdown-nav">
+                    <li>
+                        <a asp-page="Trainee" class="@((ViewBag.PageName == "Trainee") ? "active" : "")">Danh sách Trainee </a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </nav>
 </aside>

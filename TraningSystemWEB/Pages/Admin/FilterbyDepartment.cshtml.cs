@@ -16,7 +16,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         public int DepartmentID { get; set; }
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgramDto> ListTrainingProgram { get; set; }
+        public List<TrainingProgramDto> ListTrainingProgram = new List<TrainingProgramDto>();
 
         public void ApitoGetListData(string type)
         {
@@ -44,7 +44,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
 
         public void ApitoGetListTP()
         {
-            var url = "https://localhost:44321/api/departments/";
+            var url = "https://localhost:44321/api/department/";
             var response = client.GetAsync(url + DepartmentID + "/trainingprogram");
             response.Wait();
             HttpResponseMessage result = response.Result;
