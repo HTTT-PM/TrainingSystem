@@ -1,7 +1,7 @@
-﻿@page "/admin/trainee.htm"
-@model TraningSystemAdminWEB.Pages.Admin.TraineeModel
+﻿@page "/admin/access-hcm-data/true/trainee"
+@model TraningSystemAdminWEB.Pages.Admin.TraineeFilterByAccessDataModel
 @{
-    ViewBag.PageName = "Trainee";
+    ViewBag.PageName = "TraineeFilterByAccessData";
 }
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -49,18 +49,18 @@
                 <tbody>
                     @foreach (var trainee in Model.ListTrainee)
                     {
-                    <tr id="row-@trainee.TraineeID">
-                        <td>@trainee.TraineeName</td>
-                        <td>
-                            @trainee.DepartmentName
-                        </td>
-                        <td>
-                            @trainee.JobPositionName
-                        </td>
-                        <td>
-                            @trainee.GetAccessToHCMData
-                        </td>
-                    </tr>
+                        <tr id="row-@trainee.TraineeID">
+                            <td>@trainee.TraineeName</td>
+                            <td>
+                                @trainee.DepartmentName
+                            </td>
+                            <td>
+                                @trainee.JobPositionName
+                            </td>
+                            <td>
+                                @trainee.GetAccessToHCMData
+                            </td>
+                        </tr>
                     }
                     <!-- end table row -->
                 </tbody>

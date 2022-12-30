@@ -8,7 +8,7 @@ namespace TraniningSystemAPI.Entity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int TraineerID { get; set; }
+        public int TraineeID { get; set; }
         public string TraineeName { get; set; }
         public int TraineeAge { get; set; }
         public int JobPositionId { get; set; }

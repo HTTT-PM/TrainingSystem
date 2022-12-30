@@ -27,7 +27,7 @@ namespace TraniningSystemAPI.Controllers
             var result = from t in _context.Trainee
                          select new TraineeDto()
                          {
-                            TraineeID = t.TraineerID,
+                            TraineeID = t.TraineeID,
                             TraineeName = t.TraineeName,
                             JobPositionName = t.JobPosition.JobPositionName,
                             DepartmentName = t.Department.DepartmentName,
@@ -37,5 +37,38 @@ namespace TraniningSystemAPI.Controllers
             return result;
         }
 
+        [HttpGet("/trainee/access-hcm-data/true")]
+        public IEnumerable<TraineeDto> GetTraineeAccessHCMData()
+        {
+            var result = from t in _context.Trainee
+                         where t.GetAccessToHCMData == true
+                         select new TraineeDto()
+                         {
+                             TraineeID = t.TraineeID,
+                             TraineeName = t.TraineeName,
+                             JobPositionName = t.JobPosition.JobPositionName,
+                             DepartmentName = t.Department.DepartmentName,
+                             GetAccessToHCMData = t.GetAccessToHCMData
+                         };
+
+            return result;
+        }
+
+        [HttpGet("/trainee/access-hcm-data/false")]
+        public IEnumerable<TraineeDto> GetTraineeNotAccessHCMData()
+        {
+            var result = from t in _context.Trainee
+                         where t.GetAccessToHCMData == false
+                         select new TraineeDto()
+                         {
+                             TraineeID = t.TraineeID,
+                             TraineeName = t.TraineeName,
+                             JobPositionName = t.JobPosition.JobPositionName,
+                             DepartmentName = t.Department.DepartmentName,
+                             GetAccessToHCMData = t.GetAccessToHCMData
+                         };
+
+            return result;
+        }
     }
 }
