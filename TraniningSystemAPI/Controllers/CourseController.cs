@@ -79,11 +79,11 @@ namespace TraniningSystemAPI.Controllers
 
         // GET: api/{CourseID}/trainee
         [HttpGet("{CourseID:int}/trainee")]
-        public IEnumerable<TraineeDto> GetTraineeOfCourseByID([FromRoute] int CourseID)
+        public IEnumerable<TraineeInCourse> GetTraineeOfCourseByID([FromRoute] int CourseID)
         {
             var result = from t in _context.CourseParticipant
                          where t.CourseKey == CourseID
-                         select new TraineeDto()
+                         select new TraineeInCourse()
                          {
                              TraineeID = t.TraineeKey,
                              TraineeName = t.Trainee.TraineeName,

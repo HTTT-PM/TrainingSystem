@@ -1,21 +1,21 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using TraniningSystemAPI.Dto;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using TraniningSystemAPI.Entity;
+using System.Linq;
+using TraniningSystemAPI.Dto;
+using System;
 
 namespace TraningSystemAdminWEB.Pages.Admin
 {
-    public class FIlterByJPModel : PageModel
+    public class TraineeFilterByNotAccessDataModel : PageModel
     {
         static readonly HttpClient client = new HttpClient();
-        public int JobPositionID { get; set; }
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgramDto> ListTrainingProgram = new List<TrainingProgramDto>();
+        public List<TraineeDto> ListTrainee = new List<TraineeDto>();
         public void ApitoGetListData(string type)
         {
             var url = "https://localhost:44321/api/";
@@ -34,34 +34,35 @@ namespace TraningSystemAdminWEB.Pages.Admin
                     case "department":
                         ListDepartment = JsonConvert.DeserializeObject<List<Department>>(messageTask.Result);
                         break;
+                    case "trainee":
+                        ListTrainee = JsonConvert.DeserializeObject<List<TraineeDto>>(messageTask.Result);
+                        break;
                     default:
                         break;
                 }
             }
         }
 
-        public void ApitoGetListTP()
+        public void ApitoGetListTrainee()
         {
-            var url = "https://localhost:44321/api/job-position/";
-            var response = client.GetAsync(url + JobPositionID + "/trainingprogram");
-            Console.WriteLine(url + JobPositionID + "/trainingprogram");
+            var url = "https://localhost:44321/trainee/access-hcm-data/false";
+            var response = client.GetAsync(url);
             response.Wait();
             HttpResponseMessage result = response.Result;
             if (result.IsSuccessStatusCode)
             {
                 var messageTask = result.Content.ReadAsStringAsync();
                 messageTask.Wait();
-                ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgramDto>>(messageTask.Result);
-                
+                ListTrainee = JsonConvert.DeserializeObject<List<TraineeDto>>(messageTask.Result);
+
             }
         }
+
         public void OnGet()
         {
-
-            JobPositionID = Int32.Parse((string)RouteData.Values["JobPositionID"]);
             ApitoGetListData("job-position");
-            ApitoGetListData("department");
-            ApitoGetListTP();
+            ApitoGetListData("trainee");
+            ApitoGetListTrainee();
         }
     }
 }

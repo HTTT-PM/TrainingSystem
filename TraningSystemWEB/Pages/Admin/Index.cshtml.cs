@@ -14,7 +14,7 @@ namespace TraningSystemWEB.Pages
         }
         public void OnGet()
         {
-            ViewData["update"] = "UPDATE LATER";
+            ViewData["update"] = "";
         }
     }
 }

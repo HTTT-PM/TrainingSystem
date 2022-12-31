@@ -23,14 +23,14 @@ namespace TraniningSystemAPI.Controllers
         {
             var result = from cp in _context.CourseParticipant
                          join c in _context.Course on cp.CourseKey equals c.CourseID
-                         join t in _context.Trainee on cp.TraineeKey equals t.TraineerID
+                         join t in _context.Trainee on cp.TraineeKey equals t.TraineeID
                          join j in _context.JobPosition on t.JobPositionId equals j.JobPositionID
                          where cp.IsComplete
                          select new EvaluateDto()
                          {
                              CourseID = c.CourseID,
                              CourseName = c.CourseName,
-                             TraineeID = t.TraineerID,
+                             TraineeID = t.TraineeID,
                              TraineeName = t.TraineeName,
                              ResultOfEvaluation = cp.ResultOfEvaluation,
                              JobPositionName = j.JobPositionName,
@@ -44,14 +44,14 @@ namespace TraniningSystemAPI.Controllers
         {
             var result = from cp in _context.CourseParticipant
                          join c in _context.Course on cp.CourseKey equals c.CourseID
-                         join t in _context.Trainee on cp.TraineeKey equals t.TraineerID
+                         join t in _context.Trainee on cp.TraineeKey equals t.TraineeID
                          join j in _context.JobPosition on t.JobPositionId equals j.JobPositionID
                          where cp.IsComplete && (t.JobPositionId == JobPositionID)
                          select new EvaluateDto()
                          {
                              CourseID = c.CourseID,
                              CourseName = c.CourseName,
-                             TraineeID = t.TraineerID,
+                             TraineeID = t.TraineeID,
                              TraineeName = t.TraineeName,
                              ResultOfEvaluation = cp.ResultOfEvaluation,
                              JobPositionName = j.JobPositionName,
@@ -65,7 +65,7 @@ namespace TraniningSystemAPI.Controllers
         {
             var result = from cp in _context.CourseParticipant
                          join c in _context.Course on cp.CourseKey equals c.CourseID
-                         join t in _context.Trainee on cp.TraineeKey equals t.TraineerID
+                         join t in _context.Trainee on cp.TraineeKey equals t.TraineeID
                          join j in _context.JobPosition on t.JobPositionId equals j.JobPositionID
                          join sc in _context.SkillCourse on cp.CourseKey equals sc.CourseKey
                          where cp.IsComplete && (sc.SkillKey == SkillID)
@@ -73,7 +73,7 @@ namespace TraniningSystemAPI.Controllers
                          {
                              CourseID = c.CourseID,
                              CourseName = c.CourseName,
-                             TraineeID = t.TraineerID,
+                             TraineeID = t.TraineeID,
                              TraineeName = t.TraineeName,
                              ResultOfEvaluation = cp.ResultOfEvaluation,
                              JobPositionName = j.JobPositionName,
@@ -87,7 +87,7 @@ namespace TraniningSystemAPI.Controllers
         {
             var result = from cp in _context.CourseParticipant
                          join c in _context.Course on cp.CourseKey equals c.CourseID
-                         join t in _context.Trainee on cp.TraineeKey equals t.TraineerID
+                         join t in _context.Trainee on cp.TraineeKey equals t.TraineeID
                          join j in _context.JobPosition on t.JobPositionId equals j.JobPositionID
                          join kc in _context.KnowledgeCourse on cp.CourseKey equals kc.CourseKey
                          where cp.IsComplete && (kc.KnowledgeKey == KnowledgeID)
@@ -95,7 +95,7 @@ namespace TraniningSystemAPI.Controllers
                          {
                              CourseID = c.CourseID,
                              CourseName = c.CourseName,
-                             TraineeID = t.TraineerID,
+                             TraineeID = t.TraineeID,
                              TraineeName = t.TraineeName,
                              ResultOfEvaluation = cp.ResultOfEvaluation,
                              JobPositionName = j.JobPositionName,

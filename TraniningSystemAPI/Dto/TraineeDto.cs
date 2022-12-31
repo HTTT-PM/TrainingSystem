@@ -4,9 +4,9 @@
     {
         public int TraineeID { get; set; }
         public string TraineeName { get; set; }
-        public string ResultOfEvaluation { get; set; }
-        public bool IsComplete { get; set; }
-        public int Point { get; set; }
-        public int Rank { get; set; }
+        public string JobPositionName { get; set; }
+        public string DepartmentName { get; set; }
+        public bool GetAccessToHCMData { get; set; }
+
     }
 }

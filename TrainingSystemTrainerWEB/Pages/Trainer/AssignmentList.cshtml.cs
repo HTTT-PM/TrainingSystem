@@ -12,7 +12,7 @@ namespace TrainingSystemTrainerWEB.Pages.Trainer
     {
         static readonly HttpClient client = new HttpClient();
         public int CourseID { get; set; }
-        public List<TraineeDto> TraineeList { get; set; }
+        public List<TraineeInCourse> TraineeList { get; set; }
         public List<ExerciseDto> ExerciseList { get; set; }
         public void CallAPIGetListTrainee()
         {
@@ -24,7 +24,7 @@ namespace TrainingSystemTrainerWEB.Pages.Trainer
             {
                 var messageTask = resultl.Content.ReadAsStringAsync();
                 messageTask.Wait();
-                TraineeList = JsonConvert.DeserializeObject<List<TraineeDto>>(messageTask.Result);
+                TraineeList = JsonConvert.DeserializeObject<List<TraineeInCourse>>(messageTask.Result);
             }
         }
         public void CallAPIGetListExercise()
