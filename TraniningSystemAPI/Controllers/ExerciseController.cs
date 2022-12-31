@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
+using System.Linq;
 
 namespace TraniningSystemAPI.Controllers
 {
@@ -18,10 +20,42 @@ namespace TraniningSystemAPI.Controllers
             _context = context;
         }
 
+
         [HttpGet]
         public ActionResult Get(string path)
         {
             return File(System.IO.File.OpenRead(path), "application/pdf");
+        }
+
+        [HttpGet("{ExerciseKey:int}/submit")]
+        public IEnumerable<SubmitDto> GetSubmit([FromRoute] int ExerciseKey)
+        {
+            var result = from te in _context.TraineeExercise
+                         join e in _context.Exercise on te.ExerciseKey equals e.ExerciseID
+                         join t in _context.Trainee on te.TraineeKey equals t.TraineeID
+                         where te.ExerciseKey == ExerciseKey
+                         select new SubmitDto()
+                         {
+                             ExerciseID = e.ExerciseID,
+                             ExerciseName = e.ExerciseName,
+                             TraineeID = t.TraineeID,
+                             TraineeName = t.TraineeName,
+                             Link = te.Link,
+                             Point = te.Point
+                         };
+            return result;
+        }
+
+        [HttpPost("{ExerciseKey:int}/submit/{TraineeKey:int}")]
+        public string ChangePointForSubmit ([FromRoute] int ExerciseKey, [FromRoute] int TraineeKey, int Point)
+        {
+            var CheckSubmit = _context.TraineeExercise.Find(ExerciseKey, TraineeKey);
+            if (CheckSubmit != null)
+            {
+                CheckSubmit.Point = Point;
+                _context.SaveChanges();
+            }
+            return "OKE";
         }
 
         [HttpPost("{CourseID:int}")]

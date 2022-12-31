@@ -29,7 +29,7 @@ namespace TraniningSystemAPI.Data
         public DbSet<KnowledgeCourse> KnowledgeCourse { get; set; }
         public DbSet<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
         public DbSet<TraineeCourseSkill> TraineeCourseSkill { get; set; }
-        public DbSet<TraineeCourseExercise> TraineeCourseExercise { get; set; }
+        public DbSet<TraineeExercise> TraineeExercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<CourseParticipant>().ToTable("CourseParticipant");
             modelBuilder.Entity<TraineeCourseKnowledge>().ToTable("TraineeCourseKnowledge");
             modelBuilder.Entity<TraineeCourseSkill>().ToTable("TraineeCourseSkill");
-            modelBuilder.Entity<TraineeCourseExercise>().ToTable("TraineeCourseExercise");
+            modelBuilder.Entity<TraineeExercise>().ToTable("TraineeExercise");
 
             modelBuilder.Entity<TraineeCourseSkill>().HasKey(x => new { x.SkillKey, x.CourseKey, x.TraineeKey });
             modelBuilder.Entity<TraineeCourseSkill>()
@@ -86,18 +86,14 @@ namespace TraniningSystemAPI.Data
                  .WithMany(t => t.TraineeCourseKnowledge)
                  .HasForeignKey(t => t.TraineeKey);
 
-            modelBuilder.Entity<TraineeCourseExercise>().HasKey(x => new { x.ExerciseKey, x.CourseKey, x.TraineeKey });
-            modelBuilder.Entity<TraineeCourseExercise>()
+            modelBuilder.Entity<TraineeExercise>().HasKey(x => new { x.ExerciseKey, x.TraineeKey });
+            modelBuilder.Entity<TraineeExercise>()
                 .HasOne(t => t.Exercise)
-               .WithMany(t => t.TraineeCourseExercise)
+               .WithMany(t => t.TraineeExercise)
                 .HasForeignKey(t => t.ExerciseKey);
-            modelBuilder.Entity<TraineeCourseExercise>()
-                .HasOne(t => t.Course)
-                 .WithMany(t => t.TraineeCourseExercise)
-                 .HasForeignKey(t => t.CourseKey);
-            modelBuilder.Entity<TraineeCourseExercise>()
+            modelBuilder.Entity<TraineeExercise>()
                 .HasOne(t => t.Trainee)
-                 .WithMany(t => t.TraineeCourseExercise)
+                 .WithMany(t => t.TraineeExercise)
                  .HasForeignKey(t => t.TraineeKey);
 
             modelBuilder.Entity<KnowledgeTrainingProgram>().HasKey(x => new { x.KnowledgeKey, x.TrainingProgramKey });

@@ -70,8 +70,8 @@
                         @exercise.ExerciseName
                     </td>
                     <td width="100" style="padding-right: 50px; ">
-                        <a href="https://localhost:44321/api/exercise?path=@exercise.Link" class="main-btn primary-btn-outline btn-hover btn-sm" download="@exercise.ExerciseName">Tải bài tập</a>
-                        <a class="main-btn primary-btn-outline btn-hover btn-sm" href="#">Chi tiết</a>
+                        <a href="https://localhost:44321/api/exercise?path=@exercise.Link" class="main-btn dark-btn-outline btn-hover btn-sm" download="@exercise.ExerciseName">Đề bài</a>
+                        <a class="main-btn primary-btn-outline btn-hover btn-sm" href="/trainer/submit-list/@exercise.ExerciseID">Bài nộp của học viên</a>
                     </td>
                 </tr>
             }

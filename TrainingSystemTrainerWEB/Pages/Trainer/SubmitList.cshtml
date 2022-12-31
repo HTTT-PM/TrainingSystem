@@ -1,0 +1,47 @@
+﻿@page "/trainer/submit-list/{ExerciseID}"
+@model TrainingSystemTrainerWEB.Pages.Trainer.SubmitListModel
+@{
+    ViewBag.PageName = "GradeAssignment";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Học viên</th>
+                <th scope="col">Bài nộp</th>
+                <th scope="col">Điểm</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var submit in Model.SubmitList)
+            {
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@submit.TraineeID</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @submit.TraineeName
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        <a href="https://localhost:44321/api/exercise?path=@submit.Link" class="main-btn dark-btn-outline btn-hover btn-sm">Download</a>
+                    </td>
+                    <td width="200" style="padding-right: 50px; ">
+                        <input id="submit-@submit.ExerciseID-@submit.TraineeID" type="number" value="@submit.Point" style="border: none; background-color:white;" onchange="ChangePoint('@submit.ExerciseID','@submit.TraineeID')"/>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function ChangePoint(ExerciseID, TraineeID) {
+        fetch('https://localhost:44321/api/exercise/' + ExerciseID + '/submit/' + TraineeID + '?Point=' + $('#submit-' + ExerciseID + '-' + TraineeID+'').val(), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+</script>

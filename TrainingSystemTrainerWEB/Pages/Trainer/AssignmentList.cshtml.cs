@@ -4,7 +4,6 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using TraniningSystemAPI.Dto;
-using TraniningSystemAPI.Entity;
 
 namespace TrainingSystemTrainerWEB.Pages.Trainer
 {
