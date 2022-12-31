@@ -77,6 +77,42 @@ namespace TraniningSystemAPI.Controllers
             return result;
         }
 
+        // GET: api/{CourseID}/trainee
+        [HttpGet("{CourseID:int}/trainee")]
+        public IEnumerable<TraineeDto> GetTraineeOfCourseByID([FromRoute] int CourseID)
+        {
+            var result = from t in _context.CourseParticipant
+                         where t.CourseKey == CourseID
+                         select new TraineeDto()
+                         {
+                             TraineeID = t.TraineeKey,
+                             TraineeName = t.Trainee.TraineeName,
+                             ResultOfEvaluation = t.ResultOfEvaluation,
+                             IsComplete = t.IsComplete,
+                             Point = t.Point,
+                             Rank = t.Rank
+                         };
+            return result;
+        }
+
+        // GET: api/{CourseID}/exercise
+        [HttpGet("{CourseID:int}/exercise")]
+        public IEnumerable<ExerciseDto> GetExerciseListOfCourseByID([FromRoute] int CourseID)
+        {
+            var result = (from c in _context.Course
+                         join t in _context.Content on c.CourseID equals t.CourseID
+                         join e in _context.Exercise on t.ContentID equals e.ExerciseID
+                         where c.CourseID == CourseID
+                         select new ExerciseDto()
+                         {
+                             ExerciseID = e.ExerciseID,
+                             ExerciseName = e.ExerciseName,
+                             Link = e.Link
+                         }
+                        ).Distinct();
+            return result;
+        }
+
         // GET: api/course/search
         [HttpGet("search")]
         public IEnumerable<Course> SearchCourse(string searchString)

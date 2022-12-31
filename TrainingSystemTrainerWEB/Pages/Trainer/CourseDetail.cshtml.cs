@@ -83,6 +83,7 @@ namespace TrainingSystemTrainerWEB.Pages.Trainer
         public void OnGet()
         {
             CourseID = Int32.Parse((string)RouteData.Values["CourseID"]);
+
             this.CallAPIGetCourse();
             this.CallApiToGetSkillAndKnowledgeOfCourse("skill");
             this.CallApiToGetSkillAndKnowledgeOfCourse("knowledge");

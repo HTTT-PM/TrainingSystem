@@ -20,5 +20,6 @@ namespace TraniningSystemAPI.Entity
         public virtual Skill Skill { get; set; }
         public int? KnowledgeID { get; set; }
         public virtual Knowledge Knowledge { get; set; }
+        public virtual ICollection<TraineeCourseExercise> TraineeCourseExercise { get; set; }
     }
 }

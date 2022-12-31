@@ -29,6 +29,7 @@ namespace TraniningSystemAPI.Data
         public DbSet<KnowledgeCourse> KnowledgeCourse { get; set; }
         public DbSet<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
         public DbSet<TraineeCourseSkill> TraineeCourseSkill { get; set; }
+        public DbSet<TraineeCourseExercise> TraineeCourseExercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,6 +56,7 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<CourseParticipant>().ToTable("CourseParticipant");
             modelBuilder.Entity<TraineeCourseKnowledge>().ToTable("TraineeCourseKnowledge");
             modelBuilder.Entity<TraineeCourseSkill>().ToTable("TraineeCourseSkill");
+            modelBuilder.Entity<TraineeCourseExercise>().ToTable("TraineeCourseExercise");
 
             modelBuilder.Entity<TraineeCourseSkill>().HasKey(x => new { x.SkillKey, x.CourseKey, x.TraineeKey });
             modelBuilder.Entity<TraineeCourseSkill>()
@@ -82,6 +84,20 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<TraineeCourseKnowledge>()
                 .HasOne(t => t.Trainee)
                  .WithMany(t => t.TraineeCourseKnowledge)
+                 .HasForeignKey(t => t.TraineeKey);
+
+            modelBuilder.Entity<TraineeCourseExercise>().HasKey(x => new { x.ExerciseKey, x.CourseKey, x.TraineeKey });
+            modelBuilder.Entity<TraineeCourseExercise>()
+                .HasOne(t => t.Exercise)
+               .WithMany(t => t.TraineeCourseExercise)
+                .HasForeignKey(t => t.ExerciseKey);
+            modelBuilder.Entity<TraineeCourseExercise>()
+                .HasOne(t => t.Course)
+                 .WithMany(t => t.TraineeCourseExercise)
+                 .HasForeignKey(t => t.CourseKey);
+            modelBuilder.Entity<TraineeCourseExercise>()
+                .HasOne(t => t.Trainee)
+                 .WithMany(t => t.TraineeCourseExercise)
                  .HasForeignKey(t => t.TraineeKey);
 
             modelBuilder.Entity<KnowledgeTrainingProgram>().HasKey(x => new { x.KnowledgeKey, x.TrainingProgramKey });
