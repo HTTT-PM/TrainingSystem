@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Entity;
+using TraniningSystemAPI.Dto;
 
 namespace TraniningSystemAPI.Controllers
 {
@@ -17,6 +18,21 @@ namespace TraniningSystemAPI.Controllers
         public TrainerController(ModelContext context)
         {
             _context = context;
+        }
+
+        // GET: api/trainer
+        [HttpGet]
+        public IEnumerable<TrainerDto> Get()
+        {
+            var result = from t in _context.Trainer
+                         select new TrainerDto()
+                         {
+                             TrainerID = t.TrainerID,
+                             TrainerName = t.TrainerName,
+                             TrainerEmail = t.TrainerEmail
+                         };
+
+            return result;
         }
 
         [HttpGet("search")]

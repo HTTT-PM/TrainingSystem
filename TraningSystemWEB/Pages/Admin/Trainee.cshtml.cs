@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TraniningSystemAPI.Entity;
 using System.Linq;
 using TraniningSystemAPI.Dto;
+using TraningSystemAdminWEB.Dto;
 
 namespace TraningSystemAdminWEB.Pages.Admin
 {

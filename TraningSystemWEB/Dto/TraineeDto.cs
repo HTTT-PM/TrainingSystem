@@ -1,4 +1,4 @@
-﻿namespace TraniningSystemAPI.Dto
+﻿namespace TraningSystemAdminWEB.Dto
 {
     public class TraineeDto
     {
