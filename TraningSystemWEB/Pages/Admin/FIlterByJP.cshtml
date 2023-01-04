@@ -49,15 +49,15 @@
                 <tbody>
                     @foreach (var trainingProgram in Model.ListTrainingProgram)
                     {
-                    <tr id="row-@trainingProgram.TrainingID">
-                        <td>@trainingProgram.TrainingName</td>
-                        <td>
-                            @trainingProgram.DepartmentName
-                        </td>
-                        <td>
-                            @trainingProgram.JobPositionName
-                        </td>
-                    </tr>
+                        <tr id="row-@trainingProgram.TrainingID">
+                            <td>@trainingProgram.TrainingName</td>
+                            <td>
+                                @trainingProgram.DepartmentName
+                            </td>
+                            <td>
+                                @trainingProgram.JobPositionName
+                            </td>
+                        </tr>
                     }
                     <!-- end table row -->
                 </tbody>

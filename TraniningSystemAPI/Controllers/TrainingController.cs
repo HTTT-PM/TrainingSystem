@@ -36,6 +36,22 @@ namespace TraniningSystemAPI.Controllers
             return result;
         }
 
+        // GET: api/trainning/{TrainingID}
+        [HttpGet("{TrainingProgramID:int}")]
+        public IEnumerable<TrainingProgramDto> GetTPByTrainingDByID([FromRoute] int TrainingProgramID)
+        {
+            var result = from t in _context.TrainingProgram
+                         where t.TrainingID == TrainingProgramID
+                         select new TrainingProgramDto()
+                         {
+                             TrainingID = t.TrainingID,
+                             TrainingName = t.TrainingName,
+                             DepartmentName= t.Department.DepartmentName,
+                             JobPositionName= t.JobPosition.JobPositionName,
+                         };
+            return result;
+        }
+
         // GET: api/trainning/{TrainingID}/skill
         [HttpGet("{TrainingProgramID:int}/skill")]
         public IEnumerable<SkillDto> GetSkillOfTrainingDByID([FromRoute] int TrainingProgramID)

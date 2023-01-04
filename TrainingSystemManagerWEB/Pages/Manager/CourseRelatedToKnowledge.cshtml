@@ -1,0 +1,57 @@
+﻿@page "/manager/manageknowledge/course/{KnowledgeID}"
+@model TrainingSystemManagerWEB.Pages.Manager.CourseRelatedToKnowledgeModel
+@{
+    ViewBag.PageName = "CourseRelatedToKnowledge";
+}
+
+
+<div class="col-lg-12">
+    <div class="card-style mb-30">
+        <h3 class="mb-4">
+            Các Khoá Học Có Đào Tạo Kiến Thức Về
+            @foreach (var Knowledge in Model.ListKnowledge)
+            {
+                @if (Knowledge.KnowledgeID== Model.KnowledgeID)
+                {
+                    <b><i>@Knowledge.KnowledgeName</i></b>
+                }
+
+            }
+        </h3>
+        <p class="text-sm mb-20"></p>
+        <div class="table-wrapper table-responsive">
+            <table class="table striped-table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tên Khoá Học</th>
+                        <th scope="col">Số tiết học</th>
+                        <th scope="col">Hình thức đánh giá</th>
+
+                    </tr>
+                    <!-- end table row-->
+                </thead>
+                <tbody>
+                    @foreach (var course in Model.ListCourse)
+                    {
+                        <tr id="row-@course.CourseID">
+                            <td>@course.CourseID</td>
+                            <td>
+                                @course.CourseName
+                            </td>
+                            <td>
+                                @course.NumberOfLesson
+                            </td>
+                            <td>
+                                @course.AssessmentForm
+                            </td>
+                        </tr>
+                    }
+                    <!-- end table row -->
+                </tbody>
+            </table>
+            <!-- end table -->
+        </div>
+    </div>
+    <!-- end card -->
+</div>

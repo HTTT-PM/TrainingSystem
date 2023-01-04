@@ -1,15 +1,21 @@
-﻿@page
-@model TrainingSystemManagerWEB.Pages.Manager.ManageKnowledgeModel
+﻿@page "/manager/manageknowledge/trainingprogram/{TrainingID}"
+@model TrainingSystemManagerWEB.Pages.Manager.KnowledgeResultFilterbyTrainingProgramModel
 @{
-    ViewBag.PageName = "ManageKnowledge";
+    ViewBag.PageName = "KnowledgeResultFilterByTrainingProgram";
 }
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
     <div class="d-flex flex-row-reverse">
         <div class="p-2">
             <div class="dropdown1">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Dự án (Chương trình) </a>
+                @foreach (var trainingprogram in Model.ListTrainingProgram)
+                {
+                    @if (trainingprogram.TrainingID == Model.TrainingID)
+                    {
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Chương trình @trainingprogram.TrainingName </a>
+                    }
+                }
+
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     @foreach (var trainingprogram in Model.ListTrainingProgram)
                     {
@@ -31,6 +37,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="card-style mb-30">
     <h4 class="mb-25 justify-content-between">KIẾN THỨC</h4>
@@ -91,36 +98,36 @@
     function AddKnowledge() {
         var name = $('#knowledge-name-input').val()
         fetch('https://localhost:44321/api/knowledge' + "?KnowledgeName=" + name, {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json'
-             }
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(r => r.json()).then(data => {
             $('#knowledgeList').append(`
-                <tr id="knowledge-row-${data}">
-                    <td>
-                        <input id="knowledge-${data}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
-                    </td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <div id="knowledge-update-btn-${data}">
-                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(${data})">✎</button>
-                            </div>
-                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledge(${data})">✘</button>
-                        </div>
-                    </td>
-                </tr>
-            `)
+                        <tr id="knowledge-row-${data}">
+                            <td>
+                                <input id="knowledge-${data}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <div id="knowledge-update-btn-${data}">
+                                        <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(${data})">✎</button>
+                                    </div>
+                                    <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledge(${data})">✘</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `)
         })
     }
 
     function DeleteKnowledge(index) {
-            fetch('https://localhost:44321/api/knowledge/' + parseInt(index), {
-             method: 'DELETE',
-             headers: {
-                 'Content-Type': 'application/json'
-             }
-         })
+        fetch('https://localhost:44321/api/knowledge/' + parseInt(index), {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
 
         $('#knowledge-row-' + index + '').remove();
     }

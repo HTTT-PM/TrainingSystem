@@ -4,6 +4,7 @@ using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
+using static System.Net.WebRequestMethods;
 
 namespace TraniningSystemAPI.Controllers
 {
@@ -53,6 +54,60 @@ namespace TraniningSystemAPI.Controllers
                              SkillName = t.Skill.SkillName,
                          };
             return result;
+        }
+
+
+        // GET: api/course/{SkillID}
+        [HttpGet("skill/{SkillID:int}")]
+        public IEnumerable<Course> GetCourseFilterRelateToSkill([FromRoute] int SkillID)
+        {
+            var result = from C in _context.Course
+                         join CTP in _context.CourseTrainingProgram on C.CourseID equals CTP.CourseKey
+                         join STP in _context.SkillTrainingProgram on CTP.TrainingProgramKey equals STP.TrainingProgramKey
+                         where STP.SkillKey == SkillID
+                         select new Course()
+                         {
+                             CourseID = C.CourseID,
+                             CourseName = C.CourseName,
+                             NumberOfLesson = C.NumberOfLesson,
+                             AssessmentForm = C.AssessmentForm,
+                         };
+
+            return result.Distinct();
+        }
+
+
+        [HttpGet("knowledge/{KnowledgeID:int}")]
+        public IEnumerable<CourseDto> GetCourseFilterRelateToKnowledge([FromRoute] int KnowledgeID)
+        {
+            var result = from C in _context.Course
+                         join CTP in _context.CourseTrainingProgram on C.CourseID equals CTP.CourseKey
+                         join KTP in _context.KnowledgeTrainingProgram on CTP.TrainingProgramKey equals KTP.TrainingProgramKey
+                         where KTP.KnowledgeKey == KnowledgeID
+                         select new CourseDto()
+                         {
+                             CourseID = C.CourseID,
+                             CourseName = C.CourseName,
+                         };
+
+            return result.Distinct();
+        }
+
+        // GET: api/course/{JobPositionID}
+        [HttpGet("{JobPositionID:int}")]
+        public IEnumerable<CourseDto> GetCourseFilterRelateToJobPosition([FromRoute] int JobPositionID)
+        {
+            var result = from C in _context.Course
+                         join CTP in _context.CourseTrainingProgram on C.CourseID equals CTP.CourseKey
+                         join TP in _context.TrainingProgram on CTP.TrainingProgramKey equals TP.TrainingID
+                         join J in _context.JobPosition on TP.JobPositionID equals J.JobPositionID
+                         where J.JobPositionID == JobPositionID
+                         select new CourseDto()
+                         {
+                             CourseID = C.CourseID,
+                             CourseName = C.CourseName,
+                         };
+            return result.Distinct();
         }
 
         // GET: api/{CourseID}/knowledge

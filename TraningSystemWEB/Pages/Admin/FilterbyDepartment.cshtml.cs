@@ -44,7 +44,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
 
         public void ApitoGetListTP()
         {
-            var url = "https://localhost:44321/api/departments/";
+            var url = "https://localhost:44321/api/department/";
             var response = client.GetAsync(url + DepartmentID + "/trainingprogram");
             response.Wait();
             HttpResponseMessage result = response.Result;

@@ -15,7 +15,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         public int JobPositionID { get; set; }
         public List<JobPosition> ListJobPosition { get; set; }
         public List<Department> ListDepartment { get; set; }
-        public List<TrainingProgramDto> ListTrainingProgram { get; set; }
+        public List<TrainingProgramDto> ListTrainingProgram = new List<TrainingProgramDto>();
         public void ApitoGetListData(string type)
         {
             var url = "https://localhost:44321/api/";
@@ -42,7 +42,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
 
         public void ApitoGetListTP()
         {
-            var url = "https://localhost:44321/api/job-positions/";
+            var url = "https://localhost:44321/api/job-position/";
             var response = client.GetAsync(url + JobPositionID + "/trainingprogram");
             response.Wait();
             HttpResponseMessage result = response.Result;
@@ -51,7 +51,8 @@ namespace TraningSystemAdminWEB.Pages.Admin
                 var messageTask = result.Content.ReadAsStringAsync();
                 messageTask.Wait();
                 ListTrainingProgram = JsonConvert.DeserializeObject<List<TrainingProgramDto>>(messageTask.Result);
-                
+                System.Diagnostics.Debug.WriteLine(ListTrainingProgram);
+
             }
         }
         public void OnGet()

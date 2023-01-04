@@ -47,7 +47,7 @@ namespace TraniningSystemAPI.Controllers
         public IEnumerable<TrainingProgramDto> GetTPfilterByJob([FromRoute] int JobPositionID)
         {
 
-            var result = from t in _context.TrainingProgram.AsQueryable()
+            var result = from t in _context.TrainingProgram
                          where t.JobPositionID == JobPositionID
                          select new TrainingProgramDto()
                          {

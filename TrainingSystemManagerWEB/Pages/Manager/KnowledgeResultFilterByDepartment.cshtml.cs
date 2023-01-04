@@ -1,15 +1,18 @@
-using System.Collections.Generic;
-using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http;
+using System;
 using TraniningSystemAPI.Entity;
 
 namespace TrainingSystemManagerWEB.Pages.Manager
 {
-    public class ManageSkillModel : PageModel
+    public class KnowledgeResultFilterByDepartmentModel : PageModel
     {
         static readonly HttpClient client = new HttpClient();
-        public List<Skill> ListSkill { get; set; }
+        public int DepartmentID { get; set; }
+        public List<Knowledge> ListKnowledge { get; set; }
         public List<Department> ListDepartment { get; set; }
         public List<TrainingProgram> ListTrainingProgram { get; set; }
 
@@ -39,22 +42,29 @@ namespace TrainingSystemManagerWEB.Pages.Manager
 
 
 
-        public void ApitoGetListSkill()
+        public void ApitoGetListKnowledge()
         {
-            var url = "https://localhost:44321/api/skill";
-            var response = client.GetAsync(url);
+            var url = "https://localhost:44321/api/knowledge/Department/";
+            var response = client.GetAsync(url + DepartmentID);
             response.Wait();
             HttpResponseMessage result = response.Result;
-            var messageTask = result.Content.ReadAsStringAsync();
-            messageTask.Wait();
-            ListSkill = JsonConvert.DeserializeObject<List<Skill>>(messageTask.Result);
+            if (result.IsSuccessStatusCode)
+            {
+                var messageTask = result.Content.ReadAsStringAsync();
+                messageTask.Wait();
+                ListKnowledge = JsonConvert.DeserializeObject<List<Knowledge>>(messageTask.Result);
+            }
         }
+
+
 
         public void OnGet()
         {
-            ApitoGetListSkill();
+            DepartmentID = Int32.Parse((string)RouteData.Values["DepartmentID"]);
+            ApitoGetListKnowledge();
             ApitoGetListData("training");
             ApitoGetListData("department");
         }
     }
 }
+

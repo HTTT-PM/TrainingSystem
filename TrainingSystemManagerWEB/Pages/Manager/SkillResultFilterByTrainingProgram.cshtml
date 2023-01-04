@@ -1,15 +1,23 @@
-﻿@page
-@model TrainingSystemManagerWEB.Pages.Manager.ManageSkillModel
+﻿@page "/manager/manageskill/trainingprogram/{TrainingID}"
+@model TrainingSystemManagerWEB.Pages.Manager.SkillResultFilterByTrainingProgramModel
 @{
-    ViewBag.PageName = "ManagerSkill";
+    ViewBag.PageName = "SkillResultFilterByTrainingProgram";
 }
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
     <div class="d-flex flex-row-reverse">
         <div class="p-2">
             <div class="dropdown1">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Lọc theo Dự án (Chương trình) </a>
+                @foreach (var trainingprogram in Model.ListTrainingProgram)
+                    {
+                        @if (trainingprogram.TrainingID==Model.TrainingID)
+                        {
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Chương trình @trainingprogram.TrainingName </a>
+                        }          
+                    }
+                
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     @foreach (var trainingprogram in Model.ListTrainingProgram)
                     {
@@ -34,6 +42,13 @@
 
 <div class="card-style mb-30">
     <h4 class="mb-25 justify-content-between">KỸ NĂNG</h4>
+        @foreach (var trainingprogram in Model.ListTrainingProgram)
+        {
+        @if (@trainingprogram.TrainingID == Model.TrainingID)
+            {
+                <h4 class="mb-25 justify-content-between"> Phòng ban : @trainingprogram.TrainingName </h4>
+            }          
+        }
     <table class="table">
         <thead>
             <tr>
@@ -92,36 +107,36 @@
     function AddSkill() {
         var name = $('#skill-name-input').val()
         fetch('https://localhost:44321/api/skill' + "?SkillName=" + name, {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json'
-             }
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(r => r.json()).then(data => {
             $('#skillList').append(`
-                <tr id="skill-row-${data}">
-                    <td>
-                        <input id="skill-${data}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
-                    </td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <div id="skill-update-btn-${data}">
-                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(${data})">✎</button>
+                    <tr id="skill-row-${data}">
+                        <td>
+                            <input id="skill-${data}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
+                        </td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div id="skill-update-btn-${data}">
+                                    <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(${data})">✎</button>
+                                </div>
+                                <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkill(${data})">✘</button>
                             </div>
-                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkill(${data})">✘</button>
-                        </div>
-                    </td>
-                </tr>
-            `)
+                        </td>
+                    </tr>
+                `)
         })
     }
 
     function DeleteSkill(index) {
-            fetch('https://localhost:44321/api/skill/' + parseInt(index), {
-             method: 'DELETE',
-             headers: {
-                 'Content-Type': 'application/json'
-             }
-         })
+        fetch('https://localhost:44321/api/skill/' + parseInt(index), {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
 
         $('#skill-row-' + index + '').remove();
     }
