@@ -4,5 +4,6 @@
     {
         public int KnowledgeID { get; set; }
         public string KnowledgeName { get; set; }
+        public int Weight { get; set; }
     }
 }

@@ -44,7 +44,7 @@
                         @course.AssessmentForm
                     </td>
                     <td width="100" style="padding-right: 50px;">
-                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/@course.CourseID">Chi tiết</a>
+                        <a class="main-btn primary-btn-outline btn-hover btn-sm" href="/trainee/course-detail/@course.CourseID">Chi tiết</a>
                     </td>
                 </tr>
             }
@@ -64,7 +64,6 @@
                 let payload = data;
                 $searchResult.html('');
                 if (payload.length < 1) {
-                    $searchResult.html('<h5>không tìm thấy</h5>');
                     return;
                 }
 
@@ -86,7 +85,7 @@
                         ${item.assessmentForm}
                     </td>
                     <td width="100" style="padding-right: 50px;">
-                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
+                        <a class="main-btn primary-btn-outline btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
                     </td>
                 </tr>
                     `);
@@ -100,7 +99,6 @@
                 let payload = data;
                 $searchResult.html('');
                 if (payload.length < 1) {
-                    $searchResult.html('<h5>không tìm thấy</h5>');
                     return;
                 }
 
@@ -122,7 +120,7 @@
                         ${item.assessmentForm}
                     </td>
                     <td width="100" style="padding-right: 50px;">
-                        <a class="main-btn primary-btn btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
+                        <a class="main-btn primary-btn-outline btn-hover btn-sm" href="/trainee/course-detail/${item.courseID}">Chi tiết</a>
                     </td>
                 </tr>
                     `);

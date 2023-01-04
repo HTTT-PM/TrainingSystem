@@ -8,16 +8,18 @@ namespace TraniningSystemAPI.Entity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int TraineerID { get; set; }
+        public int TraineeID { get; set; }
         public string TraineeName { get; set; }
         public int TraineeAge { get; set; }
         public int JobPositionId { get; set; }
         public JobPosition JobPosition { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public bool GetAccessToHCMData { get; set; }
         public virtual ICollection<ClassroomParticipant> ClassroomParticipants { get; set; }
         public virtual ICollection<CourseParticipant> CourseParticipant { get; set; }
         public virtual ICollection<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
         public virtual ICollection<TraineeCourseSkill> TraineeCourseSkill { get; set; }
+        public virtual ICollection<TraineeExercise> TraineeExercise { get; set; }
     }
 }

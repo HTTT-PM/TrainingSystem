@@ -114,7 +114,6 @@ namespace TraniningSystemAPI.Controllers
             Knowledge checkKnowledge = _context.Knowledge.Find(KnowledgeID);
             if (checkKnowledge != null)
             {
-
                 checkKnowledge.KnowledgeName = KnowledgeName;
                 _context.SaveChanges();
                 return "OK";

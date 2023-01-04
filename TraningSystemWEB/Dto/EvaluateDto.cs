@@ -8,5 +8,6 @@
         public string TraineeName { get; set; }
         public string ResultOfEvaluation { get; set; }
         public string JobPositionName { get; set; }
+        public int Point { get; set; }
     }
 }

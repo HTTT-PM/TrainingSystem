@@ -15,6 +15,7 @@ namespace TraniningSystemAPI.Entity
         public int TrainerID { get; set; }
         public string TrainerName { get; set; }
         public int TrainerAge { get; set; }
+        public string TrainerEmail { get; set; }
         public virtual ICollection<Classroom> Classroom { get; set; }
     }
 }

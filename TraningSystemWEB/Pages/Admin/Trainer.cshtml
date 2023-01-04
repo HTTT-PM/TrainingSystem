@@ -1,0 +1,38 @@
+﻿@page "/admin/trainer.htm"
+@model TraningSystemAdminWEB.Pages.Admin.TrainerModel
+@{
+    ViewBag.PageName = "Trainer";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<div class="col-lg-12">
+    <div class="card-style mb-30">
+        <h1 class="mb-4">Danh sách Trainee</h1>
+        <p class="text-sm mb-20">         </p>
+        <div class="table-wrapper table-responsive">
+            <table class="table striped-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên Trainer</th>
+                        <th scope="col">Email Trainer</th>
+                    </tr>
+                    <!-- end table row-->
+                </thead>
+                <tbody>
+                    @foreach (var trainer in Model.ListTrainer)
+                    {
+                        <tr id="row-@trainer.TrainerID">
+                            <td>@trainer.TrainerName</td>
+                            <td>
+                                <p><a href="mailto:@trainer.TrainerEmail">@trainer.TrainerEmail</a></p>
+                            </td>
+                        </tr>
+                    }
+                    <!-- end table row -->
+                </tbody>
+            </table>
+            <!-- end table -->
+        </div>
+    </div>
+    <!-- end card -->
+</div>

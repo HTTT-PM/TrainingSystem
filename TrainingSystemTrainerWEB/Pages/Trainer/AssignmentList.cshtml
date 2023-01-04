@@ -1,0 +1,80 @@
+﻿@page  "/trainer/assginment-list/{CourseID}"
+@model TrainingSystemTrainerWEB.Pages.Trainer.AssignmentListModel
+@{
+    ViewBag.PageName = "GradeAssignment";
+}
+
+<div class="card-style mb-30">
+    <legend>Danh sách học viên</legend>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Hoàn thành</th>
+                <th scope="col">Đánh giá</th>
+                <th scope="col">Điểm</th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+            @foreach (var trainee in Model.TraineeList)
+            {
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@trainee.TraineeID</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @trainee.TraineeName
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        @if (@trainee.IsComplete == true)
+                        {
+                            <div class="col form-check checkbox-style mt-2">
+                                <input checked class="form-check-input" type="radio" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col form-check checkbox-style mt-2">
+                                <input class="form-check-input" type="radio" />
+                            </div>
+                        }
+                    </td>
+
+                    <td width="100" style="padding-right: 50px; ">
+                        @trainee.ResultOfEvaluation
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        @trainee.Point
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="card-style mb-30">
+    <legend>Bài tập</legend>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+            @foreach (var exercise in Model.ExerciseList)
+            {
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@exercise.ExerciseID</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @exercise.ExerciseName
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        <a href="https://localhost:44321/api/exercise?path=@exercise.Link" class="main-btn dark-btn-outline btn-hover btn-sm" download="@exercise.ExerciseName">Đề bài</a>
+                        <a class="main-btn primary-btn-outline btn-hover btn-sm" href="/trainer/submit-list/@exercise.ExerciseID">Bài nộp của học viên</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

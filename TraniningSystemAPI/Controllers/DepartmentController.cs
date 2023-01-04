@@ -61,6 +61,23 @@ namespace TraniningSystemAPI.Controllers
             return result.ToList();
         }
 
+        [HttpGet("{DepartmentID:int}/trainee")]
+        public IEnumerable<TraineeDto> GetTraineefilterByDepartment([FromRoute] int DepartmentID)
+        {
+
+            var result = from t in _context.Trainee.AsQueryable()
+                         where t.DepartmentId == DepartmentID
+                         select new TraineeDto()
+                         {
+                             TraineeID = t.TraineeID,
+                             TraineeName = t.TraineeName,
+                             JobPositionName = t.JobPosition.JobPositionName,
+                             DepartmentName = t.Department.DepartmentName,
+                             GetAccessToHCMData = t.GetAccessToHCMData
+                         };
+            return result.ToList();
+        }
+
 
         // PUT: api/Departments/5
         [HttpPut("{id}")]

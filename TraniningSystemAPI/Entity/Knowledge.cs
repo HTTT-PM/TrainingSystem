@@ -13,6 +13,7 @@ namespace TraniningSystemAPI.Entity
         public virtual ICollection<KnowledgeTrainingProgram> KnowledgeTrainingProgram { get; set; }
         public virtual ICollection<KnowledgeCourse> KnowledgeCourse { get; set; }
         public virtual ICollection<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
     }
 }
 

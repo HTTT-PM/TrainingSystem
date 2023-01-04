@@ -44,6 +44,7 @@ namespace TraningSystemAdminWEB.Pages.Admin
         {
             var url = "https://localhost:44321/api/job-position/";
             var response = client.GetAsync(url + JobPositionID + "/trainingprogram");
+            Console.WriteLine(url + JobPositionID + "/trainingprogram");
             response.Wait();
             HttpResponseMessage result = response.Result;
             if (result.IsSuccessStatusCode)

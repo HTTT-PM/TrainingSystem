@@ -5,10 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TraniningSystemAPI.Data;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.IO;
-using System;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace TraniningSystemAPI

@@ -17,7 +17,8 @@ namespace TraniningSystemAPI.Data
         public DbSet<Department> Department { get; set; }
         public DbSet<JobPosition> JobPosition { get; set; }
         public DbSet<Trainee> Trainee { get; set; }
-        
+        public DbSet<Content> Content { get; set; }
+
         public DbSet<ClassroomDetail> ClassroomDetail { get; set; }
         public DbSet<CourseTrainingProgram> CourseTrainingProgram { get; set; }
         public DbSet<KnowledgeTrainingProgram> KnowledgeTrainingProgram { get; set; }
@@ -28,6 +29,7 @@ namespace TraniningSystemAPI.Data
         public DbSet<KnowledgeCourse> KnowledgeCourse { get; set; }
         public DbSet<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
         public DbSet<TraineeCourseSkill> TraineeCourseSkill { get; set; }
+        public DbSet<TraineeExercise> TraineeExercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +44,7 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<Department>().ToTable("Department");
             modelBuilder.Entity<JobPosition>().ToTable("JobPosition");
             modelBuilder.Entity<Trainee>().ToTable("Trainee");
+            modelBuilder.Entity<Content>().ToTable("Content");
 
             modelBuilder.Entity<ClassroomDetail>().ToTable("ClassroomDetail");
             modelBuilder.Entity<CourseTrainingProgram>().ToTable("CourseTrainingProgram");
@@ -53,6 +56,7 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<CourseParticipant>().ToTable("CourseParticipant");
             modelBuilder.Entity<TraineeCourseKnowledge>().ToTable("TraineeCourseKnowledge");
             modelBuilder.Entity<TraineeCourseSkill>().ToTable("TraineeCourseSkill");
+            modelBuilder.Entity<TraineeExercise>().ToTable("TraineeExercise");
 
             modelBuilder.Entity<TraineeCourseSkill>().HasKey(x => new { x.SkillKey, x.CourseKey, x.TraineeKey });
             modelBuilder.Entity<TraineeCourseSkill>()
@@ -80,6 +84,16 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<TraineeCourseKnowledge>()
                 .HasOne(t => t.Trainee)
                  .WithMany(t => t.TraineeCourseKnowledge)
+                 .HasForeignKey(t => t.TraineeKey);
+
+            modelBuilder.Entity<TraineeExercise>().HasKey(x => new { x.ExerciseKey, x.TraineeKey });
+            modelBuilder.Entity<TraineeExercise>()
+                .HasOne(t => t.Exercise)
+               .WithMany(t => t.TraineeExercise)
+                .HasForeignKey(t => t.ExerciseKey);
+            modelBuilder.Entity<TraineeExercise>()
+                .HasOne(t => t.Trainee)
+                 .WithMany(t => t.TraineeExercise)
                  .HasForeignKey(t => t.TraineeKey);
 
             modelBuilder.Entity<KnowledgeTrainingProgram>().HasKey(x => new { x.KnowledgeKey, x.TrainingProgramKey });
