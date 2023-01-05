@@ -1,0 +1,45 @@
+﻿@page "/notify-course.htm"
+@model TrainingSystemTrainerWEB.Pages.NotifyModel
+@{
+    ViewBag.PageName = "NotifyCourse";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-3" style="position: absolute; right: 0;">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                aria-describedby="search-addon" onkeyup="sendData(this)" />
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" style="width: 60%">Tin nhắn</th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+
+            @foreach (var course in Model.ListCourse)
+            {
+
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@course.Id</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @course.Message
+                    </td>
+                
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+</script>

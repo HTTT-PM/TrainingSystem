@@ -6,6 +6,8 @@ namespace TraniningSystemAPI.Data
     public partial class ModelContext : DbContext
     {
         public ModelContext(DbContextOptions<ModelContext> options) : base(options) { }
+        public DbSet<Account> Account { get; set; }
+        public DbSet<Notify> Notify { get; set; }
         public DbSet<Trainer> Trainer { get; set; }
         public DbSet<Classroom> Classroom { get; set; }
         public DbSet<Document> Document { get; set; }
@@ -26,13 +28,14 @@ namespace TraniningSystemAPI.Data
         public DbSet<CourseParticipant> CourseParticipant { get; set; }
         public DbSet<SkillCourse> SkillCourse { get; set; }
         public DbSet<KnowledgeCourse> KnowledgeCourse { get; set; }
-        public DbSet<Notification> Notification { get; set; }
         public DbSet<TraineeCourseKnowledge> TraineeCourseKnowledge { get; set; }
         public DbSet<TraineeCourseSkill> TraineeCourseSkill { get; set; }
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.Entity<Account>().ToTable("Account");
+            modelBuilder.Entity<Notify>().ToTable("Notify");
             modelBuilder.Entity<Knowledge>().ToTable("Knowledge");
             modelBuilder.Entity<TrainingProgram>().ToTable("TrainingProgram");
             modelBuilder.Entity<Skill>().ToTable("Skill");
@@ -41,11 +44,10 @@ namespace TraniningSystemAPI.Data
             modelBuilder.Entity<Document>().ToTable("Document");
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<Course>().ToTable("Course");
-            modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<Department>().ToTable("Department");
             modelBuilder.Entity<JobPosition>().ToTable("JobPosition");
             modelBuilder.Entity<Trainee>().ToTable("Trainee");
-           
+
             modelBuilder.Entity<ClassroomDetail>().ToTable("ClassroomDetail");
             modelBuilder.Entity<CourseTrainingProgram>().ToTable("CourseTrainingProgram");
             modelBuilder.Entity<KnowledgeTrainingProgram>().ToTable("KnowledgeTrainingProgram");

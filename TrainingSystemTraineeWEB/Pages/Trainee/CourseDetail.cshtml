@@ -63,13 +63,14 @@
                     <legend>Kỹ năng</legend>
                     @foreach (var skill in Model.Skill)
                     {
-        <div class="col">
-            <div class="card" style="width: 16rem; margin-bottom: 50px; float: none;">
-                <div class="card-body">
-                    <p class="card-text">@skill.SkillName</p>
-                </div>
-            </div>
-        </div>}
+                        <div class="col">
+                            <div class="card" style="width: 16rem; margin-bottom: 50px; float: none;">
+                                <div class="card-body">
+                                    <p class="card-text">@skill.SkillName</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -79,16 +80,17 @@
                     <legend>Kiến thức</legend>
                     @foreach (var knowledge in Model.Knowledge)
                     {
-        <div class="col">
-            <div class="card" style="width: 16rem; margin-bottom: 50px; float: none;">
-                <div class="card-body">
-                    <p class="card-text">@knowledge.KnowledgeName</p>
+                        <div class="col">
+                            <div class="card" style="width: 16rem; margin-bottom: 50px; float: none;">
+                                <div class="card-body">
+                                    <p class="card-text">@knowledge.KnowledgeName</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        </div>}
-                </div>
-            </div>
-        </div>
+         </div>
     </div>
 
     <div class="card-style mb-30">
@@ -96,15 +98,16 @@
             <legend>Tài liệu</legend>
             @foreach (var document in Model.Course.Documents)
             {
-<div class="col-4">
-    <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
-        <div class="card-body">
-            <h5 class="card-title">@document.DocumentName</h5>
-            <p class="card-text">@document.Description</p>
-            <a href="@document.Link" class="card-link">Xem chi tiết</a>
-        </div>
-    </div>
-</div>            }
+                <div class="col-4">
+                    <div class="card" style="width: 18rem; margin-bottom: 50px; float: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">@document.DocumentName</h5>
+                            <p class="card-text">@document.Description</p>
+                            <a href="@document.Link" class="card-link">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 
@@ -116,7 +119,4 @@
             </fieldset>
         </div>
     </div>
-    
 </div>
-
-

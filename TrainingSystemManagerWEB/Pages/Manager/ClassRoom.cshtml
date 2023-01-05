@@ -1,0 +1,143 @@
+﻿@page "/class-room.htm"
+@model TrainingSystemManagerWEB.Pages.ClassRoom
+@{
+    ViewBag.PageName = "ClassRoom";
+}
+@using Newtonsoft.Json
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-3" style="position: absolute; right: 0;">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                aria-describedby="search-addon" onkeyup="sendData(this)" />
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Goal</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col" colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+
+            @foreach (var course in Model.ListCourse)
+            {
+
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@course.ClassroomID</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @course.ClassroomName
+                    </td>
+                    <td width="100" style="padding-right: 50px; ">
+                        @course.Goal
+                    </td>
+                    <td width="200" style="padding-right: 50px; text-overflow: ellipsis;">
+                        <textarea disabled style="border: none"> @course.Desciption </textarea>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <a class="main-btn primary-btn btn-hover btn-sm" href="/course/@course.ClassroomID">Chi
+                            tiết</a>
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        <div class="modal fade" id="modal-@course.ClassroomID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                       <textarea required id="content-@course.ClassroomID" class="form-control"> </textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <button type="button" class="btn btn-primary" onclick="sendNotify('@course.ClassroomID','@course.ClassroomName')">Gửi </button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button data-toggle="modal" data-target="#modal-@course.ClassroomID" class="main-btn success-btn btn-hover btn-sm" >
+                            Gửi thông báo
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    @{
+        var json = JsonConvert.SerializeObject(Model.ListCourse);
+    }
+    const data = @Html.Raw(json);
+    const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+
+    function decodeJWT(token) {
+        // Split the token into three parts (header, payload, signature)
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+            throw new Error('Invalid JWT');
+        }
+
+        // Decode the base64-encoded header and payload
+        const header = JSON.parse(atob(parts[0]));
+        const payload = JSON.parse(atob(parts[1]));
+
+        return {
+            header,
+            payload
+        };
+    }
+
+    async function sendNotify(id, className) {
+
+        const textArea = document.querySelector('#content-' + id);
+
+        if (!textArea.value || textArea?.value.trim() == '') {
+            window.alert("Vui lòng nhập nội dung");    
+            return;
+        }
+
+        const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+        if (!payload.unique_name) {
+            window.alert('Vui lòng đăng nhập!');
+            return;
+        }
+
+        const apiUrl = 'https://localhost:44321';
+        const response = await fetch(apiUrl + '/api/notify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: "[Manager] " + className  + ": "+  textArea.value,
+                reciveId: parseInt(payload.unique_name)
+            })
+        });
+
+        if (response.ok) {
+            window.alert('Gửi thông báo thành công');
+
+        } else {
+            window.alert('Gửi thông báo thất bại');
+        }
+
+        console.log($('#modal-'+ id));
+        $('#modal-'+ id + ' .close').click();
+    }
+
+</script>

@@ -1,0 +1,139 @@
+@page "/register.htm"
+@model TrainingSystemTrainerWEB.Pages.Register.Register
+
+@{
+  Layout = null;
+}
+
+<html>
+
+<head>
+  <style>
+    /* Add some style to the login page */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-form {
+      width: 300px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-form h1 {
+      margin: 0 0 20px;
+      font-size: 24px;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 15px;
+    }
+
+    .login-form .form-control {
+      width: 100%;
+      height: 38px;
+      padding: 6px 12px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .login-form .btn {
+      width: 100%;
+      height: 38px;
+      background-color: #1abc9c;
+      border-color: #1abc9c;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .login-form .btn:hover {
+      background-color: #286090;
+      border-color: #204d74;
+    }
+
+    .login-form .btn:active {
+      background-color: #204d74;
+      border-color: #122b40;
+    }
+
+    .login-form .btn:focus {
+      outline: none;
+    }
+
+    body {
+      background-image: url('https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/82b8d8efd3b0ac6382b9d0d71a99c6cf9dcefa23/img/bg.svg');
+      background-repeat: no-repeat;
+    }
+
+    a {
+      text-decoration: none;
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-form">
+    <h1>Register</h1>
+    <form>
+      <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="text" name="fullname" class="form-control" placeholder="Full Name" required>
+      </div>
+      <div class="form-group">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <a href="/login.htm">Back to login</a>
+      </div>
+      <button onclick="register()" type="button" class="btn">Register</button>
+    </form>
+  </div>
+</body>
+<script>
+
+  async function register() {
+
+    const username = document.querySelector('input[name=username]').value;
+    const password = document.querySelector('input[name=password]').value;
+    const email = document.querySelector('input[name=email]').value;
+    const fullname = document.querySelector('input[name=fullname]').value;
+    const apiUrl = 'https://localhost:44321';
+    const response = await fetch(apiUrl + '/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        fullname,
+        username,
+        password
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      window.location.href = "/login.htm";
+    } else {
+      window.alert('register error');
+    }
+  }
+
+
+</script>
+
+</html>

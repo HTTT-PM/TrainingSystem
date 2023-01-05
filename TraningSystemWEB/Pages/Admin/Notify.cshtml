@@ -1,0 +1,109 @@
+﻿@page "/notify-course.htm"
+@model TraningSystemAdminWEB.Pages.NotifyModel
+@{
+    ViewBag.PageName = "NotifyCourse";
+}
+@using Newtonsoft.Json
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-3" style="position: absolute; right: 0;">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                aria-describedby="search-addon" onkeyup="sendData(this)" />
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tin nhắn</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col" colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody id="course-list">
+
+            @foreach (var course in Model.ListCourse)
+            {
+
+                <tr>
+                    <th scope="row" width="20" style="padding-right: 20px;">@course.Id</th>
+                    <td width="100" style="padding-right: 50px;">
+                        @course.Message
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        @(!course.Status ? "Chưa xác nhận" : "Đã xác nhận" )
+                    </td>
+                    <td width="100" style="padding-right: 50px;">
+                        @if (!course.Status)
+                        {
+                            <button class="main-btn success-btn btn-hover btn-sm" onclick="confirm('@course.Id')">
+                                Xác nhận
+                            </button>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    @{
+        var json = JsonConvert.SerializeObject(Model.ListCourse);
+    }
+    const data = @Html.Raw(json);
+    const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+
+    function decodeJWT(token) {
+        // Split the token into three parts (header, payload, signature)
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+            throw new Error('Invalid JWT');
+        }
+
+        // Decode the base64-encoded header and payload
+        const header = JSON.parse(atob(parts[0]));
+        const payload = JSON.parse(atob(parts[1]));
+
+        return {
+            header,
+            payload
+        };
+    }
+
+    async function confirm(id) {
+
+        const btn = event.target;
+        const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+        if (!payload.unique_name) {
+            window.alert('please login!');
+            return;
+        }
+
+        const apiUrl = 'https://localhost:44321';
+        const response = await fetch(apiUrl + '/api/notify/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (response.ok) {
+            btn.style.display = 'none';
+
+        } else {
+            window.alert('confirm error');
+        }
+    }
+
+
+
+</script>

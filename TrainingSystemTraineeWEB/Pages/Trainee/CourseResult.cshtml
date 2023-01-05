@@ -1,0 +1,97 @@
+﻿@page "/trainee/course-result.htm"
+@model TraningSystemAdminWEB.Pages.Trainer.AddCourseModel
+@{
+    ViewBag.PageName = "CourseResult";
+}
+@using Newtonsoft.Json
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- ========== form-elements-wrapper start ========== -->
+<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-3" style="position: absolute; right: 0;">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                aria-describedby="search-addon" onkeyup="sendData(this)" />
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-style mb-30">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Điểm</th>
+                <th scope="col">Nhận xét</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody id="course-list" class="table-body">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function decodeJWT(token) {
+        // Split the token into three parts (header, payload, signature)
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+            throw new Error('Invalid JWT');
+        }
+
+        // Decode the base64-encoded header and payload
+        const header = JSON.parse(atob(parts[0]));
+        const payload = JSON.parse(atob(parts[1]));
+
+        return {
+            header,
+            payload
+        };
+    }
+
+    function renderTableBody(data) {
+        const tableBody = document.querySelector('.table-body');
+
+        data.forEach((item,index) => {
+            const row = document.createElement('tr');
+            const idCell = document.createElement('td');
+            idCell.textContent = index + 1;
+            row.appendChild(idCell);
+
+            const courseCell = document.createElement('td');
+            courseCell.textContent = item.course;
+            row.appendChild(courseCell);
+
+            const pointCell = document.createElement('td');
+            pointCell.textContent = item.point;
+            row.appendChild(pointCell);
+
+            const isCompleteCell = document.createElement('td');
+            isCompleteCell.textContent = item.isComplete ? 'Yes' : 'No';
+            row.appendChild(isCompleteCell);
+
+            const resultCell = document.createElement('td');
+            resultCell.textContent = item.resultOfEvaluation || 'N/A';
+            row.appendChild(resultCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+
+    async function getData() {
+        const payload = decodeJWT(localStorage.getItem('token'))?.payload;
+        if (!payload.unique_name) {
+            window.alert('please login!');
+            return;
+        }
+        const apiUrl = 'https://localhost:44321';
+        const response = await fetch(apiUrl + '/api/course/result?userId=' + payload.unique_name);
+        const data = await response.json();
+        renderTableBody(data);
+    }
+
+    getData();
+
+</script>

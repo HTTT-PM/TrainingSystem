@@ -1,0 +1,151 @@
+@page "/login.htm"
+@model TrainingSystemTrainerWEB.Pages.Login.Login
+
+@{
+  Layout = null;
+}
+
+<html>
+
+<head>
+  <style>
+    /* Add some style to the login page */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-form {
+      width: 300px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-form h1 {
+      margin: 0 0 20px;
+      font-size: 24px;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 15px;
+    }
+
+    .login-form .form-control {
+      width: 100%;
+      height: 38px;
+      padding: 6px 12px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .login-form .btn {
+      width: 100%;
+      height: 38px;
+      background-color: #1abc9c;
+      border-color: #1abc9c;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .login-form .btn:hover {
+      background-color: #286090;
+      border-color: #204d74;
+    }
+
+    .login-form .btn:active {
+      background-color: #204d74;
+      border-color: #122b40;
+    }
+
+    .login-form .btn:focus {
+      outline: none;
+    }
+
+    body{
+      background-image: url('https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/82b8d8efd3b0ac6382b9d0d71a99c6cf9dcefa23/img/bg.svg');
+      background-repeat: no-repeat;
+    }
+
+    a{
+      text-decoration: none;
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-form">
+    <h1>Login</h1>
+    <form>
+      <div class="form-group">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <a href="/register.htm">Register account</a>
+      </div>
+      <button onclick="login()" type="button" class="btn">Log in</button>
+    </form>
+  </div>
+</body>
+<script>
+
+  if (checkLogin()) {
+    window.location.href = "trainee/course.htm";
+  }
+  function checkLogin() {
+    // Check for the JWT in the cookie
+    const cookie = document.cookie.split(';').find(c => c.trim().startsWith('jwt='));
+    if (cookie) {
+      return true;
+    }
+
+    // Check for the JWT in local storage
+    if (localStorage.getItem('jwt')) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+  async function login() {
+
+    const username = document.querySelector('input[name=username]').value;
+    const password = document.querySelector('input[name=password]').value;
+    console.log(username, 'username')
+    console.log(password, 'password')
+    const apiUrl = 'https://localhost:44321';
+    const response = await fetch(apiUrl + '/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      window.location.href = "trainee/course.htm";
+    } else {
+      window.alert('login error');
+    }
+  }
+
+
+</script>
+
+</html>

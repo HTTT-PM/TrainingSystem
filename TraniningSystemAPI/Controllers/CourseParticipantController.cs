@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Dto;
-using TraniningSystemAPI.Entity;
+
 namespace TraniningSystemAPI.Controllers
 {
     [Route("api/course-participant")]
@@ -138,14 +138,6 @@ namespace TraniningSystemAPI.Controllers
                              Weight = kc.Weight
                          };
             return result;
-        }
-        //Post: api/course
-        [HttpPost]
-        public RedirectResult AddCourseParticipant([FromForm] CourseParticipant course)
-        {
-            _context.CourseParticipant.Add(course);
-            _context.SaveChanges();
-            return RedirectPermanent("https://localhost:44331/trainee/add-courseparticipant.htm");
         }
     }
 }

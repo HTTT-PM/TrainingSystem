@@ -4,6 +4,7 @@ using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Entity;
 
+
 namespace TraniningSystemAPI.Controllers
 {
     [Route("api/[controller]")]
