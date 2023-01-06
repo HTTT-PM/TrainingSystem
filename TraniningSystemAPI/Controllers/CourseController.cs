@@ -150,6 +150,49 @@ namespace TraniningSystemAPI.Controllers
             return result;
         }
 
+
+        // GET: api/{CourseID}/trainee
+        [HttpGet("completed/trainee/{TraineeID:int}")]
+        public IEnumerable<EvaluateDto> GetCompletedCourseByOfTraineeID([FromRoute] int TraineeID)
+        {
+            var result = from cp in _context.CourseParticipant
+                         join c in _context.Course on cp.CourseKey equals c.CourseID
+                         join t in _context.Trainee on cp.TraineeKey equals t.TraineeID
+                         where t.TraineeID == TraineeID && cp.IsComplete
+                         select new EvaluateDto()
+                         {
+                             CourseID = c.CourseID,
+                             CourseName = c.CourseName,
+                             TraineeID = t.TraineeID,
+                             TraineeName = t.TraineeName,
+                             ResultOfEvaluation = cp.ResultOfEvaluation,
+                             Point = cp.Point
+                         };
+            return result;
+        }
+
+
+        // GET: api/{CourseID}/trainee
+        [HttpGet("notcompleted/trainee/{TraineeID:int}")]
+        public IEnumerable<EvaluateDto> GetNotCompletedCourseByOfTraineeID([FromRoute] int TraineeID)
+        {
+            var result = from cp in _context.CourseParticipant
+                         join c in _context.Course on cp.CourseKey equals c.CourseID
+                         join t in _context.Trainee on cp.TraineeKey equals t.TraineeID
+                         where t.TraineeID == TraineeID && !cp.IsComplete
+                         select new EvaluateDto()
+                         {
+                             CourseID = c.CourseID,
+                             CourseName = c.CourseName,
+                             TraineeID = t.TraineeID,
+                             TraineeName = t.TraineeName,
+                             ResultOfEvaluation = cp.ResultOfEvaluation,
+                             Point = cp.Point
+                         };
+            return result;
+        }
+
+
         // GET: api/{CourseID}/exercise
         [HttpGet("{CourseID:int}/exercise")]
         public IEnumerable<ExerciseDto> GetExerciseListOfCourseByID([FromRoute] int CourseID)

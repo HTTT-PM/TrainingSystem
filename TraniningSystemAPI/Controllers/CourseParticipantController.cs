@@ -125,7 +125,7 @@ namespace TraniningSystemAPI.Controllers
         [HttpGet("{CourseID:int}/{TraineeID:int}/knowledge")]
         public IEnumerable<EvaluateKnowledgeDto> GetKnowledgeEvalution([FromRoute] int CourseID, [FromRoute] int TraineeID)
         {
-
+                
             var result = from tck in _context.TraineeCourseKnowledge
                          join k in _context.Knowledge on tck.KnowledgeKey equals k.KnowledgeID
                          join kc in _context.KnowledgeCourse on new { tck.KnowledgeKey, tck.CourseKey } equals new { kc.KnowledgeKey, kc.CourseKey }

@@ -6,6 +6,7 @@ using System.Linq;
 using TraniningSystemAPI.Data;
 using TraniningSystemAPI.Dto;
 using TraniningSystemAPI.Entity;
+using static System.Net.WebRequestMethods;
 
 namespace TraniningSystemAPI.Controllers
 {
@@ -53,6 +54,29 @@ namespace TraniningSystemAPI.Controllers
 
             return result;
         }
+
+
+        [HttpGet("{TraineeID:int}/course/{CourseID:int}/exercise")]
+        public IEnumerable<TraineeExerciseDto> GetExerciseByTraineeID([FromRoute] int TraineeID , int CourseID )
+        {
+            var result = from C in _context.Course 
+                         join CP in _context.CourseParticipant on C.CourseID equals CP.CourseKey
+                         join TE in _context.TraineeExercise on CP.TraineeKey equals TE.TraineeKey
+                         join E in _context.Exercise on TE.ExerciseKey equals E.ExerciseID
+                         join Ct in _context.Content on E.ContentID equals Ct.ContentID
+                         where TE.TraineeKey == TraineeID && C.CourseID == CourseID
+                         select new TraineeExerciseDto()
+                         {
+                             TraineeID = TraineeID,
+                             Point= TE.Point,
+                             ExerciseName = E.ExerciseName,
+                             ContentName = Ct.ContentName,
+
+                         };
+
+            return result;
+        }
+
 
         [HttpGet("/trainee/access-hcm-data/false")]
         public IEnumerable<TraineeDto> GetTraineeNotAccessHCMData()

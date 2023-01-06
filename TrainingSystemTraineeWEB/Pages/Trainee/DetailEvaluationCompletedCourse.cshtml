@@ -1,0 +1,129 @@
+﻿@page "/trainee/CourseDetailEvaluate/{TraineeID}/{CourseID}"
+@model TrainingSystemTraineeWEB.Pages.Trainee.DetailEvaluationCompletedCourseModel
+@{
+    ViewBag.PageName = "DetailEvaluationCompleted";
+}
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<div class="container">
+        @foreach (var c in Model.CourseResult)
+        {
+            if (c.CourseID == Model.CourseID)
+            {
+            <h2>Khoá học : @c.CourseName</h2>
+        }
+        else
+        {
+            <h2>Khoá học : Updating</h2>
+        }
+    }
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Các Kỹ Năng</a>
+                </h4>
+            </div>
+            <div id="Skill" class="panel-collapse collapse in">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên Kĩ Năng</th>
+                            <th>Điểm</th>
+                            <th>Đánh giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var skill in Model.ListSkill)
+                        {
+                         <tr>
+                            <td>@skill.SkillName</td>
+                            <td>@skill.Point</td>
+                            <td>@skill.Evaluate</td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <hr />
+ 
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Các Kiến Thức </a>
+                </h4>
+            </div>
+            <div id="Skill" class="panel-collapse collapse in">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên Kiến Thức</th>
+                            <th>Điểm</th>
+                            <th>Đánh giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var k in Model.ListKnowledge)
+                        {
+                            <tr>
+                                <td>@k.KnowledgeName</td>
+                                <td>@k.Point</td>
+                                <td>@k.Evaluate</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <hr />
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Các Bài Tập </a>
+                </h4>
+            </div>
+            <div id="Skill" class="panel-collapse collapse in">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Bài tập</th>
+                            <th>Nội dung</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var k in Model.ListResulExercise)
+                        {
+                            <tr>
+                                <td>@k.ExerciseName</td>
+                                <td>@k.ContentName</td>
+                                <td>@k.Point</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
