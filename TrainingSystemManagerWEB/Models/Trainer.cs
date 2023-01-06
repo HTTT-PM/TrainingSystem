@@ -13,6 +13,7 @@ namespace TraniningSystemAPI.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int TrainerID { get; set; }
+        public string TrainerEmail { get; set; }
         public string TrainerName { get; set; }
         public int TrainerAge { get; set; }
         public virtual ICollection<Classroom> Classroom { get; set; }

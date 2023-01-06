@@ -17,7 +17,7 @@ namespace TrainingSystemTrainerWEB.Pages.Trainer
             ExerciseID = Int32.Parse((string)RouteData.Values["ExerciseID"]);
 
             var url = "https://localhost:44321/api/exercise";
-            var responseTask = client.GetAsync(url + "/" + ExerciseID + "/submit");
+            var responseTask = client.GetAsync(url + "/" + ExerciseID + "/submit/");
             responseTask.Wait();
             HttpResponseMessage resultl = responseTask.Result;
             if (resultl.IsSuccessStatusCode)

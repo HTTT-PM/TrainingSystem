@@ -30,7 +30,7 @@ namespace TraniningSystemAPI.Controllers
         [HttpGet("{CourseID}")]
         public Course GetCourseByID([FromRoute] int CourseID)
         {
-            Course course = _context.Course.Find(CourseID);
+            Course course = _context.Course.SingleOrDefault(x=>x.CourseID==CourseID);
             if (course == null) return null;
 
             List<Content> contents = _context.Content.Where(x => x.CourseID == CourseID).ToList();
@@ -101,7 +101,7 @@ namespace TraniningSystemAPI.Controllers
         }
 
         // GET: api/course/{JobPositionID}
-        [HttpGet("{JobPositionID:int}")]
+        [HttpGet("jobposition/{JobPositionID:int}")]
         public IEnumerable<CourseDto> GetCourseFilterRelateToJobPosition([FromRoute] int JobPositionID)
         {
             var result = from C in _context.Course
@@ -199,7 +199,7 @@ namespace TraniningSystemAPI.Controllers
         {
             var result = (from c in _context.Course
                          join t in _context.Content on c.CourseID equals t.CourseID
-                         join e in _context.Exercise on t.ContentID equals e.ExerciseID
+                         join e in _context.Exercise on t.ContentID equals e.ContentID
                          where c.CourseID == CourseID
                          select new ExerciseDto()
                          {

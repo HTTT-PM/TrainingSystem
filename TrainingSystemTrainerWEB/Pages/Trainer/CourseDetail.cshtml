@@ -349,7 +349,7 @@
         const SkillName = SplitString[1]
         const Weight = $('#skillWeight').val();
 
-        fetch('https://localhost:44321/api/course/@Model.CourseID/skill/' + SkillID + '?Weight=' + SkillName, {
+        fetch('https://localhost:44321/api/course/@Model.CourseID/skill/' + SkillID + '?Weight=' + Weight, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
