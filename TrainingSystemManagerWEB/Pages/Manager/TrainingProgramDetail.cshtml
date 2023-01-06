@@ -5,120 +5,114 @@
 }
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<div class="card-style mb-30">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Kỹ năng</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody id="skillList">
-            @foreach (var skill in Model.Skill)
-            {
-                <tr id="skill-row-@skill.SkillID">
-                    <td>
-                        <input id="skill-@skill.SkillID" type="text" value="@skill.SkillName" disabled style="border: none; background-color: inherit; " />
-                    </td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <div id="skill-update-btn-@skill.SkillID">
-                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(@skill.SkillID)">✎</button>
-                            </div>
-                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(@skill.SkillID)">✘</button>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="input-group">
-        <select class="custom-select" id="skillSelect">
-            <option selected>Choose...</option>
-            @foreach (var skill in Model.ListSkill)
-            {
-                <option value="@skill.SkillID">@skill.SkillName</option>
-            }
-        </select>
-        <div class="input-group-append">
-            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddSkillTrainingProgram()">✚</button>
+<div class="row">
+    <div class="col">
+        <div class="card-style mb-30">
+            <legend>Kiến thức</legend>
+            <table class="table table-hover">
+                <tbody id="knowledgeList">
+                    @foreach (var knowledge in Model.Knowledge)
+                    {
+                        <tr id="knowledge-row-@knowledge.KnowledgeID">
+                            <td>
+                                <input id="knowledge-@knowledge.KnowledgeID" type="text" value="@knowledge.KnowledgeName" disabled style="border: none; background-color: inherit; " />
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <div id="knowledge-update-btn-@knowledge.KnowledgeID">
+                                        <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✎</button>
+                                    </div>
+                                    <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✘</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="input-group">
+                <select class="custom-select" id="knowledgeSelect">
+                    <option selected>Choose...</option>
+                    @foreach (var knowledge in Model.ListKnowledge)
+                    {
+                        <option value="@knowledge.KnowledgeID-@knowledge.KnowledgeName">@knowledge.KnowledgeName</option>
+                    }
+                </select>
+                <div class="input-group-append">
+                    <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddKnowledgeTrainingProgram()">✚</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="card-style mb-30">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Kiến thức</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var knowledge in Model.Knowledge)
-            {
-                <tr id="knowledge-row-@knowledge.KnowledgeID">
-                    <td>
-                        <input id="knowledge-@knowledge.KnowledgeID" type="text" value="@knowledge.KnowledgeName" disabled style="border: none; background-color: inherit; " />
-                    </td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <div id="knowledge-update-btn-@knowledge.KnowledgeID">
-                                <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✎</button>
-                            </div>
-                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledgeTrainingProgram(@knowledge.KnowledgeID)">✘</button>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="input-group">
-        <select class="custom-select" id="knowledgeSelect">
-            <option selected>Choose...</option>
-            @foreach (var knowledge in Model.ListKnowledge)
-            {
-                <option value="@knowledge.KnowledgeID">@knowledge.KnowledgeName</option>
-            }
-        </select>
-        <div class="input-group-append">
-            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddKnowledgeTrainingProgram()">✚</button>
+    <div class="col">
+        <div class="card-style mb-30">
+            <legend>Kỹ năng</legend>
+            <table class="table table-hover">
+                <tbody id="skillList">
+                    @foreach (var skill in Model.Skill)
+                    {
+                        <tr id="skill-row-@skill.SkillID">
+                            <td>
+                                <input id="skill-@skill.SkillID" type="text" value="@skill.SkillName" disabled style="border: none; background-color: inherit; " />
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <div id="skill-update-btn-@skill.SkillID">
+                                        <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(@skill.SkillID)">✎</button>
+                                    </div>
+                                    <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(@skill.SkillID)">✘</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="input-group">
+                <select class="custom-select" id="skillSelect">
+                    <option selected>Choose...</option>
+                    @foreach (var skill in Model.ListSkill)
+                    {
+                        <option value="@skill.SkillID-@skill.SkillName">@skill.SkillName</option>
+                    }
+                </select>
+                <div class="input-group-append">
+                    <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddSkillTrainingProgram()">✚</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="card-style mb-30">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Môn học</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var course in Model.Course)
-            {
-                <tr id="row-@course.CourseID">
-                    <td>@course.CourseName</td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteCourseTrainingProgram(@course.CourseID)">✘</button>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="input-group">
-        <select class="custom-select" id="courseSelect">
-            <option selected>Choose...</option>
-            @foreach (var course in Model.ListCourse)
-            {
-                <option value="@course.CourseID">@course.CourseName</option>
-            }
-        </select>
-        <div class="input-group-append">
-            <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddCourseTrainingProgram()">✚</button>
+    <div class="col">
+        <div class="card-style mb-30">
+            <legend>Môn học</legend>
+            <table class="table table-hover">
+                <tbody id="courseList">
+                    @foreach (var course in Model.Course)
+                    {
+                        <tr id="row-@course.CourseID">
+                            <td>@course.CourseName</td>
+                            <td>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteCourseTrainingProgram(@course.CourseID)">✘</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="input-group">
+                <select class="custom-select" id="courseSelect">
+                    <option selected>Choose...</option>
+                    @foreach (var course in Model.ListCourse)
+                    {
+                        <option value="@course.CourseID-@course.CourseName">@course.CourseName</option>
+                    }
+                </select>
+                <div class="input-group-append">
+                    <button type="button" class="main-btn primary-btn-outline btn-hover btn-sm" onclick="AddCourseTrainingProgram()">✚</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -145,12 +139,30 @@
     }
 
     function AddSkillTrainingProgram() {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + $('#skillSelect').val(), {
+        const splitString = $('#skillSelect').val().split("-");
+        const id = splitString[0];
+        const name = splitString[1];
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/skill/' + id, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
              }
         })
+        $('#skillList').append(`
+            <tr id="skill-row-${id}">
+                <td>
+                    <input id="skill-${id}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
+                </td>
+                <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div id="skill-update-btn-${id}">
+                            <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateSkillTrainingProgram(${id})">✎</button>
+                        </div>
+                        <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteSkillTrainingProgram(${id})">✘</button>
+                    </div>
+                </td>
+            </tr>
+        `)
     }
 
     function DeleteSkillTrainingProgram(index) {
@@ -185,12 +197,31 @@
     }
 
     function AddKnowledgeTrainingProgram() {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + $('#knowledgeSelect').val(), {
+        const splitString = $('#knowledgeSelect').val().split("-");
+        const id = splitString[0];
+        const name = splitString[1];
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/knowledge/' + id, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
              }
         })
+
+        $('#knowledgeList').append(`
+            <tr id="knowledge-row-${id}">
+                <td>
+                    <input id="knowledge-${id}" type="text" value="${name}" disabled style="border: none; background-color: inherit; " />
+                </td>
+                <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div id="knowledge-update-btn-${id}">
+                            <button type="button" class="main-btn deactive-btn-outline btn-hover btn-sm" onclick="UpdateKnowledgeTrainingProgram(${id})">✎</button>
+                        </div>
+                        <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteKnowledgeTrainingProgram(${id})">✘</button>
+                    </div>
+                </td>
+            </tr>
+        `)
     }
 
     function DeleteKnowledgeTrainingProgram(index) {
@@ -206,12 +237,25 @@
 
     //---------------------------------------------Course---------------------------------------------//
     function AddCourseTrainingProgram() {
-        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + $('#courseSelect').val(), {
+        const splitString = $('#courseSelect').val().split("-");
+        const id = splitString[0];
+        const name = splitString[1];
+        fetch('https://localhost:44321/api/training/@Model.TrainingProgramID/course/' + id, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
              }
         })
+        $('#courseList').append(`
+            <tr id="row-${id}">
+                <td>${name}</td>
+                <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="main-btn danger-btn-outline btn-hover btn-sm" onclick="DeleteCourseTrainingProgram(${id})">✘</button>
+                    </div>
+                </td>
+            </tr>
+        `)
     }
 
     function DeleteCourseTrainingProgram(index) {
