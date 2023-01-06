@@ -156,7 +156,7 @@ namespace TraniningSystemAPI.Controllers
         {
             var result = (from c in _context.Course
                          join t in _context.Content on c.CourseID equals t.CourseID
-                         join e in _context.Exercise on t.ContentID equals e.ExerciseID
+                         join e in _context.Exercise on t.ContentID equals e.ContentID
                          where c.CourseID == CourseID
                          select new ExerciseDto()
                          {
